@@ -1,0 +1,25 @@
+@import "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap";
+
+mat-toolbar {
+  background-color: #002044;
+  color: white;
+  display: flex;
+  justify-content:space-between;
+}
+
+span{
+  font-size: 190%;
+  font-weight: bold; 
+  font-family: 'Bebas Neue';
+}
+
+.logo-button{
+  float: right;
+  margin: 0px;
+  padding: 0px;
+}
+
+#logo{
+  height: 110%;
+  width: 100%;
+}
