@@ -1,0 +1,56 @@
+// Utilities
+@import "../../utilities/variables";
+
+$margin-big-screen: 25%;
+$margin-small-screen: 5%;
+$titles-font-size: 70%;
+$links-font-size: 55%;
+
+footer{
+    position:fixed;
+    bottom:0px;
+    width:100%;
+}
+
+#left{
+    float: left;
+    margin-left: $margin-big-screen;
+    height: 100%;
+}
+
+#right{
+    float: right;
+    margin-right: $margin-big-screen;
+    height: 100%;
+}
+
+.footer{
+    background-color: $toolbar-blue;
+    height: fit-content;
+    color: white;
+    display: flex;
+    justify-content:space-between;
+}
+
+@media only screen and (max-width: 600px) {
+    #left{
+        margin-left: $margin-small-screen;
+    }
+    
+    #right{
+        margin-right: $margin-small-screen;
+    }
+  }
+
+#links-title, #contacts-title{
+    font-size: $titles-font-size;
+    text-align: center;
+}
+
+#links-list, #contacts-list{
+    font-size: $links-font-size;
+    list-style: none;
+    padding-left: 0pt;
+    text-align: center;
+}
+

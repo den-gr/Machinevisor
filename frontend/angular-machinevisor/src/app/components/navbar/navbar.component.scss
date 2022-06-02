@@ -1,7 +1,8 @@
+@import "../../utilities/variables";
 @import "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap";
 
 mat-toolbar {
-  background-color: #002044;
+  background-color: $toolbar-blue;
   color: white;
   display: flex;
   justify-content:space-between;
