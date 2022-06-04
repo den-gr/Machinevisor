@@ -1,0 +1,10 @@
+.sidenav {
+    padding: 5%;
+    width: 30%;
+}
+
+@media only screen and (max-width: 600px) {
+    .sidenav {
+        width: 60%;
+    }
+  }
