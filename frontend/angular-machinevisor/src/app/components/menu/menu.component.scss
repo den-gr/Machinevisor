@@ -1,10 +1,43 @@
+// Utilities
+@import "../../utilities/variables";
+
 .sidenav {
-    padding: 5%;
+    padding: 2%;
     width: 30%;
+    background-color: $menu-blue;
+}
+
+.machinery-menu{
+    background-color: $menu-blue;
+}
+
+mat-icon{
+    padding-right: 5%;
+}
+
+mat-divider{
+    margin-top: 5%;
+    color: black;
+}
+
+mat-expansion-panel-header{
+    padding-left: 7%;
 }
 
 @media only screen and (max-width: 600px) {
     .sidenav {
         width: 60%;
     }
+  }
+
+  .my-expansion-panel-header,
+  .my-expansion-panel-header.mat-expanded,
+  .my-expansion-panel-header.mat-expanded:hover,
+  .my-expansion-panel-header:hover,
+  .my-expansion-panel-header.mat-expanded:focus,
+  .my-expansion-panel-header.mat-expanded:focus:not([aria-disabled=true]),
+  .mat-expansion-panel .my-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true]),
+  .mat-expansion-panel .my-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true]), .mat-expansion-panel .my-expansion-panel-header.cdk-program-focused:not([aria-disabled=true]), .mat-expansion-panel:not(.mat-expanded) .my-expansion-panel-header:hover:not([aria-disabled=true]),
+  .my-expansion-panel-header.mat-expanded:hover:not([aria-disabled=true]) {
+    background-color: $menu-blue;
   }

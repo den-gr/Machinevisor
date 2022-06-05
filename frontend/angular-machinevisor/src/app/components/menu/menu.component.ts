@@ -12,11 +12,15 @@ export class MenuComponent implements OnInit {
   @ViewChild('sidenav') public sidenav!: MatDrawer; //! ????
   @Input() sidenavLayout:any;
 
+  machineries: any[] = Array();
   constructor(private toolbarService: ToolbarService) { }
 
   ngOnInit(): void {
     this.toolbarService.setSidenav(this.sidenav);
     console.log('drawer ', this.toolbarService);
+
+    //Ex. machines
+    this.machineries = Array('M1', 'M2', 'M3', 'M4');
   }
 
 }

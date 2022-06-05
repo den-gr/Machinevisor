@@ -1,24 +1,39 @@
 <mat-drawer-container class="container">
   <mat-drawer #sidenav class="sidenav" mode="over" [opened]="sidenavLayout">
-    <p>Auto-resizing sidenav</p>
-    <p>Lorem, ipsum dolor sit amet consectetur.</p>
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon class="material-icons-outlined">home</mat-icon>
+        <a>Menu</a>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon class="material-icons-outlined">analytics</mat-icon>
+        <a>Statistics</a>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon class="material-icons-outlined">person</mat-icon>
+        <a>User</a>
+      </mat-list-item>
+      <!-- expansion panel -->
+      <mat-expansion-panel class="machinery-menu">
+        <mat-expansion-panel-header class="my-expansion-panel-header">
+          <mat-panel-title>
+            <mat-icon class="material-icons-outlined">precision_manufacturing</mat-icon>
+            Machineries
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+    
+        <mat-list-item *ngFor="let machine of machineries">
+          <a>{{machine}}</a>
+        </mat-list-item>
+    
+      </mat-expansion-panel>
+      <!---->
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon class="material-icons-outlined">logout</mat-icon>
+        <a>Logout</a>
+      </mat-list-item>
+    </mat-nav-list>
   </mat-drawer>
-  <div class="body">
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <p>p</p>
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </mat-drawer-container>
