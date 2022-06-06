@@ -1,6 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { ToolbarService } from '../../services/toolbar.service';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -8,16 +6,18 @@ import { ToolbarService } from '../../services/toolbar.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  
-  @ViewChild('sidenav') public sidenav!: MatDrawer; //! ????
+
   @Input() sidenavLayout:any;
+  @Output() closeDrawer:any = new EventEmitter<void>();
 
   machineries: any[] = Array();
-  constructor(private toolbarService: ToolbarService) { }
+  constructor() { }
+  
+  close(){
+    this.closeDrawer.emit();
+  }
 
   ngOnInit(): void {
-    this.toolbarService.setSidenav(this.sidenav);
-    console.log('drawer ', this.toolbarService);
 
     //Ex. machines
     this.machineries = Array('M1', 'M2', 'M3', 'M4');

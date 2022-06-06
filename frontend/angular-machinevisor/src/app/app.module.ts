@@ -10,7 +10,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FormsModule } from '@angular/forms';
-import { ToolbarService } from './services/toolbar.service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { HomeComponent } from './pages/home/home.component';
 
@@ -31,7 +30,7 @@ import { HomeComponent } from './pages/home/home.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [ToolbarService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

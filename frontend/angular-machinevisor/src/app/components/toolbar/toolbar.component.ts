@@ -6,16 +6,20 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  @Output() sidenavLayoutToggle = new EventEmitter<boolean>();
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   openMenu = false;
+
   clickMenu() {
+    console.log("CLICK MENU");
     this.openMenu = !this.openMenu;
-    this.sidenavLayoutToggle.emit(this.openMenu);
+  }
+
+  closeMenu(){
+    console.log("CLOSE MENU");
+    this.openMenu = false;
   }
 
 }
