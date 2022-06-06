@@ -11,6 +11,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
+import { MachineComponent } from './pages/machine/machine.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HomeComponent } from './pages/home/home.component';
     FooterComponent,
     MenuComponent,
     HomeComponent,
+    MachineComponent,
   ],
   imports: [
     BrowserModule,
