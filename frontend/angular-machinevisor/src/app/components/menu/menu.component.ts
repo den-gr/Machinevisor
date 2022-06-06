@@ -7,18 +7,22 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 })
 export class MenuComponent implements OnInit {
 
-  @Input() sidenavLayout:any;
-  @Output() closeDrawer:any = new EventEmitter<void>();
-
   machineries: any[] = Array();
   constructor() { }
+
+  openMenu = false
+
+  clickMenu() {
+    console.log("CLICK MENU");
+    this.openMenu = !this.openMenu;
+  }
   
   close(){
-    this.closeDrawer.emit();
+    this.openMenu = false
+    console.log("CHIUSO")
   }
 
   ngOnInit(): void {
-
     //Ex. machines
     this.machineries = Array('M1', 'M2', 'M3', 'M4');
   }

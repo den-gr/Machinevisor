@@ -11,6 +11,27 @@
     background-color: $menu-blue;
 }
 
+.sidenav-header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $toolbar-blue;
+    color: white;
+}
+
+.links-list{
+    margin-top: 15%;
+}
+
+span{
+    width: 100%;
+    font-size: 190%;
+    font-weight: bold; 
+    font-family: 'Bebas Neue';
+    text-align: center;
+}
+
 mat-icon{
     padding-right: 5%;
 }
@@ -28,7 +49,7 @@ mat-expansion-panel-header{
     .sidenav {
         width: 60%;
     }
-  }
+}
 
   .my-expansion-panel-header,
   .my-expansion-panel-header.mat-expanded,

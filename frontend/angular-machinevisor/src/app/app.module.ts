@@ -10,7 +10,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FormsModule } from '@angular/forms';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { HomeComponent } from './pages/home/home.component';
     NavbarComponent,
     FooterComponent,
     MenuComponent,
-    ToolbarComponent,
     HomeComponent,
   ],
   imports: [
