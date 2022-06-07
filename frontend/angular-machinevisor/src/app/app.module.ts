@@ -12,6 +12,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { MachineComponent } from './pages/machine/machine.component';
+import { MachineInfoComponent } from './components/machine-info/machine-info.component';
+import { OnOffButtonComponent } from './components/on-off-button/on-off-button.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { MachineComponent } from './pages/machine/machine.component';
     MenuComponent,
     HomeComponent,
     MachineComponent,
+    MachineInfoComponent,
+    OnOffButtonComponent,
   ],
   imports: [
     BrowserModule,

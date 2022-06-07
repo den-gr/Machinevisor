@@ -1,0 +1,25 @@
+<mat-card class="card">
+    <div class="switch-container">
+      <app-on-off-button class="switch-button"></app-on-off-button>
+    </div>
+    <mat-card-header class="header">
+        <!-- nome + stato -->
+      <mat-card-title class="name">{{name}}</mat-card-title>
+      <mat-card-subtitle class="status">{{status}}</mat-card-subtitle>
+    </mat-card-header>
+    <!-- info + foto (in colonna)-->
+    <!-- card con i dati -->
+    <mat-card-content class="content">
+      <ul>
+       <li *ngFor="let elem of infoMix" class="info">
+          <p class="key">{{elem.key}}:</p><p class="val">{{elem.value}}</p>
+       </li>
+      </ul>
+      <img src={{photo}} alt="Machine images">
+    </mat-card-content>
+        <!-- bottoni "charts e log" -->
+    <div class="buttons">
+      <button mat-button class="button" (click)="clickCharts()">Charts</button>
+      <button mat-button class="button" (click)="clickLog()">Log</button>
+    </div>    
+</mat-card>

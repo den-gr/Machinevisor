@@ -1,0 +1,101 @@
+@import "../../utilities/variables";
+
+$margin: 5%;
+
+.card{
+    background-color: $card-gray;
+    padding: $margin;
+}
+
+.header{
+    background-color: $card-blue;
+    padding: 1%;
+    margin: 0;
+    margin-top: $margin;
+    margin-bottom: $margin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.switch-button{
+    align-items: right;
+}
+
+.content{
+    margin: 0;
+    margin-bottom: $margin;
+    display: flex;
+    justify-content: space-between;
+    //align-items: center;
+}
+
+.name, .status{
+    margin: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.status{
+    color: black;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button{
+    margin-top: 10%;
+    width: 40%;
+    background-color: $menu-blue;
+}
+
+.switch-container{
+    text-align: center;
+}
+
+ul, li{
+    margin: 0;
+    padding: 0;
+    margin-left: 2%;
+    margin-bottom: $margin;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1%;
+    font-size: large;
+}
+
+.key{
+    font-weight: bold;
+    margin-right: 1%;
+}
+
+.info{
+    display: flex;
+    align-items: center;
+}
+
+img{
+    width: 30%;
+    height: 30%;
+    margin-right: 1%;
+}
+
+@media only screen and (max-width: 600px) {
+    img{
+        width: 50%;
+        height: 50%;
+    }
+
+    li{
+        font-size: small;
+    }
+}
+
