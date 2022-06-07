@@ -9,13 +9,26 @@
     </mat-card-header>
     <!-- info + foto (in colonna)-->
     <!-- card con i dati -->
-    <mat-card-content class="content">
-      <ul>
-       <li *ngFor="let elem of infoMix" class="info">
-          <p class="key">{{elem.key}}:</p><p class="val">{{elem.value}}</p>
-       </li>
-      </ul>
-      <img src={{photo}} alt="Machine images">
+    <mat-card-content>
+      <div class="content">
+        <ul>
+        <li *ngFor="let elem of infoMix" class="info">
+            <p class="key">{{elem.key}}:</p><p class="val">{{elem.value}}</p>
+        </li>
+        </ul>
+        <img src={{photo}} alt="Machine images">
+      </div>
+      <div class="values">
+        <ul>
+          <li *ngFor="let elem of valuesMix"  
+          [ngClass]="{
+            'ok' : elem.error == true,
+            'ko' : elem.error == false
+          }">
+              <p class="value-key">{{elem.key}}</p><p class="value-val">{{elem.value}}</p>
+          </li>
+          </ul>
+      </div>
     </mat-card-content>
         <!-- bottoni "charts e log" -->
     <div class="buttons">

@@ -77,7 +77,7 @@ li{
     margin-right: 1%;
 }
 
-.info{
+.info, .ok, .ko{
     display: flex;
     align-items: center;
 }
@@ -97,5 +97,31 @@ img{
     li{
         font-size: small;
     }
+}
+
+.ok, .ko{
+    margin-bottom: 2%;
+    padding: 1%;
+    width: 100%;
+}
+
+.ok{
+    background-color: $correct-value;
+}
+
+.ko{
+    background-color: $wrong-value;
+}
+
+.values{
+    margin-top: 10%;
+}
+
+.value-key, .value-val{
+    width: 50%;
+}
+
+.value-key{
+    margin-left: 1%;
 }
 
