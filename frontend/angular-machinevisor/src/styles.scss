@@ -1,4 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../src/app/utilities/variables";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+//radio button card
+
+//selected radio button
+.radio-button.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $toolbar-blue;
+}
+.radio-button.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $toolbar-blue;
+}
+.radio-button.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:$toolbar-blue;
+}
+//background color select button
+.radio-button.mat-radio-button .mat-radio-outer-circle {
+    background-color: white;
+}
+//distance between select button and label
+span.mat-radio-label-content{
+    margin-left: 5%;
+}
+//fix title
+div.mat-card-header-text{
+    margin: 0;
+    padding: 0;
+}
+
+
+//slider
+.slider.mat-accent .mat-slider-track-fill {
+    background-color: $toolbar-blue;
+}
+.slider.mat-accent .mat-slider-thumb-label {
+    background-color: $toolbar-blue;
+}
+.slider.mat-accent .mat-slider-thumb {
+    background-color: $toolbar-blue;
+}

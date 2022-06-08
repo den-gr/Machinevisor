@@ -9,6 +9,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   exports: [
@@ -20,7 +22,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatDividerModule,
     MatExpansionModule,
     MatCardModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatRadioModule,
+    MatSliderModule
   ],
   imports: [
     MatIconModule,
@@ -31,7 +35,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatDividerModule,
     MatExpansionModule,
     MatCardModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatRadioModule,
+    MatSliderModule
   ]
 })
 export class MaterialModule { }

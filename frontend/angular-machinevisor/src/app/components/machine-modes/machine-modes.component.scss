@@ -1,0 +1,19 @@
+@import "../../utilities/variables";
+
+$margin: 5%;
+
+.card{
+    padding: $margin;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-button{
+    margin: 0;
+    background-color: $card-blue;
+    margin-bottom: 1%;
+    padding: 1%;
+}

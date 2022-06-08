@@ -14,6 +14,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { MachineComponent } from './pages/machine/machine.component';
 import { MachineInfoComponent } from './components/machine-info/machine-info.component';
 import { OnOffButtonComponent } from './components/on-off-button/on-off-button.component';
+import { MachineModesComponent } from './components/machine-modes/machine-modes.component';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { MachinePeriodComponent } from './components/machine-period/machine-period.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { OnOffButtonComponent } from './components/on-off-button/on-off-button.c
     MachineComponent,
     MachineInfoComponent,
     OnOffButtonComponent,
+    MachineModesComponent,
+    MachinePeriodComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,10 @@ import { OnOffButtonComponent } from './components/on-off-button/on-off-button.c
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: { color: 'accent' },
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
