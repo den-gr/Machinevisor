@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +9,15 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class NavbarComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
 
-  constructor() { 
+  constructor(private router: Router) { 
   }
 
   ngOnInit(): void {      
+  }
+
+  goToHome(){
+    console.log("NAVIGATE!")
+    this.router.navigate(['/home']);
   }
 
   // open/close menu
