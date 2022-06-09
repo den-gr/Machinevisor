@@ -45,7 +45,11 @@ mat-expansion-panel-header{
     padding-left: 7%;
 }
 
-@media only screen and (max-width: 600px) {
+.container{
+    background-color: $background-gray;
+}
+
+@media only screen and (max-width: $mobile) {
     .sidenav {
         width: 60%;
     }

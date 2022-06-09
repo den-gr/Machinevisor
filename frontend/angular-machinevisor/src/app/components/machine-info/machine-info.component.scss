@@ -3,6 +3,9 @@
 $margin: 5%;
 
 .card{
+    width: $card-width;
+    margin: auto;
+    margin-bottom: $card-distance;
     background-color: $card-gray;
     padding: $margin;
 }
@@ -48,7 +51,7 @@ $margin: 5%;
 }
 
 .button{
-    margin-top: 10%;
+    margin-top: 5%;
     width: 40%;
     background-color: $menu-blue;
 }
@@ -88,7 +91,7 @@ img{
     margin-right: 1%;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: $mobile) {
     img{
         width: 50%;
         height: 50%;
@@ -102,7 +105,6 @@ img{
 .ok, .ko{
     margin-bottom: 2%;
     padding: 1%;
-    width: 100%;
 }
 
 .ok{
@@ -123,5 +125,29 @@ img{
 
 .value-key{
     margin-left: 1%;
+}
+
+@media only screen and (min-width: $tablet) {
+    img{
+        width: 50%;
+        height: 50%;
+    }
+    .card{
+        width: 90%;
+        margin: 0;
+        padding: 2%;
+    }
+    .content{
+        width: 50%;
+        float: left;
+    }
+    .values{
+        margin-top: 0;
+        width: 50%;
+        float: right;
+    }
+    .buttons{
+        clear: both;
+    }
 }
 
