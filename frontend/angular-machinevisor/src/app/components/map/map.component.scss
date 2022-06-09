@@ -1,0 +1,43 @@
+.svg-container { 
+    box-sizing: border-box;
+    position: relative;
+    margin: 2%;                
+    margin-right: 10px;
+    vertical-align: middle;                
+}
+
+.svg-content-goup{
+    fill: #004770;             
+}
+
+.machine-o,  .machine-v { 
+    opacity: 0.8;
+    margin: 5%;
+}
+
+.machine-o { 
+    width: 18px;
+    height: 9px;
+    
+}
+.machine-v { 
+        width: 11px; 
+        height: 13px; 
+}
+
+.machine-o:hover, .machine-v:hover{
+    opacity: 1;
+} 
+
+.machine-o:active, .machine-v:active{
+    fill: red;
+    opacity: 1;
+} 
+.wall{
+    width: 0.4px;
+    fill: grey
+}
+.wall-o{
+    height: 0.4px;
+    fill: grey;
+}

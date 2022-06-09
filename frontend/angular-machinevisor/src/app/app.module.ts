@@ -17,6 +17,8 @@ import { OnOffButtonComponent } from './components/on-off-button/on-off-button.c
 import { MachineModesComponent } from './components/machine-modes/machine-modes.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MachinePeriodComponent } from './components/machine-period/machine-period.component';
+import { MapCardComponent } from './components/map-card/map-card.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MachinePeriodComponent } from './components/machine-period/machine-peri
     OnOffButtonComponent,
     MachineModesComponent,
     MachinePeriodComponent,
+    MapCardComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,

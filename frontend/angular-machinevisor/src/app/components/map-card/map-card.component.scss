@@ -1,0 +1,20 @@
+@import "../../utilities/variables";
+$margin: 5%;
+
+.card{
+    width: $card-width;
+    margin: auto;
+    padding: $margin;
+}
+
+.content{
+    margin: 0;
+    margin-left: $margin;
+    margin-right: $margin;
+}
+
+@media only screen and (min-width: $tablet) {
+    .card{
+        padding: 2%;
+    }
+}
