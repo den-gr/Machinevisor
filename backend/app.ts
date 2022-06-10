@@ -1,5 +1,7 @@
+import { Database } from "./routes/DB/db";
+
 require('dotenv').config();
-var express = require('express');
+const express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -18,15 +20,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-module.exports = app;
 
-if(checkEnv()){
-    var port = process.env.PORT;
-    app.listen(port, () => {
-        console.log("connect on ", port);
-    });
-}
 
-function checkEnv(){
-    return process.env.PORT;
-}
+var port = process.env.PORT;
+const listener = app.listen(port, () => {
+    const db: Database = new Database();
+    db.connectDB();
+    console.log("connect on ", port);
+    
+});
+
+
+module.exports = {app, listener};
+

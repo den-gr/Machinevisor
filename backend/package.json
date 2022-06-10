@@ -8,10 +8,12 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q bin/app.js\""
   },
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "~16.0.1",
     "express": "~4.16.1",
+    "mongoose": "^6.3.6",
     "morgan": "~1.9.1"
   },
   "devDependencies": {
