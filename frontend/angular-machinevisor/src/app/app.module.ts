@@ -13,12 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { MachineComponent } from './pages/machine/machine.component';
 import { MachineInfoComponent } from './components/machine-info/machine-info.component';
-import { OnOffButtonComponent } from './components/on-off-button/on-off-button.component';
 import { MachineModesComponent } from './components/machine-modes/machine-modes.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MachinePeriodComponent } from './components/machine-period/machine-period.component';
 import { MapCardComponent } from './components/map-card/map-card.component';
 import { MapComponent } from './components/map/map.component';
+import { SwitchOffDialogComponent } from './components/switch-off-dialog/switch-off-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,11 +29,11 @@ import { MapComponent } from './components/map/map.component';
     HomeComponent,
     MachineComponent,
     MachineInfoComponent,
-    OnOffButtonComponent,
     MachineModesComponent,
     MachinePeriodComponent,
     MapCardComponent,
     MapComponent,
+    SwitchOffDialogComponent,
   ],
   imports: [
     BrowserModule,

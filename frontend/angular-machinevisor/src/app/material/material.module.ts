@@ -11,6 +11,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   exports: [
@@ -24,7 +25,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatCardModule,
     MatButtonToggleModule,
     MatRadioModule,
-    MatSliderModule
+    MatSliderModule,
+    MatDialogModule,
   ],
   imports: [
     MatIconModule,
@@ -37,7 +39,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatCardModule,
     MatButtonToggleModule,
     MatRadioModule,
-    MatSliderModule
+    MatSliderModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OnOffButtonComponent } from './on-off-button.component';
+import { SwitchOffDialogComponent } from './switch-off-dialog.component';
 
-describe('OnOffButtonComponent', () => {
-  let component: OnOffButtonComponent;
-  let fixture: ComponentFixture<OnOffButtonComponent>;
+describe('SwitchOffDialogComponent', () => {
+  let component: SwitchOffDialogComponent;
+  let fixture: ComponentFixture<SwitchOffDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OnOffButtonComponent ]
+      declarations: [ SwitchOffDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OnOffButtonComponent);
+    fixture = TestBed.createComponent(SwitchOffDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

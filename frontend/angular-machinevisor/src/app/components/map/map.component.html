@@ -3,13 +3,12 @@
         xmlns="http://www.w3.org/2000/svg">
     
         <g class="svg-content-goup">
-            <rect id="machine-1" class="machine-o" x="1" y="0.7" />
-            <rect id="machine-2" class="machine-o" x="21" y="0.7"/>
-            <rect id="machine-3" class="machine-o" x="41" y="0.7"/>
+            <rect (click)="click('machine-1')" id="machine-1" class="machine-o" x="1" y="0.7" />
+            <rect (click)="click('machine-2')" id="machine-2" class="machine-o" x="21" y="0.7"/>
+            <rect (click)="click('machine-3')" id="machine-3" class="machine-o" x="41" y="0.7"/>
     
-    
-            <rect id="machine-4" class="machine-o" x="1" y="20.2" />
-            <rect id="machine-5" class="machine-v" x="48" y="16.2" />
+            <rect (click)="click('machine-4')" id="machine-4" class="machine-o" x="1" y="20.2" />
+            <rect (click)="click('machine-5')" id="machine-5" class="machine-v" x="48" y="16.2" />
         </g>
        
         <rect class="wall" height="14" x="19.8" y="0"/>

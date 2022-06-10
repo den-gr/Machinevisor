@@ -1,6 +1,9 @@
 <mat-card class="card">
     <div class="switch-container">
-      <app-on-off-button class="switch-button"></app-on-off-button>
+      <mat-button-toggle-group>
+        <mat-button-toggle value="true" [checked]="isOnChecked" (change)="clickOn()">On</mat-button-toggle>
+        <mat-button-toggle value="false" [checked]="!isOnChecked" (change)="clickOff()">Off</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
     <mat-card-header class="header">
         <!-- nome + stato -->

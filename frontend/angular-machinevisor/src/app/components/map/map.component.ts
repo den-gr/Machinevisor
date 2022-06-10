@@ -9,6 +9,10 @@ export class MapComponent implements OnInit {
 
   constructor() { }
 
+  click(machine: String){
+    console.log("Ho cliccato trullallero rullalla! --> " + machine);
+  }
+
   ngOnInit(): void {
   }
 

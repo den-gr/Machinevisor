@@ -151,3 +151,28 @@ img{
     }
 }
 
+//on off button
+.mat-button-toggle {
+    background-color: $background-gray;
+    color: black;
+}
+
+.mat-button-toggle-checked {
+    background-color: $toolbar-blue;
+    color: white;
+}
+
+mat-button-toggle-group{
+    width: 50%;
+}
+
+mat-button-toggle{
+    width: 50%;
+}
+
+@media only screen and (max-width: $mobile) {
+    mat-button-toggle-group{
+        width: 100%;
+    }
+}
+
