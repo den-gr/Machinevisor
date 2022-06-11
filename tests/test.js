@@ -28,6 +28,12 @@ describe('User Endpoints',  () => {
 });
 
 describe('Machines Endpoints',  () => {
+    it('GET /machines/:id should show a machine', async () => {
+        let res = await requestWithSupertest.get('/machines/1')
+        expect(res.statusCode).toEqual(200)
+        expect(res.body).toHaveProperty('machine_id', 'brand', 'last_revision', "production_year")
+    });
+
     it('GET /:machineId should return 404 if machine si not found', async () => {
         const res = await requestWithSupertest.get('/machines/999999');
         expect(res.status).toEqual(404);
