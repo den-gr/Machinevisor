@@ -79,7 +79,8 @@
               "browserTarget": "angular-machinevisor:build:production"
             },
             "development": {
-              "browserTarget": "angular-machinevisor:build:development"
+              "browserTarget": "angular-machinevisor:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"
