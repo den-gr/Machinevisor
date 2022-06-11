@@ -8,6 +8,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var machinesRouter = require('./routes/machines');
 
 var app = express();
 
@@ -19,11 +20,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+app.use('/machines', machinesRouter);
 
 
 var port = process.env.PORT;
-const listener = app.listen(port, () => {
+app.listen(port, () => {
     const db: Database = new Database();
     db.connectDB();
     console.log("connect on ", port);
@@ -31,5 +32,5 @@ const listener = app.listen(port, () => {
 });
 
 
-module.exports = {app, listener};
+module.exports = app;
 

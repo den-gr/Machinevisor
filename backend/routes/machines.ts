@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 import { DBService_mongo } from "./DB/dbservice";
+var utils = require('./utils/utils');
 var express = require('express');
 var router = express.Router();
-var utils = require('./utils/utils');
 const db_service = new DBService_mongo();
 
 router.get("/:machineId", async (req: Request, res: Response)  => {
@@ -21,3 +21,5 @@ router.get("/:machineId", async (req: Request, res: Response)  => {
         res.status(400).send("MachineId is not a number");
     }
 })
+
+module.exports = router;
