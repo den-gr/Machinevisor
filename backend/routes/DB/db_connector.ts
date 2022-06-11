@@ -1,4 +1,3 @@
-import User from './models/user_schema';
 const mongoose = require('mongoose');
 require('dotenv').config();
 

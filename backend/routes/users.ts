@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 import { DBService_mongo } from "./DB/dbservice";
-var utils = require('./utils/utils');
-var express = require('express');
-var router = express.Router();
+const utils = require('./utils/utils');
+const express = require('express');
+const router = express.Router();
 const db_service = new DBService_mongo();
 
 router.get('/:userId', async function(req:Request, res:Response) {
@@ -10,7 +10,6 @@ router.get('/:userId', async function(req:Request, res:Response) {
         let promise = db_service.getUser(+req.params.userId); //with implicit cast to number
         promise.then((user) =>{
             if(user != null){
-                console.log("REceive: ", user)
                 res.json(user);
             }else{
                 res.status(404).send('User not found');
