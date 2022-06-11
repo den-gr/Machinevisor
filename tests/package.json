@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "jest --setupFiles dotenv/config"
+    "test": "jest --verbose ./tests-files"
   },
   "author": "",
   "license": "ISC",

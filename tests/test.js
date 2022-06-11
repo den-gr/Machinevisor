@@ -2,25 +2,16 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../backend/.env') });
 const supertest = require('supertest');
 const server = require('../backend/bin/app');
-const requestWithSupertest = supertest(server.app);
+const requestWithSupertest = supertest(server);
 
-
-
+it('GET / default check', async () => {
+    const res = await requestWithSupertest.get('/');
+    expect(res.status).toEqual(200);
+});
 
 describe('User Endpoints',  () => {
-    afterAll(() => { 
-         server.listener.close(); 
-    });
-
-    it('GET / should show all users', async () => {
-        const res = await requestWithSupertest.get('/');
-        expect(res.status).toEqual(200);
-    });
-
     it('GET /users/:id should show a user', async () => {
-        console.log("Before");
         let res = await requestWithSupertest.get('/users/1')
-        console.log("After");
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('user_id', 'name', 'surname')
     });
@@ -34,6 +25,16 @@ describe('User Endpoints',  () => {
         let res = await requestWithSupertest.get('/users/999999')
         expect(res.statusCode).toEqual(404);
     });
+});
 
-  
-  });
+describe('Machines Endpoints',  () => {
+    it('GET /:machineId should return 404 if machine si not found', async () => {
+        const res = await requestWithSupertest.get('/machines/999999');
+        expect(res.status).toEqual(404);
+    });
+
+    it('GET /:machineId should return 400 id is not a number', async () => {
+        const res = await requestWithSupertest.get('/machines/word');
+        expect(res.status).toEqual(400);
+    });
+});
