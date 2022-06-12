@@ -11,11 +11,18 @@ export class MenuComponent implements OnInit {
   machineries: any[] = Array();
   constructor(private router: Router) { }
 
-  openMenu = false
+  openMenu = false;
+  user = 1;
 
   goToHome(){
-    console.log("NAVIGATE!")
+    console.log("NAVIGATE HOME!")
     this.router.navigate(['/home']);
+    this.close()
+  }
+
+  goToUser(){
+    console.log("NAVIGATE USER!")
+    this.router.navigate(['/userPage', this.user]);
     this.close()
   }
 

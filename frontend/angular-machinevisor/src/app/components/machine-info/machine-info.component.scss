@@ -14,7 +14,7 @@ $margin: 5%;
     background-color: $card-blue;
     padding: 1%;
     margin: 0;
-    margin-top: $margin;
+    margin-top: 2%;
     margin-bottom: $margin;
     display: flex;
     justify-content: center;
@@ -51,7 +51,7 @@ $margin: 5%;
 }
 
 .button{
-    margin-top: 5%;
+    margin-top: 2%;
     width: 40%;
     background-color: $menu-blue;
 }
@@ -158,7 +158,7 @@ img{
 }
 
 .mat-button-toggle-checked {
-    background-color: $toolbar-blue;
+    background-color: $on-off-blue;
     color: white;
 }
 
