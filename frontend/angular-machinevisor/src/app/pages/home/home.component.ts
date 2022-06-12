@@ -8,12 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
-
-  navigate(){
-    console.log("NAVIGATE!")
-    this.router.navigate(['/machinePage']);
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }

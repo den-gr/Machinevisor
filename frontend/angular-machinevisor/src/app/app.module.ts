@@ -19,6 +19,7 @@ import { MachinePeriodComponent } from './components/machine-period/machine-peri
 import { MapCardComponent } from './components/map-card/map-card.component';
 import { MapComponent } from './components/map/map.component';
 import { SwitchOffDialogComponent } from './components/switch-off-dialog/switch-off-dialog.component';
+import { OverviewComponent } from './components/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SwitchOffDialogComponent } from './components/switch-off-dialog/switch-
     MapCardComponent,
     MapComponent,
     SwitchOffDialogComponent,
+    OverviewComponent,
   ],
   imports: [
     BrowserModule,

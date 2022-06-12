@@ -47,7 +47,7 @@ export class MachineInfoComponent implements OnInit {
     console.log("Apri dialog!")
     const dialogRef = this.dialog.open(SwitchOffDialogComponent, {
       width: '250px',
-      data: {machineID: this.machineID},
+      data: {machineID: "machine-"+this.machineID},
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed --> ' + result);
