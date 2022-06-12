@@ -1,4 +1,6 @@
 import { model, Schema, Document } from "mongoose";
+const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 export interface IMachine extends Document{
     machine_id: number;
@@ -11,7 +13,7 @@ export interface IMachine extends Document{
 }
 
 const MachineSchema = new Schema<IMachine>({
-    machine_id: {type: Number, require: true},
+    // machine_id: {type: Number, require: true},
     weight: {type: Number, require: true},
     brand: {type: String, require: true},
     production_year: {type: Date, require: true},
@@ -19,6 +21,8 @@ const MachineSchema = new Schema<IMachine>({
     client_service_number: {type: String, require: true}
   
 });
+
+MachineSchema.plugin(AutoIncrement, {inc_field: "machine_id"})
 
 const Machine = model<IMachine>("machines", MachineSchema);
 export default Machine; 
