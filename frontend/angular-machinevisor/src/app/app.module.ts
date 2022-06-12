@@ -20,6 +20,7 @@ import { MapCardComponent } from './components/map-card/map-card.component';
 import { MapComponent } from './components/map/map.component';
 import { SwitchOffDialogComponent } from './components/switch-off-dialog/switch-off-dialog.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { OverviewComponent } from './components/overview/overview.component';
     MapComponent,
     SwitchOffDialogComponent,
     OverviewComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
