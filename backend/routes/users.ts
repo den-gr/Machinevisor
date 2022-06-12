@@ -20,4 +20,15 @@ router.get('/:userId', async function(req:Request, res:Response) {
     }
 });
 
+router.post('/', async function(req:Request, res:Response) {
+    
+        let promise = db_service.addUser(req.body); //with implicit cast to IUSer
+        promise.then((user) =>{
+            if(user != null){
+                res.status(201).json(user);
+            }
+        }).catch((errors) =>  res.status(500).json(errors));
+
+});
+
 module.exports = router;

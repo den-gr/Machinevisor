@@ -22,12 +22,13 @@
       "es2020",
       "dom"
     ],
-    "allowJs": true,
+    "allowJs": false,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "exclude": ["node_modules", "bin"]
 }

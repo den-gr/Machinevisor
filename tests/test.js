@@ -1,5 +1,5 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../backend/.env') });
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 const supertest = require('supertest');
 const server = require('../backend/bin/app');
 const requestWithSupertest = supertest(server);
