@@ -2,8 +2,10 @@
 @import "../src/app/utilities/variables";
 
 html, body { height: 100%; }
-body { height:100vh; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.short-page{
+    height:100vh;
+}
 
 //radio button card
 

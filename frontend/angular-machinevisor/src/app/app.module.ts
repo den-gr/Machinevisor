@@ -21,6 +21,7 @@ import { MapComponent } from './components/map/map.component';
 import { SwitchOffDialogComponent } from './components/switch-off-dialog/switch-off-dialog.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { UserComponent } from './pages/user/user.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UserComponent } from './pages/user/user.component';
     SwitchOffDialogComponent,
     OverviewComponent,
     UserComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,

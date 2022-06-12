@@ -1,0 +1,19 @@
+@import "../../utilities/variables";
+
+.left, .right{
+    margin-top: $card-distance;
+    margin-bottom: $card-distance;
+}
+
+@media only screen and (min-width: $tablet) {
+    .left{
+        margin-left: 5%;
+        width: 35%;
+        float: left;
+    }
+    .right{
+        margin-right: 5%;
+        width: 55%;
+        float: right;
+    }
+}

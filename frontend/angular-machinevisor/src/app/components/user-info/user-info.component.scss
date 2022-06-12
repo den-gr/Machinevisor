@@ -1,0 +1,63 @@
+@import "../../utilities/variables";
+
+$margin: 5%;
+
+.card{
+    width: $card-width;
+    margin: auto;
+    margin-bottom: $card-distance;
+    padding: $margin;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.values{
+    margin-top: $margin;
+    width: 100%;
+}
+
+img{
+    width: 50%;
+    height: 50%;
+}
+
+@media only screen and (min-width: $tablet) {
+    li{
+        font-size:smaller;
+    }
+}
+
+ul, li{
+    margin: 0;
+    padding: 0;
+    margin-bottom: $margin;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1%;
+    font-size: large;
+}
+
+.value-key, .value-val{
+    width: 50%;
+}
+
+.value-key{
+    margin-left: 1%;
+}
+
+.data{
+    margin-bottom: 2%;
+    padding: 1%;
+    background-color: $card-blue;
+    display: flex;
+    align-items: center;
+}
+

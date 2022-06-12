@@ -1,0 +1,12 @@
+<mat-card class="card">
+    <mat-card-content class="content">
+        <img src={{photo}} alt="User images">
+        <div class="values">
+            <ul>
+              <li *ngFor="let elem of userMix" class="data">
+                  <p class="value-key">{{elem.key}}</p><p class="value-val">{{elem.value}}</p>
+              </li>
+              </ul>
+          </div>
+    </mat-card-content>   
+</mat-card>
