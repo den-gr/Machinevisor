@@ -1,5 +1,6 @@
 import Machine, { IMachine } from "./models/machine_schema";
 import User, { IUser } from "./models/user_schema";
+const mongoose = require("mongoose");
 
 export interface DBService{
     getUser(user_id:number): Promise<IUser | null>;
@@ -9,15 +10,27 @@ export interface DBService{
 }
 
 export class DBService_mongo implements DBService{
+    private readonly CONNECTED: number = 1;
+    private readonly CONNECTING: number = 2;
+    
     public getUser(user_id: number): Promise<IUser | null> {
+     
         return new Promise((resolve, reject) => {
-            resolve(User.findOne({user_id: user_id}, {_id:0, authentification: 0}))
+            if(!this.isConnected()) reject("DB is not connected");
+            User.findOne({user_id: user_id}, {_id:0, authentification: 0}, (err, user) => {
+                if(err){
+                    reject(err)
+                } else{
+                    resolve(user)
+                }
+            });
 
         })
     }
 
     public addUser(user: IUser): Promise<any>{
         return new Promise((resolve, reject) =>{
+            if(!this.isConnected()) reject("DB is not connected");
             try{
                 let newUser= User.create(user)
                 resolve(newUser)
@@ -30,6 +43,7 @@ export class DBService_mongo implements DBService{
 
     public getMachine(machine_id: number): Promise<IMachine | null> {
         return new Promise((resolve, reject) =>{
+            if(!this.isConnected()) reject("DB is not connected");
             resolve(Machine.findOne({machine_id: machine_id}, {_id:0}))
         })
     }
@@ -47,6 +61,11 @@ export class DBService_mongo implements DBService{
             return {errorName: error.name};
         }
 
+    }
+
+    private isConnected(): boolean{ 
+        let state = mongoose.connection.readyState
+        return state === this.CONNECTED || state === this.CONNECTING;
     }
 
 

@@ -10,12 +10,11 @@ router.get("/:machineId", async (req: Request, res: Response)  => {
         let promise = db_service.getMachine(+req.params.machineId);
         promise.then((machine) => {
             if(machine != null){
-                console.log("send machine:", machine);
                 res.json(machine);
             }else{
                 res.status(404).send("Machine not fount");
             }
-        });
+        }).catch((err)=> res.status(500).send(err));;
         
     }else{
         res.status(400).send("MachineId is not a number");

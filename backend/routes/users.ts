@@ -14,7 +14,7 @@ router.get('/:userId', async function(req:Request, res:Response) {
             }else{
                 res.status(404).send('User not found');
             }
-        });
+        }).catch((err)=> res.status(500).send(err));
     }else{
         res.status(400).send("UserId is not a number");
     }
