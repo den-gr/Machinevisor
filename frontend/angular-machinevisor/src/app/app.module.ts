@@ -22,6 +22,7 @@ import { SwitchOffDialogComponent } from './components/switch-off-dialog/switch-
 import { OverviewComponent } from './components/overview/overview.component';
 import { UserComponent } from './pages/user/user.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { WeeklyScheduleComponent } from './components/weekly-schedule/weekly-schedule.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
     OverviewComponent,
     UserComponent,
     UserInfoComponent,
+    WeeklyScheduleComponent,
   ],
   imports: [
     BrowserModule,

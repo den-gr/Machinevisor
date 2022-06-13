@@ -1,0 +1,22 @@
+@import "../../utilities/variables";
+
+mat-card-header{
+    margin-bottom: 2%;
+}
+
+table {
+    width: 100%;
+}
+
+.day-col{
+    width: 20%;
+    background-color: $card-blue;
+}
+
+.sched{
+    padding-left: 2%;
+}
+
+.mat-cell, .mat-header-cell{
+    border-bottom: 1px solid black;
+}

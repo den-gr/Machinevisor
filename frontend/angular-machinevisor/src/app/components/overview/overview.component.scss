@@ -5,6 +5,8 @@ $margin: 5%;
 .card{
     width: $card-width;
     margin: auto;
+    margin-bottom: $card-distance;
+    background-color: $card-gray;
     padding: $margin;
 }
 
@@ -16,9 +18,16 @@ $margin: 5%;
 
 li{
     margin: 0;
-    padding: 0;
     background-color: $on-off-blue;
     color: white;
     margin-bottom: 1%;
     padding: 3%;
+}
+
+@media only screen and (min-width: $tablet) {
+    .card{
+        width: 90%;
+        margin-right: 0;
+        padding: 3%;
+    }
 }

@@ -12,6 +12,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   exports: [
@@ -27,6 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatRadioModule,
     MatSliderModule,
     MatDialogModule,
+    MatTableModule,
+    MatMenuModule,
   ],
   imports: [
     MatIconModule,
@@ -41,6 +45,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatRadioModule,
     MatSliderModule,
     MatDialogModule,
+    MatTableModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule { }
