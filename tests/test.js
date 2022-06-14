@@ -13,7 +13,11 @@ describe('User Endpoints',  () => {
     it('GET /users/:id should show a user', async () => {
         let res = await requestWithSupertest.get('/users/1')
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toHaveProperty('user_id', 'name', 'surname')
+        expect(res.body).toHaveProperty('user_id')
+        expect(res.body).toHaveProperty('name')
+        expect(res.body).toHaveProperty('surname')
+        expect(res.body).not.toHaveProperty('auth')
+        expect(res.body).not.toHaveProperty('_id')
     });
 
     it('Get /users/:id where id is not a number should return 400 code', async () => {
@@ -31,10 +35,13 @@ describe('Machines Endpoints',  () => {
     it('GET /machines/:id should show a machine', async () => {
         let res = await requestWithSupertest.get('/machines/1')
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toHaveProperty('machine_id', 'brand', 'last_revision', "production_year")
+        expect(res.body).toHaveProperty('machine_id')
+        expect(res.body).toHaveProperty('brand')
+        expect(res.body).toHaveProperty('last_revision')
+        expect(res.body).toHaveProperty("production_year")
     });
 
-    it('GET /:machineId should return 404 if machine si not found', async () => {
+    it('GET /:machineId should return 404 if machine is not found', async () => {
         const res = await requestWithSupertest.get('/machines/999999');
         expect(res.status).toEqual(404);
     });
@@ -42,5 +49,20 @@ describe('Machines Endpoints',  () => {
     it('GET /:machineId should return 400 id is not a number', async () => {
         const res = await requestWithSupertest.get('/machines/word');
         expect(res.status).toEqual(400);
+    });
+});
+
+
+describe("Authentification endpoing", () => {
+    it("POST /auth/sign_up of already existing username record must return confilict http code", async () => {
+        let payload = {
+            name: "Vitya",
+            surname: "Bobik",
+            birth_date: "2001/12/05",
+            username: "homerthebest",
+            password: "mypass" 
+        }
+        const res  = await requestWithSupertest.post("/auth/sign_up").send(payload);
+        expect(res.status).toEqual(409); //conflict
     });
 });
