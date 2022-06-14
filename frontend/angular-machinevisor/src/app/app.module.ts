@@ -24,6 +24,9 @@ import { UserComponent } from './pages/user/user.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WeeklyScheduleComponent } from './components/weekly-schedule/weekly-schedule.component';
 import { MachineMenuComponent } from './components/machine-menu/machine-menu.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ChartsComponent } from './pages/charts/charts.component';
+import { LogComponent } from './pages/log/log.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { MachineMenuComponent } from './components/machine-menu/machine-menu.com
     UserInfoComponent,
     WeeklyScheduleComponent,
     MachineMenuComponent,
+    LoginComponent,
+    ChartsComponent,
+    LogComponent,
   ],
   imports: [
     BrowserModule,

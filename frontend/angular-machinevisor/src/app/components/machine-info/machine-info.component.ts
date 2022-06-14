@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { SwitchOffDialogComponent } from '../switch-off-dialog/switch-off-dialog.component';
 
 @Component({
@@ -10,7 +11,7 @@ import { SwitchOffDialogComponent } from '../switch-off-dialog/switch-off-dialog
 export class MachineInfoComponent implements OnInit {
   @Input() machineID:any;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router) { }
 
   name = '';
   status = 'Error';
@@ -35,12 +36,8 @@ export class MachineInfoComponent implements OnInit {
     }
   }
 
-  clickCharts(){
-    console.log("Go to Charts");
-  }
-
-  clickLog(){
-    console.log("Go to Log");
+  goTo(page: string){
+    this.router.navigate([page, this.machineID.toString()]);
   }
 
   private openDialog(): void {
