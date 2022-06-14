@@ -1,5 +1,13 @@
 @import "../../utilities/variables";
 
+.card{
+    width: $card-width;
+    margin: auto;
+    margin-bottom: $card-distance;
+    background-color: $card-gray;
+    padding: 5%;
+}
+
 mat-card-header{
     margin-bottom: 2%;
 }
@@ -19,4 +27,12 @@ table {
 
 .mat-cell, .mat-header-cell{
     border-bottom: 1px solid black;
+}
+
+@media only screen and (min-width: $tablet) {
+    .card{
+        width: 90%;
+        margin-right: 0;
+        padding: 3%;
+    }
 }
