@@ -23,6 +23,7 @@ import { OverviewComponent } from './components/overview/overview.component';
 import { UserComponent } from './pages/user/user.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WeeklyScheduleComponent } from './components/weekly-schedule/weekly-schedule.component';
+import { MachineMenuComponent } from './components/machine-menu/machine-menu.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { WeeklyScheduleComponent } from './components/weekly-schedule/weekly-sch
     UserComponent,
     UserInfoComponent,
     WeeklyScheduleComponent,
+    MachineMenuComponent,
   ],
   imports: [
     BrowserModule,
