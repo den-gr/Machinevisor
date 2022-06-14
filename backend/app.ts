@@ -8,6 +8,7 @@ require('dotenv').config();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const machinesRouter = require('./routes/machines');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));//give static access to 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/machines', machinesRouter);
+app.use('/auth', authRouter);
 
 
 app.listen(process.env.PORT, () => {

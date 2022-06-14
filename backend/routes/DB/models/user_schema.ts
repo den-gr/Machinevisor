@@ -15,20 +15,25 @@ interface WorkSheet{
     friday: DaySchedule;
 }
 
-
-interface Authentification{
+export interface IAuth{
     password_hash: String;
     salt: String;
 }
 
 export interface IUser extends Document{
-    // user_id: number;
+    user_id: number;
     name: string;
     surname: string;
     birth_date: Date;
     work_sheet?: WorkSheet;
-    authentification: Authentification;
+    username: String;
+    auth: IAuth;
 }
+
+const AuthentificationScheam = new Schema<IAuth>({
+    password_hash: {type: String, required: true},
+    salt: {type: String, required: true}
+}, {_id: false})
 
 const DayScheduleSchema = new Schema<DaySchedule>({
     first_shift: String,
@@ -55,12 +60,13 @@ let DefaultWorkSheet: WorkSheet = {
 }
 
 const UserSchema = new Schema<IUser>({
-    // user_id: {type: Number, required: true},
+    user_id: {type: Number, required: false, unique: true},
     name: {type: String, required: true},
     surname: {type: String, required: true},
     birth_date: {type: Date, required: true},
     work_sheet: { type: WorkSheetSchema, required: false, default: DefaultWorkSheet},
-    authentification: {type: Object, required: true},
+    username: {type: String, required: true, minLength: 6, unique: true, select: false},
+    auth: {type: AuthentificationScheam, required: true, select: false},
 },{ versionKey: false });
 
 UserSchema.plugin(AutoIncrement, {inc_field: "user_id"});

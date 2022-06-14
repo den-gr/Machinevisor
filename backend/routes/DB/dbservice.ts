@@ -1,11 +1,14 @@
+import { Query } from "mongoose";
+import { resolve } from "path";
 import Machine, { IMachine } from "./models/machine_schema";
-import User, { IUser } from "./models/user_schema";
+import User, { IUser, IAuth } from "./models/user_schema";
 const mongoose = require("mongoose");
 
 export interface DBService{
-    getUser(user_id:number): Promise<IUser | null>;
+    getUser(user_id: number): Promise<IUser | null>;
     addUser(user: IUser): Promise<number>
-    getMachine(machine_id:number): Promise<IMachine | null>;
+    getMachine(machine_id: number): Promise<IMachine | null>;
+    getAuth(user_id: number): Promise<IAuth | null>;
     
 }
 
@@ -13,31 +16,28 @@ export class DBService_mongo implements DBService{
     private readonly CONNECTED: number = 1;
     private readonly CONNECTING: number = 2;
     
-    public getUser(user_id: number): Promise<IUser | null> {
-     
+    private findUser(user_id: number, options: Object): Promise<IUser | null>{
         return new Promise((resolve, reject) => {
             if(!this.isConnected()) reject("DB is not connected");
-            User.findOne({user_id: user_id}, {_id:0, authentification: 0}, (err, user) => {
-                if(err){
-                    reject(err)
-                } else{
-                    resolve(user)
-                }
-            });
-
+            resolve(User.findOne({user_id: user_id}, options))
         })
+    }
+
+    public getUser(user_id: number): Promise<IUser | null> {
+        return this.findUser(user_id, {_id:0, auth:0})
     }
 
     public addUser(user: IUser): Promise<any>{
         return new Promise((resolve, reject) =>{
             if(!this.isConnected()) reject("DB is not connected");
-            try{
-                let newUser= User.create(user)
-                resolve(newUser)
+            User.create(user).then((newUser: IUser) => {
+                resolve({
+                    name: newUser.name,
+                    surname: newUser.surname,
+                    user_id: newUser.user_id
+                })
 
-            }catch(error: any){
-                reject(this.handleError(error))
-            }
+            }).catch((err) => reject(this.handleError(err)))
         })
     }
 
@@ -49,14 +49,32 @@ export class DBService_mongo implements DBService{
     }
 
 
+    public getAuth(user_id: number): Promise<IAuth> {
+        return new Promise((resolve, reject) => {
+            this.findUser(user_id, {_id:0, auth:1}).then((user: IUser | null) => {
+               user != null ? resolve(user.auth) : reject("User not found") 
+            }).catch((err) => reject(err))
+        })
+    }
+
+
     private handleError(error: any) : {[k: string]: any} {
         if(error.name == "ValidationError"){
-            let errors: {[k: string]: any}  = {};
-    
-            Object.keys(error.errors).forEach((key) => {
-                errors.key = error.errors[key].message;
-            });
-            return errors;
+            return error.message;
+        }else if(error.name == "MongoServerError"){
+            if(error.code === 11000){ // duplicate key error
+                if(error.keyValue.username){
+                    return {
+                        errorType: "DuplicateUsername", 
+                        message: "Username " + error.keyValue.username + " already exists"}
+                }else{
+                    return {
+                        message: "Duplicate key value",
+                        keyValue: error.keyValue
+                    }
+                }
+            }
+            return error;
         }else{
             return {errorName: error.name};
         }
