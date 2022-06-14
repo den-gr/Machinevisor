@@ -9,7 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { MachineComponent } from './pages/machine/machine.component';
 import { MachineInfoComponent } from './components/machine-info/machine-info.component';
@@ -27,6 +28,7 @@ import { MachineMenuComponent } from './components/machine-menu/machine-menu.com
 import { LoginComponent } from './pages/login/login.component';
 import { ChartsComponent } from './pages/charts/charts.component';
 import { LogComponent } from './pages/log/log.component';
+import { LoginCardComponent } from './components/login-card/login-card.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { LogComponent } from './pages/log/log.component';
     LoginComponent,
     ChartsComponent,
     LogComponent,
+    LoginCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { LogComponent } from './pages/log/log.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,

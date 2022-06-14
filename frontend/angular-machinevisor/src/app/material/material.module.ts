@@ -14,6 +14,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   exports: [
@@ -31,6 +32,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDialogModule,
     MatTableModule,
     MatMenuModule,
+    MatInputModule,
   ],
   imports: [
     MatIconModule,
@@ -46,7 +48,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSliderModule,
     MatDialogModule,
     MatTableModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
   ]
 })
 export class MaterialModule { }
