@@ -12,7 +12,7 @@ export class MachineInfoComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  name = 'Machine1';
+  name = '';
   status = 'Error';
   photo = '../../../assets/img/ciambella.jpeg';
   infoMix = Array()
@@ -56,6 +56,7 @@ export class MachineInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.name = 'Machine-'+ this.machineID;
     console.log("---> " + this.machineID);
     let info = Array({"Weight":"100kg", "Year":"2010", "Key3":"Val3", "Key4":"Val4", "Key5":"Val5"})
     let values = Array({"Value1":["123", true], "Value2":["456", false], "Value3":["789", true], "Value4":["1011", true], "Value5":["1213", true]})

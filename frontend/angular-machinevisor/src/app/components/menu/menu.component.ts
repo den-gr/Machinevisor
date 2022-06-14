@@ -20,9 +20,15 @@ export class MenuComponent implements OnInit {
     this.close()
   }
 
-  goToUser(){
+  /*goToUser(){
     console.log("NAVIGATE USER!")
     this.router.navigate(['/userPage', this.user]);
+    this.close()
+  }*/
+
+  goTo(page: string, data: any){
+    console.log('NAVIGATE!');
+    this.router.navigate([page, data.toString()]);
     this.close()
   }
 
@@ -38,7 +44,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     //Ex. machines
-    this.machineries = Array('M1', 'M2', 'M3', 'M4');
+    this.machineries = Array('Machine-1', 'Machine-2', 'Machine-3', 'Machine-4', 'Machine-5');
   }
 
 }
