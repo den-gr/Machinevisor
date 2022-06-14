@@ -46,20 +46,5 @@ router.post('/sign_up', (req:Request, res:Response) => {
     }   
 });
 
-
-router.get("/sign_up", (req: Request, res: Response) => {
-    db_service.getAuth(1)
-    .then((auth: IAuth) => {
-        if(auth !== null){
-            // res.send("lox1")
-            console.log(auth)
-            res.json({hash: "what", nickname: auth});
-        }else{
-            res.send("lox")
-        }
-    }).catch((errors) =>  res.status(status.INTERNAL_SERVER_ERROR).json(errors));
-
-});
-
 module.exports = router;
 
