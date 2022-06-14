@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import { DBService_mongo } from "./DB/dbservice";
+import { DBService_mongo } from "../DB/dbservice";
 import status from 'http-status-codes';
 const utils = require('./utils/utils');
 const express = require('express');

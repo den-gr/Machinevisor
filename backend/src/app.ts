@@ -1,4 +1,4 @@
-import { Database } from "./routes/DB/db_connector";
+import { Database } from "./DB/db_connector";
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
