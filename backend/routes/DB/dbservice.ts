@@ -8,7 +8,7 @@ export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;
     addUser(user: IUser): Promise<number>
     getMachine(machine_id: number): Promise<IMachine | null>;
-    getAuth(user_id: number): Promise<IAuth | null>;
+    getAuth(username: string): Promise<IAuth | null>;
     
 }
 
@@ -16,15 +16,15 @@ export class DBService_mongo implements DBService{
     private readonly CONNECTED: number = 1;
     private readonly CONNECTING: number = 2;
     
-    private findUser(user_id: number, options: Object): Promise<IUser | null>{
+    private findUser(query: Object, projection: Object): Promise<IUser | null>{
         return new Promise((resolve, reject) => {
             if(!this.isConnected()) reject("DB is not connected");
-            resolve(User.findOne({user_id: user_id}, options))
+            resolve(User.findOne(query, projection))
         })
     }
 
     public getUser(user_id: number): Promise<IUser | null> {
-        return this.findUser(user_id, {_id:0, auth:0})
+        return this.findUser({user_id: user_id}, {_id:0, auth:0})
     }
 
     public addUser(user: IUser): Promise<any>{
@@ -49,10 +49,10 @@ export class DBService_mongo implements DBService{
     }
 
 
-    public getAuth(user_id: number): Promise<IAuth> {
+    public getAuth(username: string): Promise<IAuth> {
         return new Promise((resolve, reject) => {
-            this.findUser(user_id, {_id:0, auth:1}).then((user: IUser | null) => {
-               user != null ? resolve(user.auth) : reject("User not found") 
+            this.findUser({username: username}, {_id:0, auth:1, username: 1}).then((user: IUser | null) => {  
+                user != null ? resolve(user.auth) : reject("Wrong username") 
             }).catch((err) => reject(err))
         })
     }
