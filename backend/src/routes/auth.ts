@@ -3,6 +3,7 @@ import { DBService_mongo } from "../DB/dbservice";
 import { IAuth, IUser } from "../DB/models/user_schema";
 import status from 'http-status-codes';
 import { request } from "http";
+import { stat } from "fs";
 const hash = require('pbkdf2-password')()
 const path = require('path');
 const session = require('express-session');
@@ -32,7 +33,7 @@ router.post('/sign_in', (req:Request, res:Response) => {
 })
 
 router.post('/sign_up', (req:Request, res:Response) => {
-    if(req.body.password && req.body.username){
+    if(req.body.password || req.body.username){
         hash({password: req.body.password}, function(err: Error, pass:string, salt: string, hash: string){
             if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
             req.body.auth = {};
@@ -45,6 +46,8 @@ router.post('/sign_up', (req:Request, res:Response) => {
             }).catch((error) => {
                 if(error.errorType === "DuplicateUsername"){    
                     res.status(status.CONFLICT).send(error) // 409
+                }else if(error.errorType === "ValidationError"){
+                    res.status(status.BAD_REQUEST).send(error.message)
                 }else{
                     res.status(status.INTERNAL_SERVER_ERROR).send(error);
                 }

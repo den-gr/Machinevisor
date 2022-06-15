@@ -60,13 +60,17 @@ export class DBService_mongo implements DBService{
 
     private handleError(error: any) : {[k: string]: any} {
         if(error.name == "ValidationError"){
-            return error.message;
+            return {
+                errorType: "ValidationError",
+                message: error.message
+            };
         }else if(error.name == "MongoServerError"){
             if(error.code === 11000){ // duplicate key error
                 if(error.keyValue.username){
                     return {
                         errorType: "DuplicateUsername", 
-                        message: "Username " + error.keyValue.username + " already exists"}
+                        message: "Username " + error.keyValue.username + " already exists"
+                    }
                 }else{
                     return {
                         message: "Duplicate key value",

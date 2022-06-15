@@ -32,7 +32,7 @@ app.use(session({
         secure: false
     },
     store: new FileStore({ 
-        reapInterval: 60 // each 60 second delete expired sessions files
+        reapInterval: 60 * 20  // each 20 minutes deletes expired sessions files
     }) 
 }));
 
