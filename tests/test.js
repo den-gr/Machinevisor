@@ -16,6 +16,7 @@ describe('User Endpoints',  () => {
         expect(res.body).toHaveProperty('user_id')
         expect(res.body).toHaveProperty('name')
         expect(res.body).toHaveProperty('surname')
+        expect(res.body).toHaveProperty('img_uri')
         expect(res.body).not.toHaveProperty('auth')
         expect(res.body).not.toHaveProperty('_id')
     });
@@ -50,6 +51,11 @@ describe('Machines Endpoints',  () => {
     it('GET /:machineId should return 400 id is not a number', async () => {
         const res = await requestWithSupertest.get('/machines/word');
         expect(res.status).toEqual(400);
+    });
+
+    it('GET /machines should return a list of machines', async () => {
+        const res = await requestWithSupertest.get('/machines');
+        expect(res.status).toEqual(200);
     });
 });
 
