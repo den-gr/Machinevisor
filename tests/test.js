@@ -39,6 +39,7 @@ describe('Machines Endpoints',  () => {
         expect(res.body).toHaveProperty('brand')
         expect(res.body).toHaveProperty('last_revision')
         expect(res.body).toHaveProperty("production_year")
+        expect(res.body).toHaveProperty("modalities")
     });
 
     it('GET /:machineId should return 404 if machine is not found', async () => {
@@ -64,5 +65,16 @@ describe("Authentification endpoing", () => {
         }
         const res  = await requestWithSupertest.post("/auth/sign_up").send(payload);
         expect(res.status).toEqual(409); //conflict
+    });
+
+    it("try log in with /auth/sign_in and logout with /auth/logout", async () => {
+        let payload = {
+            username: "homerthebest",
+            password: "admin"
+        }
+        let res  = await requestWithSupertest.post("/auth/sign_in").send(payload);
+        expect(res.status).toEqual(200)
+        res = await requestWithSupertest.get("/auth/logout");
+        expect(res.status).toEqual(200)
     });
 });
