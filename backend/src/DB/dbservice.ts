@@ -1,6 +1,6 @@
 import { Query } from "mongoose";
 import { resolve } from "path";
-import Machine, { IMachine } from "./models/machine_schema";
+import { Machine, IMachine } from "./models/machine_schema";
 import User, { IUser, IAuth } from "./models/user_schema";
 const mongoose = require("mongoose");
 
@@ -9,6 +9,7 @@ export interface DBService{
     addUser(user: IUser): Promise<number>
     getMachine(machine_id: number): Promise<IMachine | null>;
     getAuth(username: string): Promise<IAuth | null>;
+    getMachineList(): Promise<IMachine[]>; 
     
 }
 
@@ -56,6 +57,16 @@ export class DBService_mongo implements DBService{
             }).catch((err) => reject(err))
         })
     }
+
+    public getMachineList(): Promise<IMachine[]> {
+        return new Promise((resolve, reject) => {
+            if(!this.isConnected()) reject("DB is not connected");
+            Machine.find({},{_id: 0, machine_id: 1, machine_name: 1}).then((machines: IMachine[]) => {
+                resolve(machines)
+            }).catch((err) => reject(err))
+        })
+    }
+
 
 
     private handleError(error: any) : {[k: string]: any} {

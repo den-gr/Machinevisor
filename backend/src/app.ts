@@ -21,7 +21,7 @@ app.use(logger('dev'));
 app.use(cookieParser(process.env.SESSIONSECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));//give static access to "public" folder 
+app.use(express.static(path.join(__dirname, '../public')));//give static access to "public" folder 
 app.use(session({
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored

@@ -22,4 +22,12 @@ router.get("/:machineId", (req: Request, res: Response)  => {
     }
 })
 
+
+router.get("/", (req: Request, res: Response)  => {
+    let promise = db_service.getMachineList();
+    promise.then((machines) => {
+        res.send(machines)
+    }).catch((err)=> res.status(status.INTERNAL_SERVER_ERROR).send(err));;
+})
+
 module.exports = router;

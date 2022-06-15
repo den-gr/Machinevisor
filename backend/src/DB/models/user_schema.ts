@@ -26,8 +26,10 @@ export interface IUser extends Document{
     surname: string;
     birth_date: Date;
     work_sheet?: WorkSheet;
+    img_uri: string;
     username: String;
     auth: IAuth;
+
 }
 
 const AuthentificationScheam = new Schema<IAuth>({
@@ -65,6 +67,7 @@ const UserSchema = new Schema<IUser>({
     surname: {type: String, required: true},
     birth_date: {type: Date, required: true},
     work_sheet: { type: WorkSheetSchema, required: false, default: DefaultWorkSheet},
+    img_uri: {type: String, default: "/images/default.jpg"},
     username: {type: String, required: true, minLength: 6, unique: true, select: false},
     auth: {type: AuthentificationScheam, required: true, select: false},
 },{ versionKey: false });
