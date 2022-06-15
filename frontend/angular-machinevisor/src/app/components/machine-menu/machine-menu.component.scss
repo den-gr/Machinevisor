@@ -1,0 +1,21 @@
+@import "../../utilities/variables";
+
+.name{
+    color: white; 
+    display: block;
+    text-align: center;
+}
+
+mat-divider{
+    margin-bottom: 2%;
+}
+
+.button { 
+    background-color: $menu-blue;
+    display:  flex;
+    padding: auto ;
+    margin : auto; 
+    align-content: center ; 
+    align-items:  center ; 
+    align-self: center ; 
+} 

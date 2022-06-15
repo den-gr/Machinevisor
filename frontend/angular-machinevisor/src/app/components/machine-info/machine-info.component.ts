@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { SwitchOffDialogComponent } from '../switch-off-dialog/switch-off-dialog.component';
 
 @Component({
@@ -10,9 +11,9 @@ import { SwitchOffDialogComponent } from '../switch-off-dialog/switch-off-dialog
 export class MachineInfoComponent implements OnInit {
   @Input() machineID:any;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router) { }
 
-  name = 'Machine1';
+  name = '';
   status = 'Error';
   photo = '../../../assets/img/ciambella.jpeg';
   infoMix = Array()
@@ -35,12 +36,8 @@ export class MachineInfoComponent implements OnInit {
     }
   }
 
-  clickCharts(){
-    console.log("Go to Charts");
-  }
-
-  clickLog(){
-    console.log("Go to Log");
+  goTo(page: string){
+    this.router.navigate([page, this.machineID.toString()]);
   }
 
   private openDialog(): void {
@@ -56,6 +53,7 @@ export class MachineInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.name = 'Machine-'+ this.machineID;
     console.log("---> " + this.machineID);
     let info = Array({"Weight":"100kg", "Year":"2010", "Key3":"Val3", "Key4":"Val4", "Key5":"Val5"})
     let values = Array({"Value1":["123", true], "Value2":["456", false], "Value3":["789", true], "Value4":["1011", true], "Value5":["1213", true]})

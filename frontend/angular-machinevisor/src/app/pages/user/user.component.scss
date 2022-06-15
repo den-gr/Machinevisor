@@ -5,15 +5,28 @@
     margin-bottom: $card-distance;
 }
 
+.logout-button{
+    margin-top: 10%;
+    background-color: $menu-blue;
+    float: right;
+}
+
 @media only screen and (min-width: $tablet) {
     .left{
         margin-left: 5%;
-        width: 35%;
+        width: 45%;
         float: left;
     }
     .right{
         margin-right: 5%;
-        width: 55%;
+        width: 45%;
         float: right;
+    }
+}
+
+@media only screen and (max-width: $mobile) {
+    .logout-button{
+        margin-top: 5%;
+        margin-right: 5%;
     }
 }

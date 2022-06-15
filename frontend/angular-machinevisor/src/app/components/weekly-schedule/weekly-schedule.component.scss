@@ -1,31 +1,38 @@
 @import "../../utilities/variables";
 
-$margin: 5%;
-
 .card{
     width: $card-width;
     margin: auto;
     margin-bottom: $card-distance;
     background-color: $card-gray;
-    padding: $margin;
+    padding: 5%;
 }
 
-.radio-group {
-    display: flex;
-    flex-direction: column;
+mat-card-header{
+    margin-bottom: 2%;
 }
 
-.radio-button{
-    margin: 0;
+table {
+    width: 100%;
+}
+
+.day-col{
+    width: 20%;
     background-color: $card-blue;
-    margin-bottom: 1%;
-    padding: 1%;
+}
+
+.sched{
+    padding-left: 2%;
+}
+
+.mat-cell, .mat-header-cell{
+    border-bottom: 1px solid black;
 }
 
 @media only screen and (min-width: $tablet) {
     .card{
         width: 90%;
         margin-right: 0;
-        padding: 2%;
+        padding: 3%;
     }
 }

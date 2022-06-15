@@ -3,12 +3,30 @@
         xmlns="http://www.w3.org/2000/svg">
     
         <g class="svg-content-goup">
-            <rect (click)="click('1')" id="machine-1" class="machine-o" x="1" y="0.7" />
-            <rect (click)="click('2')" id="machine-2" class="machine-o" x="21" y="0.7"/>
-            <rect (click)="click('3')" id="machine-3" class="machine-o" x="41" y="0.7"/>
-    
-            <rect (click)="click('4')" id="machine-4" class="machine-o" x="1" y="20.2" />
-            <rect (click)="click('5')" id="machine-5" class="machine-v" x="48" y="16.2" />
+            <rect 
+            [matMenuTriggerFor]="clickMenu1.menu" 
+            #clickHoverMenuTrigger1="matMenuTrigger" 
+            (click)="click('1')" id="machine-1" class="machine-o" x="1" y="0.7" />
+
+            <rect 
+            [matMenuTriggerFor]="clickMenu2.menu" 
+            #clickHoverMenuTrigger2="matMenuTrigger"
+            (click)="click('2')" id="machine-2" class="machine-o" x="21" y="0.7"/>
+
+            <rect 
+            [matMenuTriggerFor]="clickMenu3.menu" 
+            #clickHoverMenuTrigger3="matMenuTrigger"
+            (click)="click('3')" id="machine-3" class="machine-o" x="41" y="0.7"/> 
+
+            <rect 
+            [matMenuTriggerFor]="clickMenu4.menu" 
+            #clickHoverMenuTrigger4="matMenuTrigger"
+            (click)="click('4')" id="machine-4" class="machine-o" x="1" y="20.2" />
+
+            <rect 
+            [matMenuTriggerFor]="clickMenu5.menu" 
+            #clickHoverMenuTrigger5="matMenuTrigger"
+            (click)="click('5')" id="machine-5" class="machine-v" x="48" y="16.2" />
         </g>
        
         <rect class="wall" height="14" x="19.8" y="0"/>
@@ -22,3 +40,9 @@
         <rect class="wall-o" width="59.6" x="0" y="0"/>
         <rect class="wall-o" width="59.6" x="0" y="29.5"/>
 </svg>
+
+<app-machine-menu #clickMenu1="machineMenu" machineID='1'></app-machine-menu>
+<app-machine-menu #clickMenu2="machineMenu" machineID='2'></app-machine-menu>
+<app-machine-menu #clickMenu3="machineMenu" machineID='3'></app-machine-menu>
+<app-machine-menu #clickMenu4="machineMenu" machineID='4'></app-machine-menu>
+<app-machine-menu #clickMenu5="machineMenu" machineID='5'></app-machine-menu>

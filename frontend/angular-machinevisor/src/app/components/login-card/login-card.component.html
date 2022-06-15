@@ -1,0 +1,33 @@
+<mat-card class="card">
+    <mat-card-header class="header">
+      <mat-card-title class="title">Authentication</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="content">
+        <form class="form">
+            <mat-form-field class="form-field" appearance="fill">
+              <mat-label>ID</mat-label>
+              <input type="number" matInput [formControl]="IDFormControl"
+                     placeholder="Ex. 1">
+              <mat-hint>Insert your ID!</mat-hint>
+              <mat-error *ngIf="IDFormControl.hasError('required')">
+                Valid ID is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="pswFormControl">
+                <mat-hint>Insert your password!</mat-hint>
+                <mat-error *ngIf="pswFormControl.hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+          </form>
+      </div>
+    </mat-card-content>
+    <button mat-button class="button">Login</button>
+    <div class="link">
+      <a href="https://material.angular.io/components/input/examples">Register me!</a>
+    </div>
+</mat-card>

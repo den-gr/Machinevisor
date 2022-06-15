@@ -12,7 +12,7 @@
         <mat-icon class="material-icons-outlined">analytics</mat-icon>
         <a>Statistics</a>
       </mat-list-item>
-      <mat-list-item (click)="goToUser()">
+      <mat-list-item (click)="goTo('/userPage', this.user)">
         <mat-icon class="material-icons-outlined">person</mat-icon>
         <a>User</a>
       </mat-list-item>
@@ -25,7 +25,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
     
-        <mat-list-item *ngFor="let machine of machineries">
+        <mat-list-item *ngFor="let machine of machineries; let i = index" (click)="goTo('/machinePage', i+1)">
           <a>{{machine}}</a>
         </mat-list-item>
     

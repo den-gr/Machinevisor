@@ -6,6 +6,7 @@ $margin: 5%;
     width: $card-width;
     margin: auto;
     margin-bottom: $card-distance;
+    background-color: $card-gray;
     padding: $margin;
 }
 
@@ -25,12 +26,6 @@ img{
     height: 50%;
 }
 
-@media only screen and (min-width: $tablet) {
-    li{
-        font-size:smaller;
-    }
-}
-
 ul, li{
     margin: 0;
     padding: 0;
@@ -43,6 +38,17 @@ li{
     list-style: none;
     line-height: 1%;
     font-size: large;
+}
+
+@media only screen and (min-width: $tablet) {
+    li{
+        font-size:small;
+    }
+    .card{
+        width: 90%;
+        margin: 0;
+        padding: 2%;
+    }
 }
 
 .value-key, .value-val{
