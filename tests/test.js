@@ -41,6 +41,7 @@ describe('Machines Endpoints',  () => {
         expect(res.body).toHaveProperty('last_revision')
         expect(res.body).toHaveProperty("production_year")
         expect(res.body).toHaveProperty("modalities")
+        expect(res.body).toHaveProperty('img_uri')
     });
 
     it('GET /:machineId should return 404 if machine is not found', async () => {

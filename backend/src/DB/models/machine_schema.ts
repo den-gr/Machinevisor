@@ -10,6 +10,7 @@ export interface IMachine extends Document{
     production_year: Date;
     last_revision: Date;
     client_service_number: string;
+    img_uri: string;
     modalities: Modality[];
 }
 
@@ -26,8 +27,6 @@ enum Modality{
     DEBUG_MODE
 }
 
-
-
 // const ModalitySchema = new Schema<Modality>({
 //     value: {type: String, enum: ["SLEEP_MODE", "COOL_DOWN_MODE", "ENERGY_ECONOMY_PRODUCTION_MODE", "PRODUCTION_MODE"], default: "SLEEP_MODE", required: true}
 //     // name: {type: String, required: true}
@@ -41,6 +40,7 @@ const MachineSchema = new Schema<IMachine>({
     production_year: {type: Date, require: true},
     last_revision: {type: Date, require: true},
     client_service_number: {type: String, require: true},
+    img_uri: {type: String, default: "/images/machines/default.jpg"},
     modalities: {type: [String], enum: Modality, required: true}
 });
 
