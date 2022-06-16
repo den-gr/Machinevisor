@@ -29,6 +29,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { ChartsComponent } from './pages/charts/charts.component';
 import { LogComponent } from './pages/log/log.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { RegistrationCardComponent } from './components/registration-card/registration-card.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { LoginCardComponent } from './components/login-card/login-card.component
     ChartsComponent,
     LogComponent,
     LoginCardComponent,
+    RegistrationComponent,
+    RegistrationCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,7 @@ import { LoginCardComponent } from './components/login-card/login-card.component
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
     useValue: { color: 'accent' },
-}],
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

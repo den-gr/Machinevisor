@@ -1,0 +1,71 @@
+<mat-card class="card">
+    <mat-card-header class="header">
+      <mat-card-title class="title">Registration</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="content">
+        <form class="form" [formGroup]="myForm">
+            <!-- name -->
+            <mat-form-field class="form-field" appearance="fill">
+              <mat-label>Name</mat-label>
+              <input type="text" matInput formControlName="name" placeholder="Ex. John">
+              <mat-hint>Insert your name!</mat-hint>
+              <mat-error *ngIf="myForm.hasError('required', 'name')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- surname -->
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Surname</mat-label>
+                <input type="text" matInput formControlName="surname" placeholder="Ex. Smith">
+                <mat-hint>Insert your surname!</mat-hint>
+                <mat-error *ngIf="myForm.hasError('required', 'surname')">
+                    Surname is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+            <!-- birth date -->
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Birth date</mat-label>
+                <input type="date" [max]="maxDate" matInput formControlName="date">
+                <mat-hint>Insert your birth date!</mat-hint>
+                <mat-error *ngIf="myForm.hasError('required', 'date')">
+                    Birth date is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+            <!-- password -->
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>New Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="New password">
+                <mat-hint>Insert your new password!</mat-hint>
+                <mat-error *ngIf="!myForm.hasError('required', 'password') && myForm.hasError('minlength', 'password')">
+                    Password must have at least <strong>8 characters</strong>
+                </mat-error>
+                <mat-error *ngIf="!myForm.hasError('required', 'password') && myForm.hasError('strong', 'password')">
+                  Password must have at least <strong>an upper case, a lower case and a number</strong>
+                </mat-error>
+                <mat-error *ngIf="myForm.hasError('required', 'password')">
+                  Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <!-- password2 -->
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" matInput formControlName="confirmPassword" placeholder="Confirm password" [errorStateMatcher]="matcher">
+                <mat-hint>Repete your password!</mat-hint>
+                <!--<mat-error *ngIf="myForm.hasError('required', 'confirmPassword')">
+                  Confirm Password is <strong>required</strong>
+                </mat-error>-->
+                <mat-error *ngIf="myForm.hasError('notSame')">
+                  Confirm Password doesn't <strong>match</strong>
+                </mat-error>
+            </mat-form-field>
+          </form>
+      </div>
+    </mat-card-content>
+    <button mat-button class="button">Register me!</button>
+</mat-card>

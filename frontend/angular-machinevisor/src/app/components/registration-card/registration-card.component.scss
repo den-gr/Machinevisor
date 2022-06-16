@@ -1,0 +1,79 @@
+@import "../../utilities/variables";
+
+$margin: 5%;
+
+.card{
+  width: $card-width;
+  margin: auto;
+  margin-bottom: $card-distance;
+  background-color: $card-gray;
+  padding: $margin;
+}
+
+.header{
+  background-color: $on-off-blue;
+  color: white;
+  padding: 3%;
+  margin: 0;
+  margin-top: 2%;
+  margin-bottom: $margin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+    margin: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.form-field, button{
+  width: 100%;
+  margin-top: $margin;
+}
+
+.link{
+  margin-top: 2%;
+  width: 100%;
+  text-align: center;
+}
+
+button{
+  background-color: $menu-blue;
+}
+
+a{
+  font-size: small;
+  color: black;
+}
+
+a:hover{
+  color: $on-off-blue;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@media only screen and (min-width: $tablet) {
+  .card{
+      width: 30%;
+      padding: 2%;
+  }
+}
+
+@media only screen and (max-width: $mobile){
+  .form-field, button{
+    margin-top: 10%;
+  }
+}

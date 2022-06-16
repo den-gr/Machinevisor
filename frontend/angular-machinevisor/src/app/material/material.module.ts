@@ -15,6 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   exports: [
@@ -33,6 +34,7 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     MatMenuModule,
     MatInputModule,
+    MatDatepickerModule
   ],
   imports: [
     MatIconModule,
@@ -50,6 +52,7 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     MatMenuModule,
     MatInputModule,
+    MatDatepickerModule
   ]
 })
 export class MaterialModule { }
