@@ -1,4 +1,4 @@
-import { Database } from "./DB/db_connector";
+import { Database } from "./database/db_connector";
 import { SocketIOService } from "./routes/socket.io";
 const express = require('express');
 const path = require('path');

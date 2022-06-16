@@ -1,6 +1,7 @@
 import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
 
+let period: number = 10000;
 export class SocketIOService {
   private static _instance: SocketIOService | undefined;
   private static server: Server | undefined;
@@ -24,9 +25,17 @@ export class SocketIOService {
             console.log( "Receive: ",  msg)
            
         })
-        setInterval(() => socket.emit("pingpong","pip"), 5000)
+
+        function loop(){
+            socket.emit("pingpong","pin"+period)
+            setTimeout(loop, period)
+        }
+        loop()
         
-        socket.emit("pingpong", "pin")
+
+        socket.on("interval", (msg) => {
+            period = +msg;
+        })
     });
 
     return SocketIOService.server;

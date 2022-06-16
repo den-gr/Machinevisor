@@ -1,6 +1,6 @@
 import { Request, Response} from "express";
-import { DBService_mongo } from "../DB/dbservice";
-import { IAuth, IUser } from "../DB/models/user_schema";
+import { DBService_mongo } from "../database/dbservice";
+import { IAuth, IUser } from "../database/models/user_schema";
 import status from 'http-status-codes';
 import { request } from "http";
 import { stat } from "fs";
