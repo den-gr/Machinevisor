@@ -16,8 +16,16 @@ const socketIoRouter = require('./routes/socket.io')
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
+const http = require('https');
+
+const fs = require('fs');
+var privateKey = fs.readFileSync( './ssl/key.pem' );
+var certificate = fs.readFileSync( './ssl/certificate.pem');
+
+const server = http.createServer({
+    key: privateKey,
+    cert: certificate
+},app );
 
 
 app.use(cors({credentials: true,  origin: true}))

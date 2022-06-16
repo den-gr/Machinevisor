@@ -10,14 +10,22 @@
   <p>Welcome to Express</p>
   <script src="socket.io/socket.io.js"></script>
   <script>
-    var socket = io.connect("http://localhost:8080", {secure: true});
+    var socket = io.connect("https://localhost:8080");
     socket.on('pingpong', (msg) => {
-      console.log("receive", msg )
+      console.log("receive:", msg )
+      let element = document.createElement('div');
+      element.innerText = msg;
+      document.body.appendChild(element);
       socket.emit("pingpong", "pong")
 
     })
 
-    socket.on("")
+    // setTimeout(()=>{
+    //   socket.removeAllListeners("pingpong");
+    //   console.log("listener removed")
+    // } , 10000)
+
+    socket.on("machine_")
   </script>
 </body>
 

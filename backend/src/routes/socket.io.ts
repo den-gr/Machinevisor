@@ -22,7 +22,9 @@ export class SocketIOService {
         console.log('a user connected to socket');
         socket.on("pingpong", (msg) => {
             console.log( "Receive: ",  msg)
+           
         })
+        setInterval(() => socket.emit("pingpong","pip"), 5000)
         
         socket.emit("pingpong", "pin")
     });
