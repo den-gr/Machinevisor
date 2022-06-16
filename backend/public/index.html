@@ -8,6 +8,17 @@
 <body>
   <h1>Express</h1>
   <p>Welcome to Express</p>
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect("http://localhost:8080", {secure: true});
+    socket.on('pingpong', (msg) => {
+      console.log("receive", msg )
+      socket.emit("pingpong", "pong")
+
+    })
+
+    socket.on("")
+  </script>
 </body>
 
 </html>

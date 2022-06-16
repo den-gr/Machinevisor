@@ -1,4 +1,5 @@
 import { Database } from "./DB/db_connector";
+import { SocketIOService } from "./routes/socket.io";
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -10,11 +11,14 @@ const authRouter = require('./routes/auth');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const machinesRouter = require('./routes/machines');
+const socketIoRouter = require('./routes/socket.io') 
+
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-
-
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+
 
 app.use(cors({credentials: true,  origin: true}))
 app.use(logger('dev'));
@@ -22,6 +26,7 @@ app.use(cookieParser(process.env.SESSIONSECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));//give static access to "public" folder 
+app.use("/socket.io", express.static(path.join(__dirname, '../nodes_module/socket.io/client-dist')))
 app.use(session({
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
@@ -43,7 +48,12 @@ app.use('/users', usersRouter);
 app.use('/machines', machinesRouter);
 
 
-app.listen(process.env.PORT, () => {
+
+
+SocketIOService.instance().initialize(server)
+
+
+server.listen(process.env.PORT, () => {
     console.log("Listening on port ", process.env.PORT);
     const db: Database = new Database();
     db.connectDB().catch((error: any) => {
@@ -51,6 +61,11 @@ app.listen(process.env.PORT, () => {
         
     })
 });
+
+
+
+
+
 
 module.exports = app;
 
