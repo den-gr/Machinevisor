@@ -20,7 +20,7 @@ export class SocketIOService {
   initialize(httpServer: HttpServer) {
     SocketIOService.server = new Server(httpServer);
     SocketIOService.server.on('connection', (socket : Socket) => {
-        console.log('a user connected to socket');
+        console.log('A new connection of', socket.id);
         socket.on("pingpong", (msg) => {
             console.log( "Receive: ",  msg)
            
@@ -36,6 +36,9 @@ export class SocketIOService {
         socket.on("interval", (msg) => {
             period = +msg;
         })
+
+        socket.on("disconnect", () =>console.log("Disconnection of ", socket.id))
+
     });
 
     return SocketIOService.server;

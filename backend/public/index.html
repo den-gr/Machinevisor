@@ -10,7 +10,7 @@
   <p>Welcome to Express</p>
   <script src="socket.io/socket.io.js"></script>
   <script>
-    var socket = io("https://localhost:8080", { transports: ["websocket"]});
+    let socket = io("https://localhost:8080", { transports: ["websocket"]});
     socket.on('pingpong', (msg) => {
       console.log("receive:", msg )
       let element = document.createElement('div');
@@ -19,6 +19,18 @@
       socket.emit("pingpong", "pong")
 
     })
+
+    socket.on("connect", () => {
+        console.log("Connected"); 
+    });
+
+    socket.on("disconnect", () => {
+        console.log("Disconnected"); // undefined
+    });
+
+    socket.on("error", (error) => {
+          console.error(error);
+    });
 
     // setTimeout(()=>{
     //   socket.removeAllListeners("pingpong");
