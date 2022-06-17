@@ -47,7 +47,7 @@ export class RegistrationCardComponent implements OnInit {
   today = new Date();
   maxDate: any;
 
-  myForm = new FormBuilder().group({
+  myForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     date: new FormControl('', [Validators.required]),
