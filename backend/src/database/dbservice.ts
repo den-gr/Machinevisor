@@ -8,7 +8,7 @@ export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;
     addUser(user: IUser): Promise<number>
     getMachine(machine_id: number): Promise<IMachine | null>;
-    getAuth(username: string): Promise<IAuth | null>;
+    getAuth(email: string): Promise<IAuth | null>;
     getMachineList(): Promise<IMachine[]>; 
     
 }
@@ -50,10 +50,10 @@ export class DBService_mongo implements DBService{
     }
 
 
-    public getAuth(username: string): Promise<IAuth> {
+    public getAuth(email: string): Promise<IAuth> {
         return new Promise((resolve, reject) => {
-            this.findUser({username: username}, {_id:0, auth:1, username: 1}).then((user: IUser | null) => {  
-                user != null ? resolve(user.auth) : reject("Wrong username") 
+            this.findUser({email: email}, {_id:0, auth:1, email: 1}).then((user: IUser | null) => {  
+                user != null ? resolve(user.auth) : reject("Wrong email") 
             }).catch((err) => reject(err))
         })
     }
@@ -77,10 +77,10 @@ export class DBService_mongo implements DBService{
             };
         }else if(error.name == "MongoServerError"){
             if(error.code === 11000){ // duplicate key error
-                if(error.keyValue.username){
+                if(error.keyValue.email){
                     return {
                         errorType: "DuplicateUsername", 
-                        message: "Username " + error.keyValue.username + " already exists"
+                        message: "Email " + error.keyValue.email + " already registered"
                     }
                 }else{
                     return {

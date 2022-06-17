@@ -10,7 +10,7 @@
   <p>Welcome to Express</p>
   <script src="socket.io/socket.io.js"></script>
   <script>
-    var socket = io.connect("https://localhost:8080");
+    var socket = io("https://localhost:8080", { transports: ["websocket"]});
     socket.on('pingpong', (msg) => {
       console.log("receive:", msg )
       let element = document.createElement('div');

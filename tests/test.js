@@ -67,7 +67,7 @@ describe("Authentification endpoing", () => {
             name: "Vitya",
             surname: "Bobik",
             birth_date: "2001/12/05",
-            username: "homerthebest",
+            email: "homer@unibo.it",
             password: "mypass" 
         }
         const res  = await requestWithSupertest.post("/auth/sign_up").send(payload);
@@ -76,7 +76,7 @@ describe("Authentification endpoing", () => {
 
     it("try log in with /auth/sign_in and logout with /auth/logout", async () => {
         let payload = {
-            username: "homerthebest",
+            email: "homer@unibo.it",
             password: "admin"
         }
         let res  = await requestWithSupertest.post("/auth/sign_in").send(payload);

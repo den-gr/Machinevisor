@@ -13,12 +13,12 @@ const router = express.Router();
 const db_service = new DBService_mongo();
 
 router.post('/sign_in', (req:Request, res:Response) => {
-    if(req.body.password && req.body.username){
-        db_service.getAuth(req.body.username).then((auth: IAuth) => {
+    if(req.body.password && req.body.email){
+        db_service.getAuth(req.body.email).then((auth: IAuth) => {
             hash({password: req.body.password, salt: auth.salt}, function(err: Error, pass:string, salt: string, hash: string){
                 if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
                 if(hash === auth.password_hash){
-                    req.session.username = req.body.username
+                    req.session.email = req.body.email
                     res.send("Your password is correct")
 
                 }else{
@@ -27,13 +27,13 @@ router.post('/sign_in', (req:Request, res:Response) => {
             })
         }).catch((error) => res.status(status.UNAUTHORIZED).send(error)); //TODO  gestire vari tipi di errori
     }else{
-        res.status(status.BAD_REQUEST).send("Password or username is not inserted")
+        res.status(status.BAD_REQUEST).send("Password or email is not inserted")
     }
 
 })
 
 router.post('/sign_up', (req:Request, res:Response) => {
-    if(req.body.password || req.body.username){
+    if(req.body.password || req.body.email){
         hash({password: req.body.password}, function(err: Error, pass:string, salt: string, hash: string){
             if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
             req.body.auth = {};
@@ -54,7 +54,7 @@ router.post('/sign_up', (req:Request, res:Response) => {
             })
         });
     }else{
-        res.status(status.BAD_REQUEST).send("Password or username is not inserted")
+        res.status(status.BAD_REQUEST).send("Password or email is not inserted")
     }   
 });
 

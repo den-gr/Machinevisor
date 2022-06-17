@@ -5,9 +5,8 @@ require('dotenv').config();
 export class Database {
     private uri: String;
     private  options = {
-        useNewUrlParser:  true,
-        useUnifiedTopology:  true,
-        serverSelectionTimeoutMS: 5000
+        serverSelectionTimeoutMS: 5000,
+        autoIndex: true
     };
 
     constructor(){

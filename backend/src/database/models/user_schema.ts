@@ -27,7 +27,7 @@ export interface IUser extends Document{
     birth_date: Date;
     work_sheet?: WorkSheet;
     img_uri: string;
-    username: String;
+    email: String;
     auth: IAuth;
 
 }
@@ -68,7 +68,15 @@ const UserSchema = new Schema<IUser>({
     birth_date: {type: Date, required: true},
     work_sheet: { type: WorkSheetSchema, required: false, default: DefaultWorkSheet},
     img_uri: {type: String, default: "/images/users/default.jpg"},
-    username: {type: String, required: true, minLength: 6, unique: true, select: false},
+    email: {type: String, 
+            required: true, 
+            minLength: 6, 
+            unique: true, 
+            select: false,
+            trim: true,
+            lovercase: true,
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    },
     auth: {type: AuthentificationScheam, required: true, select: false},
 },{ versionKey: false });
 
