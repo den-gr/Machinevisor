@@ -41,7 +41,6 @@ $margin: 5%;
 }
 
 button{
-  margin-top: $margin;
   background-color: $menu-blue;
 }
 
@@ -73,6 +72,8 @@ input[type=number] {
   }
 }
 
-.errorAPI{
-  margin-top: $margin;
+@media only screen and (max-width: $mobile){
+  .form-field, button{
+    margin-top: 10%;
+  }
 }

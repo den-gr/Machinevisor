@@ -5,28 +5,33 @@
     
     <mat-card-content>
       <div class="content">
-        <form class="form">
+        <form class="form" [formGroup]="myGroup" (submit)="onSubmit()">
             <mat-form-field class="form-field" appearance="fill">
-              <mat-label>ID</mat-label>
-              <input type="number" matInput [formControl]="IDFormControl"
-                     placeholder="Ex. 1">
-              <mat-hint>Insert your ID!</mat-hint>
-              <mat-error *ngIf="IDFormControl.hasError('required')">
-                Valid ID is <strong>required</strong>
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="email" placeholder="Ex. john.smith@email.com">
+              <mat-hint>Insert your Email!</mat-hint>
+              <mat-error *ngIf="!myGroup.hasError('required', 'email') && myGroup.hasError('email', 'email')">
+                Email is <strong>not valid</strong>
+              </mat-error>
+              <mat-error *ngIf="myGroup.hasError('required', 'email')">
+                Email is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="form-field" appearance="fill">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput [formControl]="pswFormControl">
+                <input type="password" matInput formControlName="password">
                 <mat-hint>Insert your password!</mat-hint>
-                <mat-error *ngIf="pswFormControl.hasError('required')">
+                <mat-error *ngIf="myGroup.hasError('required', 'password')">
                   Password is <strong>required</strong>
                 </mat-error>
               </mat-form-field>
+              <mat-error *ngIf="errorLogin" class="errorAPI">
+                <strong>Wrong</strong> Email or Password!
+              </mat-error>
+              <button mat-button class="button" type="submit">Login</button>
           </form>
       </div>
     </mat-card-content>
-    <button mat-button class="button">Login</button>
     <div class="link">
       <a href="https://material.angular.io/components/input/examples">Register me!</a>
     </div>
