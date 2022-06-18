@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import * as crypto from 'crypto-js';
 
 export interface ValidationResult {
   [key: string]: boolean;
@@ -73,15 +74,16 @@ export class RegistrationCardComponent implements OnInit {
       //inserisco i dati nel DB
       if(user?.value === "prova.prova@prova.com"){ //togliere!!!
         //faccio il login con questo utente
-        //redirect alla home
+
+        let salt = '1234567899WebApp'
+        let hashedPsw = crypto.PBKDF2(psw?.value, salt, {
+          keySize: 128 / 32
+        });
+
         this.router.navigate(["/home"]);
       }else{
-        //se l'email già esiste
         this.errorReg = true;
         user?.patchValue(null);
-        //name?.patchValue(null);
-        //surname?.patchValue(null);
-        //date?.patchValue(null);
         psw?.patchValue(null);
         confirmPsw?.patchValue(null);
       }
