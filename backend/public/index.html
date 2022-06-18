@@ -10,7 +10,12 @@
   <p>Welcome to Express</p>
   <script src="socket.io/socket.io.js"></script>
   <script>
-    let socket = io("https://localhost:8080", { transports: ["websocket"]});
+    const auth = {
+      type: "client",
+      token: "blatoken1"
+    }
+
+    let socket = io("https://localhost:8080", { transports: ["websocket"], auth});
     socket.on('pingpong', (msg) => {
       console.log("receive:", msg )
       let element = document.createElement('div');
@@ -31,6 +36,14 @@
     socket.on("error", (error) => {
           console.error(error);
     });
+
+    function setMachinePeriod(machine_id, period){
+      socket.emit("machines/period", {machine_id: machine_id, period: period})
+    }
+
+    function subscribe(machine_id){
+      socket.emit("machines/subscribe", {machine_id: machine_id})
+    }
 
     // setTimeout(()=>{
     //   socket.removeAllListeners("pingpong");

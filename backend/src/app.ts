@@ -40,12 +40,12 @@ app.use(session({
     saveUninitialized: false, // don't create session until something stored
     secret: process.env.SESSIONSECRET,
     cookie: {
-        maxAge: 1000 * 60 * 10 , // 10 min
+        maxAge: 1000 * 60 * 30 , // 30 min
         httpOnly: false,
-        secure: false
+        secure: true
     },
     store: new FileStore({ 
-        reapInterval: 60 * 20  // each 20 minutes deletes expired sessions files
+        reapInterval: 60 * 30  // each 30 minutes deletes expired sessions files
     }) 
 }));
 

@@ -19,7 +19,7 @@ export interface IMachine extends Document{
 //     // name: string; 
 // }
 
-enum Modality{
+export enum Modality{
     SLEEP_MODE,
     COOL_DOWN_MODE,
     ENERGY_ECONOMY_PRODUCTION_MODE,
