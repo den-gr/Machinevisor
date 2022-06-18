@@ -49,7 +49,7 @@ export class LoginCardComponent implements OnInit {
       ///this.signUpUser(this.myGroup.get('email')?.value, this.myGroup.get('password')?.value);
 
       //CONTROLLO FINTO PER FARE DELLE PROVE! <-- togliere
-      if(user === "homer.simpson@gmail.com" && psw === "admin"){
+      if(user === "homer.simpson@gmail.com" && psw === "Admin0987654321"){
         //salvo token o roba simile
         this.router.navigate(["/home"]);
       }else{

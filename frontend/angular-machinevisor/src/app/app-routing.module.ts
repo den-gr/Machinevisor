@@ -9,7 +9,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { UserComponent } from './pages/user/user.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home'},
+  { path: '', pathMatch: 'full', redirectTo: 'login'},
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
