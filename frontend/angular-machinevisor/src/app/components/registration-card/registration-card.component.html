@@ -5,7 +5,21 @@
     
     <mat-card-content>
       <div class="content">
-        <form class="form" [formGroup]="myForm">
+        <form class="form" [formGroup]="myForm" (submit)="onSubmit()">
+
+          <!-- email -->
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Ex. john.smith@email.com">
+            <mat-hint>Insert your Email!</mat-hint>
+            <mat-error *ngIf="!myForm.hasError('required', 'email') && myForm.hasError('email', 'email')">
+              Email is <strong>not valid</strong>
+            </mat-error>
+            <mat-error *ngIf="myForm.hasError('required', 'email')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
             <!-- name -->
             <mat-form-field class="form-field" appearance="fill">
               <mat-label>Name</mat-label>
@@ -55,17 +69,20 @@
             <!-- password2 -->
             <mat-form-field class="form-field" appearance="fill">
                 <mat-label>Confirm Password</mat-label>
-                <input type="password" matInput formControlName="confirmPassword" placeholder="Confirm password" [errorStateMatcher]="matcher">
+                <input type="password" matInput formControlName="confirmPassword" [errorStateMatcher]="matcher" placeholder="Confirm password">
                 <mat-hint>Repete your password!</mat-hint>
-                <!--<mat-error *ngIf="myForm.hasError('required', 'confirmPassword')">
+                <mat-error *ngIf="myForm.hasError('required', 'confirmPassword')">
                   Confirm Password is <strong>required</strong>
-                </mat-error>-->
-                <mat-error *ngIf="myForm.hasError('notSame')">
+                </mat-error>
+                <mat-error *ngIf="!myForm.hasError('required', 'confirmPassword') && myForm.hasError('notSame')">
                   Confirm Password doesn't <strong>match</strong>
                 </mat-error>
             </mat-form-field>
+            <mat-error *ngIf="errorReg" class="errorAPI">
+              <strong>Email</strong> already in use!
+            </mat-error>
+            <button mat-button class="button" type="submit">Register me!</button>
           </form>
       </div>
     </mat-card-content>
-    <button mat-button class="button">Register me!</button>
 </mat-card>

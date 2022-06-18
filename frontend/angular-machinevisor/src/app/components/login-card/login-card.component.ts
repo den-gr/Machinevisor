@@ -40,9 +40,10 @@ export class LoginCardComponent implements OnInit {
 
   onSubmit(){
     console.log("LOGIN");
-    if(this.myGroup.get('email')?.value !== '' &&  this.myGroup.get('password')?.value !== ''){
-      const user = this.myGroup.get('email')?.value;
-      const psw = this.myGroup.get('password')?.value
+    const user = this.myGroup.get('email')?.value;
+    const psw = this.myGroup.get('password')?.value
+
+    if(user !== '' &&  psw !== ''){
       const hashPsw = '' //hash della password
 
       ///this.signUpUser(this.myGroup.get('email')?.value, this.myGroup.get('password')?.value);
