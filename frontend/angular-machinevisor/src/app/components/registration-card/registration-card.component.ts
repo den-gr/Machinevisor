@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirectiv
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
+import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 
 export interface ValidationResult {
   [key: string]: boolean;
@@ -73,13 +74,12 @@ export class RegistrationCardComponent implements OnInit {
     if(user?.value !== '' && name?.value !== '' && surname?.value !== '' && date?.value !== '' && psw?.value !== '' && confirmPsw?.value !== ''){
       //inserisco i dati nel DB
       if(user?.value === "prova.prova@prova.com"){ //togliere!!!
-        //faccio il login con questo utente
-
         let salt = '1234567899WebApp'
         let hashedPsw = crypto.PBKDF2(psw?.value, salt, {
           keySize: 128 / 32
         });
-
+        //aggiungo l'utente al db
+        this.authService.login(user?.value, hashedPsw.toString()); //save token in storage
         this.router.navigate(["/home"]);
       }else{
         this.errorReg = true;
@@ -90,7 +90,7 @@ export class RegistrationCardComponent implements OnInit {
     }
   }
 
-  constructor(private datePipe: DatePipe, private router: Router) { }
+  constructor(private datePipe: DatePipe, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.maxDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');

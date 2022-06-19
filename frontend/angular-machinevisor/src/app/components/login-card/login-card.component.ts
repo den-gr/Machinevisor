@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,49 +19,24 @@ export class LoginCardComponent implements OnInit {
 
   errorLogin = false;
 
-  signUpUser(email: string, password: string){
-    const url = `${environment.apiUrl}/auth/sign_in`;
-    const data = {
-      "username": email,
-      "password": password
-    };
-    console.log(data);
-    //user: homerthebest
-    //psw: admin
-    this.http.post(url, data,
-    { observe: 'response' }).subscribe(responce => {
-      if(responce.status){
-        console.log("SI");
-      }else{
-        console.log("NO");
-      }
-    });
-  }
-
-
   onSubmit(){
     console.log("LOGIN");
     const user = this.myGroup.get('email')?.value;
     const psw = this.myGroup.get('password')?.value
 
     if(user !== '' &&  psw !== ''){
-      const hashPsw = '' //hash della password
-
-      ///this.signUpUser(this.myGroup.get('email')?.value, this.myGroup.get('password')?.value);
-
-      //CONTROLLO FINTO PER FARE DELLE PROVE! <-- togliere
-      if(user === "homer.simpson@gmail.com" && psw === "Admin0987654321"){
-        //salvo token o roba simile
+      //CONTROLLO FINTO PER FARE DELLE PROVE! 
+      if(user === "homer.simpson@gmail.com" && psw === "Admin0987654321"){ //togliere if
+        this.authService.login(user, psw); //save token in storage
         this.router.navigate(["/home"]);
       }else{
         this.errorLogin = true;
-        //this.myGroup.get('email')?.patchValue(null);
         this.myGroup.get('password')?.patchValue(null);
       }
     }
   }
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }

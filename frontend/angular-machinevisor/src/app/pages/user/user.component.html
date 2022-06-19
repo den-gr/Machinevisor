@@ -5,7 +5,7 @@
     </div>
     <div class="right">
         <app-weekly-schedule></app-weekly-schedule>
-        <button mat-button class="logout-button"  (click)="onLogout()">
+        <button mat-button class="logout-button"  (click)="authService.logout()">
             <mat-icon class="material-icons-outlined">logout</mat-icon>
             Logout
         </button>

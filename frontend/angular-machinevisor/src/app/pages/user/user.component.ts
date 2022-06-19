@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -8,13 +9,7 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private router: Router) { }
-
-  onLogout(){
-    console.log('LOGOUT');
-    //chiamata API logout
-    this.router.navigate(["/login"]);
-  }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
   }
