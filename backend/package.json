@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/express-session": "^1.17.4",
     "@types/http-status-codes": "^1.2.0",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/mongoose": "^5.11.97",
     "@types/socket.io": "^3.0.2",
     "@types/socket.io-client": "^3.0.0",
@@ -22,6 +23,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.3",
     "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.6",
     "mongoose-sequence": "^5.3.1",
     "mongoose-to-swagger": "^1.4.0",

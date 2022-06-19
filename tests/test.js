@@ -4,8 +4,8 @@ const supertest = require('supertest');
 const server = require('../backend/bin/app');
 const requestWithSupertest = supertest(server);
 
-it('GET / default check', async () => {
-    const res = await requestWithSupertest.get('/');
+it('GET /test default check', async () => {
+    const res = await requestWithSupertest.get('/test');
     expect(res.status).toEqual(200);
 });
 
@@ -24,11 +24,13 @@ describe('User Endpoints',  () => {
     it('Get /users/:id where id is not a number should return 400 code', async () => {
         let res = await requestWithSupertest.get('/users/word')
         expect(res.statusCode).toEqual(400);
+        expect(res.body).toHaveProperty('error_name')
     });
 
     it('Get /users/:id should return 404 if user is not found', async () => {
         let res = await requestWithSupertest.get('/users/999999')
         expect(res.statusCode).toEqual(404);
+        expect(res.body).toHaveProperty('message')
     });
 });
 
@@ -47,11 +49,13 @@ describe('Machines Endpoints',  () => {
     it('GET /:machineId should return 404 if machine is not found', async () => {
         const res = await requestWithSupertest.get('/machines/999999');
         expect(res.status).toEqual(404);
+        expect(res.body).toHaveProperty('message')
     });
 
     it('GET /:machineId should return 400 id is not a number', async () => {
         const res = await requestWithSupertest.get('/machines/word');
         expect(res.status).toEqual(400);
+        expect(res.body).toHaveProperty('message')
     });
 
     it('GET /machines should return a list of machines', async () => {
@@ -81,6 +85,7 @@ describe("Authentification endpoing", () => {
         }
         let res  = await requestWithSupertest.post("/auth/sign_in").send(payload);
         expect(res.status).toEqual(200)
+        expect(res.body).toHaveProperty("token")
         res = await requestWithSupertest.get("/auth/logout");
         expect(res.status).toEqual(200)
     });

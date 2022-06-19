@@ -1,3 +1,4 @@
+import { NextFunction } from "express";
 import { Database } from "./database/db_connector";
 import { SocketIOService } from "./routes/socket.io";
 const express = require('express');
@@ -72,6 +73,10 @@ server.listen(process.env.PORT, () => {
 
 
 
+// function verifyToken(req :Request, res: Response, next : NextFunction){
+//     req.token = "bla";
+//     next
+// }
 
 
 
