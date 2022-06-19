@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   machineries: any[] = Array();
-  constructor(private router: Router) { }
+  constructor(private router: Router, public authService: AuthService) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+  }
 
   openMenu = false;
   user = 1;
@@ -19,12 +24,6 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/home']);
     this.close()
   }
-
-  /*goToUser(){
-    console.log("NAVIGATE USER!")
-    this.router.navigate(['/userPage', this.user]);
-    this.close()
-  }*/
 
   goTo(page: string, data: any){
     console.log('NAVIGATE!');
@@ -40,6 +39,11 @@ export class MenuComponent implements OnInit {
   close(){
     this.openMenu = false
     console.log("CHIUSO")
+  }
+
+  logout(){
+    this.authService.logout();
+    this.close();
   }
 
   ngOnInit(): void {

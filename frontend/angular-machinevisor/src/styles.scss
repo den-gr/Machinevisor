@@ -49,3 +49,11 @@ div.mat-card-header-text{
 .menu.mat-menu-panel {
     background: $on-off-blue;
 }
+
+//input
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #e9e9e9 inset !important;
+}

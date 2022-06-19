@@ -41,6 +41,7 @@ $margin: 5%;
 }
 
 button{
+  margin-top: $margin;
   background-color: $menu-blue;
 }
 
@@ -51,18 +52,6 @@ a{
 
 a:hover{
   color: $on-off-blue;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
 }
 
 @media only screen and (min-width: $tablet) {
@@ -77,3 +66,8 @@ input[type=number] {
     margin-top: 10%;
   }
 }
+
+.errorAPI{
+  margin-top: $margin;
+}
+

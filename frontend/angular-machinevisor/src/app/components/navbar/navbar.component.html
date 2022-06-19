@@ -1,14 +1,17 @@
 <mat-toolbar>
     <!--menu-->
-  <button mat-icon-button class="menu-icon" aria-label="Icon button with menu icon" (click)="onToggleSidenav()">
-    <mat-icon id="menu">menu</mat-icon>
+  <button mat-icon-button aria-label="Icon button with menu icon" (click)="onToggleSidenav()" [disabled]="!authService.isTokenStored()">
+    <mat-icon id="menu" [ngClass]="{
+      'menu-icon' : !authService.isTokenStored(),
+      'no-menu-icon' : !authService.isTokenStored()
+    }">menu</mat-icon>
   </button>
 
   <!--Name-->
   <span>MACHINEVISOR</span>
   
   <!--logo/penguin-->
-  <button mat-icon-button class="logo-button" aria-label="Button with logo" (click)="goToHome()">
+  <button mat-icon-button class="logo-button" aria-label="Button with logo" (click)="goToHome()" [disabled]="!authService.isTokenStored()">
     <mat-icon svgIcon="logo" id="logo"></mat-icon>
   </button>
 </mat-toolbar>

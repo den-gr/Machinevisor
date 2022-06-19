@@ -2,6 +2,9 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import * as crypto from 'crypto-js';
+import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 
 export interface ValidationResult {
   [key: string]: boolean;
@@ -46,8 +49,10 @@ export class RegistrationCardComponent implements OnInit {
 
   today = new Date();
   maxDate: any;
+  errorReg = false;
 
   myForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     date: new FormControl('', [Validators.required]),
@@ -57,7 +62,35 @@ export class RegistrationCardComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private datePipe: DatePipe) { }
+  onSubmit(){
+    console.log("REGISTRATION");
+    const user = this.myForm.get('email');
+    const name = this.myForm.get('name');
+    const surname = this.myForm.get('surname');
+    const date = this.myForm.get('date');
+    const psw = this.myForm.get('password');
+    const confirmPsw = this.myForm.get('confirmPassword');
+
+    if(user?.value !== '' && name?.value !== '' && surname?.value !== '' && date?.value !== '' && psw?.value !== '' && confirmPsw?.value !== ''){
+      //inserisco i dati nel DB
+      if(user?.value === "prova.prova@prova.com"){ //togliere!!!
+        let salt = '1234567899WebApp'
+        let hashedPsw = crypto.PBKDF2(psw?.value, salt, {
+          keySize: 128 / 32
+        });
+        //aggiungo l'utente al db
+        this.authService.login(user?.value, hashedPsw.toString()); //save token in storage
+        this.router.navigate(["/home"]);
+      }else{
+        this.errorReg = true;
+        user?.patchValue(null);
+        psw?.patchValue(null);
+        confirmPsw?.patchValue(null);
+      }
+    }
+  }
+
+  constructor(private datePipe: DatePipe, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.maxDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');
