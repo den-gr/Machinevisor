@@ -1,0 +1,36 @@
+asyncapi: 2.4.0
+info:
+  title: Account Service
+  version: 1.0.0
+  description: This service is in charge of processing user signups
+channels:
+  machines/period:
+    publish:
+      message:
+        $ref: '#/components/messages/ChangePeriod'
+  machines/subscribe:
+    publish:
+      description: "Allows subcribe to updates of an machine"
+      message:
+        $ref: "#/components/messages/Subscribe"
+
+  
+components:
+  messages:
+    ChangePeriod:
+      payload:
+        type: object
+        properties:
+          machine_id:
+              type: integer
+              description: "Id of a machine"
+          period:
+              type: integer
+              description: "New period in millis"
+    Subscribe:
+      payload:
+        type: object
+        properties:
+          machine_id:
+            type: integer
+            description: "Id of a machine; Send id 0 equivals to subscribe to all machines"
