@@ -6,6 +6,7 @@ import { request } from "http";
 import { stat } from "fs";
 import { JsonWebTokenError } from "jsonwebtoken";
 import e = require("cors");
+const passwordValidator = require('password-validator');
 require('dotenv').config();
 const {makeErr} = require('../utils/utils');
 const jwt = require("jsonwebtoken");
@@ -16,6 +17,17 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const db_service = new DBService_mongo();
+
+
+const schema = new passwordValidator();
+
+// Add properties to it
+schema
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                              // Must have lowercase letters
+.has().digits(1)                                // Must have at least 2 digits
 
 router.post('/sign_in', (req:Request, res:Response) => {
     if(req.body.password && req.body.email){
@@ -32,7 +44,6 @@ router.post('/sign_in', (req:Request, res:Response) => {
                     const options = {
                         expiresIn: "1h"
                     }
-
                     jwt.sign(token_data, process.env.SECRET, options, (err:JsonWebTokenError, token: string) => {
                         if(err){
                             res.status(status.INTERNAL_SERVER_ERROR).send(makeErr(err.name,err.message))
@@ -41,8 +52,6 @@ router.post('/sign_in', (req:Request, res:Response) => {
                             res.json({token})
                         }
                     })
-
-
                 }else{
                     res.status(status.UNAUTHORIZED).send(makeErr("Unauthorized", "Wrong password")); //401
                 }
@@ -56,25 +65,29 @@ router.post('/sign_in', (req:Request, res:Response) => {
 
 router.post('/sign_up', (req:Request, res:Response) => {
     if(req.body.password || req.body.email){
-        hash({password: req.body.password}, function(err: Error, pass:string, salt: string, hash: string){
-            if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
-            req.body.auth = {};
-            req.body.auth.password_hash = hash;
-            req.body.auth.salt = salt;
-            delete req.body.password;
-            let promise = db_service.addUser(req.body); //with implicit cast to IUSer
-            promise.then((user) =>{
-                res.status(status.CREATED).json(user);
-            }).catch((error) => {
-                if(error.errorType === "DuplicateUsername"){    
-                    res.status(status.CONFLICT).send(makeErr(error.errorType, error.message)) // 409
-                }else if(error.errorType === "ValidationError"){
-                    res.status(status.BAD_REQUEST).send(makeErr(error.errorType, error.message))
-                }else{
-                    res.status(status.INTERNAL_SERVER_ERROR).send(makeErr(error.errorType, error.message));
-                }
-            })
-        });
+        if(schema.validate(req.body.password)){
+            hash({password: req.body.password}, function(err: Error, pass:string, salt: string, hash: string){
+                if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
+                req.body.auth = {};
+                req.body.auth.password_hash = hash;
+                req.body.auth.salt = salt;
+                delete req.body.password;
+                let promise = db_service.addUser(req.body); //with implicit cast to IUSer
+                promise.then((user) =>{
+                    res.status(status.CREATED).json(user);
+                }).catch((error) => {
+                    if(error.errorType === "DuplicateUsername"){    
+                        res.status(status.CONFLICT).send(makeErr(error.errorType, error.message)) // 409
+                    }else if(error.errorType === "ValidationError"){
+                        res.status(status.BAD_REQUEST).send(makeErr(error.errorType, error.message))
+                    }else{
+                        res.status(status.INTERNAL_SERVER_ERROR).send(makeErr(error.errorType, error.message));
+                    }
+                })
+            });
+        }else{
+            res.status(status.BAD_REQUEST).send(makeErr("Bad request","Password must have: from 8 to 100 characters, one digit and one uppercase and lowercase letter"))
+        }
     }else{
         res.status(status.BAD_REQUEST).send(makeErr("Bad request","Password or email is not inserted"))
     }   

@@ -75,7 +75,10 @@ describe("Authentification endpoing", () => {
             password: "mypass" 
         }
         const res  = await requestWithSupertest.post("/auth/sign_up").send(payload);
-        expect(res.status).toEqual(409); //conflict
+        expect(res.status).toEqual(400); //wrong password format
+        payload.password = "1Mypasss";
+        const res2  = await requestWithSupertest.post("/auth/sign_up").send(payload);
+        expect(res2.status).toEqual(409); //conflict
     });
 
     it("try log in with /auth/sign_in and logout with /auth/logout", async () => {
