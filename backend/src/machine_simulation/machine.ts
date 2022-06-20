@@ -19,14 +19,15 @@ export class MachineSimulation implements MachineInterface{
     }
 
     public createReport(): Object{
-        let report: {[key: string]: any } = {};
-        report.machine_id = this.machine_id;
-        report.timestamp = new Date();
+        let report: Object = {
+            machine_id: this.machine_id,
+            timestamp: new Date()
+        };
         return report;
     }
 
     public sendReport(conn: MachineConnection, self: MachineSimulation){
-        conn.emit("pingpong", JSON.stringify(self.createReport()))
+        conn.emit("clients/update", JSON.stringify(self.createReport()))
     }
 
     public setNewInterval(newPeriod: number){

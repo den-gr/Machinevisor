@@ -25,6 +25,19 @@
 
     })
 
+    socket.on('update', (msg) => {
+      console.log("receive:", msg )
+      let element = document.createElement('div');
+      element.innerText = msg;
+      document.body.appendChild(element);
+      socket.emit("pingpong", "pong")
+
+    })
+    
+    socket.onAny(m => {
+        console.log("Any:",m)
+    });
+
     socket.on("connect", () => {
         console.log("Connected"); 
     });
@@ -36,6 +49,10 @@
     socket.on("error", (error) => {
           console.error(error);
     });
+
+    socket.on("exception", (msg) => {
+      console.log(msg)
+    })
 
     function setMachinePeriod(machine_id, period){
       socket.emit("machines/period", {machine_id: machine_id, period: period})
