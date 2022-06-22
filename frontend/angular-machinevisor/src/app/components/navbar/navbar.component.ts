@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
+import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/utilities/services/authService/auth.service
 export class NavbarComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
 
-  constructor(private router: Router, public authService: AuthService) { 
+  constructor(public authService: AuthService, private navService: NavigationService) { 
   }
 
   ngOnInit(): void {      
@@ -18,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   goToHome(){
     if(this.authService.isTokenStored()){
-      this.router.navigate(['/home']);
+      this.navService.goToPage('/home');
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenu } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 
 @Component({
   selector: 'app-machine-menu',
@@ -15,10 +16,10 @@ export class MachineMenuComponent implements OnInit {
 
   machineName: string;
 
-  constructor(private router: Router) { }
+  constructor(private navService: NavigationService) { }
 
   onClick(){
-    this.router.navigate(['/machinePage', this.machineID]);
+    this.navService.goToPageWithParameters('/machinePage', this.machineID);
   }
 
   ngOnInit(): void {
