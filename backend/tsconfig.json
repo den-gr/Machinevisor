@@ -23,6 +23,9 @@
       "dom"
     ],
     "allowJs": false,
+    "paths": {
+      "@common/*": ["src/utils/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,8 +1,12 @@
 asyncapi: 2.4.0
 info:
-  title: Mahicnevisor socket.io 
-  version: 0.0.2
-  description: This service is in charge of provide realtime machines updates to clients
+  title: Account Service
+  version: 1.0.0
+  description: This service is in charge of processing user signups
+servers:
+  develop:
+    url: https://localhost:8080
+    protocol: ws
 channels:
   machines/period:
     publish:
@@ -10,27 +14,138 @@ channels:
         $ref: '#/components/messages/ChangePeriod'
   machines/subscribe:
     publish:
-      description: "Allows subcribe to updates of an machine or of all machines"
+      description: "AAllows subcribe to updates of one or all machines"
       message:
         $ref: "#/components/messages/Subscribe"
-
+  machines/modality:
+    publish:
+      description: "Allows change modality of a machine"
+      message:
+        $ref: "#/components/messages/Modality"
+  machines/state:
+    publish:
+      description: "Allows change state of a machine"
+      message:
+        $ref: "#/components/messages/State"
+  update:
+    subscribe:
+      description: "Allows to receive updates of machines that was subscribed through a publish msg to the machines/subscribe channel"
+      message:
+        $ref: "#/components/messages/MachineUpdate"
+  exception:
+    subscribe:
+      description: "Channel for fail comunication"
+      message:
+        $ref: "#/components/messages/Error"
+  pingpong:
+    subscribe:
+      description: "Optional channel. Include debug and test messages"
+      message:
+        payload:
+          type: string
   
 components:
   messages:
     ChangePeriod:
       payload:
         type: object
+        required:
+          - machine_id
+          - period
         properties:
           machine_id:
               type: integer
               description: "Id of a machine"
+              example: 1
           period:
               type: integer
               description: "New period in millis"
+              example: 5000
     Subscribe:
       payload:
         type: object
+        required:
+          - machine_id
         properties:
           machine_id:
             type: integer
+            example: 1
             description: "Id of a machine; Send id 0 equivals to subscribe to all machines"
+    Modality:
+      payload:
+        type: object
+        required:
+          - machine_id
+          - modality
+        allOf:
+          - properties:
+              machine_id:
+                type: integer
+                example: 1
+          - $ref: "#/components/schemas/Modality"
+    State: 
+      payload:
+        type: object
+        required:
+          - machine_id
+          - state
+        properties:
+          machine_id:
+            type: integer
+            example: 1
+          state:
+            type: string
+            enum: [ON, OFF]
+            example: ON
+    MachineUpdate:
+      payload:
+        type: object
+        allOf:
+          - properties:
+              machine_id:
+                type: integer
+                example: 1
+              state:
+                type: string
+                enum: [OFFLINE, OFF, ON, ALLARM]
+                example: OFFLINE
+              timestamp:
+                type: string
+                format: date-time
+                example: "2022-06-21T10:19:47.836Z"
+              working_time:
+                type: integer
+                description: "Time in minutes passed from the turn on of machine"
+                example: 15
+              temperature:
+                type: number
+                format: flaot
+                description: "temperature in celsius"
+                multipleOf: 0.1 
+                example: 20.2
+              kWh: 
+                type: number
+                format: float
+                multipleOf: 0.01
+                example: 5.23
+          - $ref: "#/components/schemas/Modality"
+
+    Error:
+      payload:
+        type: object
+        description: "Error schema"
+        required:
+            - error_name
+            - message
+        properties:
+            error_name:
+                type: string
+            message:
+                type: string
+  schemas:
+    Modality:
+      properties:
+        modality:
+          type: string
+          enum: [SLEEP_MODE, ENERGY_ECONOMY_PRODUCTION_MODE, PRODUCTION_MODE]
+          example:  SLEEP_MODE

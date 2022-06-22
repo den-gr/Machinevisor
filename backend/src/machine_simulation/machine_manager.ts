@@ -1,5 +1,8 @@
 import { MachineSimulation } from "./machine";
+import { Modality } from "../utils/utils";
 
 let id = 1;
-const mach: MachineSimulation = new MachineSimulation("https://localhost:8080", id);
+let machineModalitiesType_1: Modality[] = [Modality.SLEEP_MODE, Modality.PRODUCTION_MODE, Modality.ENERGY_ECONOMY_PRODUCTION_MODE]
+
+const mach: MachineSimulation = new MachineSimulation("https://localhost:8080", id, machineModalitiesType_1);
 // const mach2: MachineSimulation = new MachineSimulation("https://localhost:8080", 2);

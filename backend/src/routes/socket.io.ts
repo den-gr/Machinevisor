@@ -2,10 +2,11 @@ import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
 import { getServers } from "dns";
 import { Machine } from "src/database/models/machine_schema";
+import { STATES } from "mongoose";
 const { makeErr, isNumber } = require("../utils/utils");
 // const utils = require('../utils/utils');
 
-let period: number = 10000;
+let period: number = 20000;
 export class SocketIOService {
   private readonly CLIENTS_ROOM = "client";
   private readonly MACHIES_ROOM = "machine";
@@ -57,46 +58,87 @@ export class SocketIOService {
         })
         
         socket.on("machines/period", (msg) => {
-            if(msg.machine_id && msg.period){
-              this.sendMessage(msg.machine_id, "period", msg.period)
+          try{
+            let obj = JSON.parse(msg);
+            if(obj.machine_id && obj.period){
+              this.sendMessage(obj.machine_id, "period", obj.period)
             }else{
               this.sendBadRequest(socket)
             }
+          }catch(err){
+            this.sendBadRequest(socket)
+          }
         })
 
         socket.on("machines/subscribe", (msg) => {
-          if((msg.machine_id || msg.machine_id == 0) && msg.machine_id >= 0){
-            let prevSubscribe = this.clientsSubcribes.get(socket.id);
-            if(prevSubscribe !== undefined){ 
-              //remove previous subscription from  machines list
-              this.machinesSubscribers.get(prevSubscribe)?.delete(socket.id) 
+          try{
+            let obj = JSON.parse(msg);
+            if((obj.machine_id || obj.machine_id == 0) && obj.machine_id >= 0){
+              let prevSubscribe = this.clientsSubcribes.get(socket.id);
+              if(prevSubscribe !== undefined){ 
+                //remove previous subscription from  machines list
+                this.machinesSubscribers.get(prevSubscribe)?.delete(socket.id) 
+              }
+              if(!this.machinesSubscribers.has(obj.machine_id)){// if it is first subscription to this machine
+                this.machinesSubscribers.set(obj.machine_id, new Set())
+              }
+              this.clientsSubcribes.set(socket.id, obj.machine_id)
+              this.machinesSubscribers.get(obj.machine_id)?.add(socket.id)
+            }else{
+                this.sendBadRequest(socket)
             }
-            if(!this.machinesSubscribers.has(msg.machine_id)){// if it is first subscription to this machine
-              this.machinesSubscribers.set(msg.machine_id, new Set())
-            }
-            this.clientsSubcribes.set(socket.id, msg.machine_id)
-            this.machinesSubscribers.get(msg.machine_id)?.add(socket.id)
-          }else{
-              this.sendBadRequest(socket)
+          }catch(err){
+            this.sendBadRequest(socket)
           }
           // console.log(this.machinesSubscribers)
           // console.log(this.clientsSubcribes)
         })
 
         socket.on("clients/update", (msg) => {
-          let obj = JSON.parse(msg);
-          //TODO save to database all new updates
-          if(obj.machine_id && obj.machine_id >= 0){ // send updates to clients that want to have updates from all machines
+          try{
+            let obj = JSON.parse(msg);
+            //TODO save to database all new updates
+            if(obj.machine_id && obj.machine_id >= 0){ // send updates to clients that want to have updates from all machines
+  
+              console.log("I'm inside")
+              if(this.machinesSubscribers.has(0)){
+                this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", msg))
+              }
+              if(this.machinesSubscribers.has(obj.machine_id)){
+                this.machinesSubscribers.get(obj.machine_id)?.forEach((e: string) => this.sendMessage(e, "update", msg))
+              }
+            }else{
+                this.sendBadRequest(socket)
+            }
+          }catch(err){
+            this.sendBadRequest(socket)
+          }
+         
+        })
 
-            console.log("I'm inside")
-            if(this.machinesSubscribers.has(0)){
-              this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", msg))
+        socket.on("machines/modality", (msg) => {
+          try{
+            let obj = JSON.parse(msg);
+            if(obj.machine_id && obj.machine_id >= 0 && obj.modality){
+              this.sendMessage(obj.machine_id, "modality", obj.modality)
+            }else{
+                this.sendBadRequest(socket)
             }
-            if(this.machinesSubscribers.has(obj.machine_id)){
-              this.machinesSubscribers.get(obj.machine_id)?.forEach((e: string) => this.sendMessage(e, "update", msg))
+          }catch(err){
+            this.sendBadRequest(socket)
+          }
+        })
+
+        socket.on("machines/state", (msg) => {
+          try{
+            let obj = JSON.parse(msg);
+            if(obj.machine_id && obj.machine_id >= 0 && obj.state){
+              this.sendMessage(obj.machine_id, "state", obj.state)
+            }else{
+                this.sendBadRequest(socket)
             }
-          }else{
-              this.sendBadRequest(socket)
+          }catch(err){
+            this.sendBadRequest(socket)
           }
         })
 
@@ -143,4 +185,15 @@ export class SocketIOService {
   private sendBadRequest(socket: Socket){
     socket.emit(this.EXCEPTION_CHANNEL, makeErr("Bad request", "Some field is missed"))
   }
+}
+
+enum State{
+  OFFLINE,
+  OFF,
+  ON,
+  ALLARM, 
+}
+
+function defineMachineState(){
+  return State.ON
 }

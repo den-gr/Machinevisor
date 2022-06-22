@@ -33,7 +33,7 @@
       socket.emit("pingpong", "pong")
 
     })
-    
+
     socket.onAny(m => {
         console.log("Any:",m)
     });
@@ -55,12 +55,22 @@
     })
 
     function setMachinePeriod(machine_id, period){
-      socket.emit("machines/period", {machine_id: machine_id, period: period})
+      socket.emit("machines/period", JSON.stringify({machine_id: machine_id, period: period}))
     }
 
     function subscribe(machine_id){
-      socket.emit("machines/subscribe", {machine_id: machine_id})
+      socket.emit("machines/subscribe", JSON.stringify({machine_id: machine_id}))
     }
+
+    function setModality(machine_id, mod){
+      socket.emit("machines/modality", JSON.stringify({machine_id: machine_id, modality: mod}))
+    }
+
+    function setState(machine_id, state){
+      socket.emit("machines/state", JSON.stringify({machine_id: machine_id, state: state}))
+    }
+
+    subscribe(1)
 
     // setTimeout(()=>{
     //   socket.removeAllListeners("pingpong");
