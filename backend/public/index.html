@@ -34,9 +34,9 @@
 
     })
 
-    socket.onAny(m => {
-        console.log("Any:",m)
-    });
+    // socket.onAny(m => {
+    //     console.log("Any:",m)
+    // });
 
     socket.on("connect", () => {
         console.log("Connected"); 
@@ -71,13 +71,6 @@
     }
 
     subscribe(1)
-
-    // setTimeout(()=>{
-    //   socket.removeAllListeners("pingpong");
-    //   console.log("listener removed")
-    // } , 10000)
-
-    // socket.on("machine_")
   </script>
 </body>
 

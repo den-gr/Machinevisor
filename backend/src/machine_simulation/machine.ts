@@ -1,17 +1,35 @@
-import { io, Socket, connect, SocketOptions, ManagerOptions } from "socket.io-client";
-import { Modality, isNumber, State } from "../utils/utils";
 
+import { threadId } from "worker_threads";
+import { Modality, isNumber, State } from "../utils/utils";
+import { MachineConnection } from "./machine_connection";
+
+export interface MachineInterface{
+    setNewInterval(newPeriod: number): void;
+    setNewModality(newModality: Modality): void;
+    setNewState(newState: State): void;
+}
+
+interface Report{
+    machine_id: number;
+    state: string;
+    modality: string;
+    timestamp: Date;
+    working_time?: number;
+    temperature: number;
+    kWh: number;
+}
 
 export class MachineSimulation implements MachineInterface{
     private static DEFAULT_PERIOD = 10000 + Math.random() * 1000;
+    private static ENVIRONMENT_TEMPERATURE = 20;
     private readonly machine_id: number;
     private readonly conn: MachineConnection;
-    private reportLoop;
-    private temperature: number = 20;
-    private kWh: number = 5
-    private lastTimestamp: Date;
-    private readonly turnOnTimestamp: Date;
     private readonly modalities: Modality[]
+    private reportLoop;
+    private temperature: number = MachineSimulation.ENVIRONMENT_TEMPERATURE;
+    private kWh: number = 5
+    private turnOnTimestamp: Date;
+    private lastTimestamp: Date;
     private currentModality: Modality
     private state: State = State.OFF;
 
@@ -28,24 +46,20 @@ export class MachineSimulation implements MachineInterface{
 
     public createReport(): Object{
         let timeDiff = this.getTimeDiff();
-        this.updateTemperature(timeDiff);
-        this.updateEnergyConsumption(timeDiff);
-        //TODO refactoring
         
         let report: Report = {
             machine_id: this.machine_id,
             state: State[this.state],
             modality: Modality[this.currentModality],
             timestamp: this.lastTimestamp,
-            temperature: this.temperature
+            temperature: this.updateTemperature(timeDiff),
+            kWh: this.updateEnergyConsumption(timeDiff)
         }
 
         if(this.state === State.ON){
-            report.working_time = (this.lastTimestamp.getMinutes() - this.turnOnTimestamp.getMinutes());
-            report.kWh = this.kWh;
+            report.working_time = Math.ceil(((this.lastTimestamp.getTime() - this.turnOnTimestamp.getTime())/1000)/60);
         }else if(this.state === State.OFF){
             report.working_time = 0;
-            report.kWh = 0;
         }else{
             console.error("Illegal state for mahine side")
         }
@@ -63,6 +77,9 @@ export class MachineSimulation implements MachineInterface{
 
     public setNewModality(newModality: Modality): void {
         if(this.modalities.some(x => x == newModality)){
+            if(this.currentModality !== newModality){
+                this.setEnergyConsumption();
+            }
             this.currentModality = newModality;
         }else{
             console.error("Not allowed modality for this machine")
@@ -71,10 +88,30 @@ export class MachineSimulation implements MachineInterface{
 
     public setNewState(newState: State): void{
         if(newState === State.ON || newState === State.OFF){
+            if(newState === State.ON && this.state === State.OFF){
+                this.start()
+            }
             this.state = newState;
         }else{
             console.error("Illegal state of machine")
         }
+    }
+
+    private setEnergyConsumption(){
+        if(this.currentModality === Modality.SLEEP_MODE){
+            this.kWh = 0.1;
+        }else if(this.currentModality === Modality.PRODUCTION_MODE){
+            this.kWh = 5;
+        }else if(this.currentModality === Modality.ENERGY_ECONOMY_PRODUCTION_MODE){
+            this.kWh = 3;
+        }else{
+            console.log("illegal machine modality")
+        }
+    }
+
+    private start(){
+        this.turnOnTimestamp = new Date;
+        this.setEnergyConsumption();
     }
 
     private getTimeDiff(): number{
@@ -84,119 +121,55 @@ export class MachineSimulation implements MachineInterface{
         return timeDiff;
     }
 
-    private updateTemperature(timeDiff: number){
-        let sign: number = Math.random() > 0.5 ? 1 : -1;
-        this.temperature = parseFloat((this.temperature + Math.random() * sign * (timeDiff * 0.00001)).toFixed(1))
+    private updateTemperature(timeDiff: number): number{
+        let sign: number = 0;
+        let diffTemperature: number = this.temperature - MachineSimulation.ENVIRONMENT_TEMPERATURE;
+        if(diffTemperature > 50){
+            diffTemperature = 50;
+        }
+
+        let cond: boolean = Math.random() + (50 - diffTemperature)/100 > 0.5;
+        if(this.currentModality === Modality.PRODUCTION_MODE && this.state === State.ON){
+            sign = cond ? 1 +(50 - diffTemperature)/50 : -1.1;
+        }else if(this.currentModality === Modality.ENERGY_ECONOMY_PRODUCTION_MODE && this.state === State.ON){
+            sign = cond ? 0.5 + (50 - diffTemperature)/100 : -0.6;
+        }else{
+            sign = -0.2;
+        }
+
+        this.temperature = parseFloat((this.temperature + Math.random() * sign * (timeDiff * 0.001)).toFixed(1))
+        if(this.temperature < MachineSimulation.ENVIRONMENT_TEMPERATURE){
+            this.temperature = MachineSimulation.ENVIRONMENT_TEMPERATURE;
+        }
+        return this.temperature;
     }
 
     private updateEnergyConsumption(timeDiff: number): number{
         let sign: number = Math.random() > 0.5 ? 1 : -1;
         this.kWh = parseFloat((this.kWh + Math.random() * sign * (timeDiff * 0.00001)).toFixed(2))
-        if(this.kWh > 6){
-            this.kWh = 6
-        }else if(this.kWh < 4){
-            this.kWh = 4
+        if(this.currentModality === Modality.PRODUCTION_MODE && this.state === State.ON){
+            if(this.kWh > 6){
+                this.kWh = 6
+            }else if(this.kWh < 4){
+                this.kWh = 4
+            }
+        }else if(this.currentModality === Modality.ENERGY_ECONOMY_PRODUCTION_MODE && this.state === State.ON){
+            if(this.kWh > 4){
+                this.kWh = 4
+            }else if(this.kWh < 2){
+                this.kWh = 2
+            }
+        }else if(this.currentModality === Modality.SLEEP_MODE && this.state === State.ON){
+            if(this.kWh > 0.3){
+                this.kWh = 0.3
+            }else if(this.kWh < 0){
+                this.kWh = 0
+            }
+        }else{
+            this.kWh = 0;
         }
         return this.kWh;
     }
 }
 
 
-class MachineConnection{
-    private readonly socket: Socket;
-    private readonly machine:MachineInterface;
-
-    constructor(serverURL: string, machine_id: number, machine: MachineInterface){
-        let options: Partial<SocketOptions & ManagerOptions> = { 
-            rejectUnauthorized : false,
-            transports: ["websocket"],
-            path: "/socket.io",
-        }
-        
-        let auth: Auth = {
-            type: "machine",
-            machine_id: machine_id,
-            token: "test"
-        }
-        options.auth = auth;
-        this.socket = io(serverURL, options);
-        
-        this.machine = machine;
-
-        console.log("Setup")
-        this.socket.on("error", (error) => {
-            console.error(error);
-        });
-        this.socket.on("connect", () => {
-            console.log("Connected"); 
-        });
-
-        this.socket.on("disconnect", () => {
-            console.log("Disconnected"); // undefined
-        });
-
-        this.socket.on('pingpong', (msg) => {
-            console.log("receive:", msg )
-            this.socket.emit("pingpong", "machine pong");
-        })
-
-        this.socket.on('period', (msg)=>{
-            let period = +msg;
-            if(isNumber(period)){
-                if(period >= 1000 && period <= 300000){
-                    this.machine.setNewInterval(period)
-                }else{
-                    console.error("Period must be between 1000 and 300000 millis");
-                }
-            }else{
-                console.error("The new received period is not a number");
-            }
-        })
-
-        this.socket.on('modality', (msg) => {
-            let mod: Modality = Modality[msg as keyof typeof Modality];
-            if(mod !== undefined){
-                this.machine.setNewModality(mod)
-
-            }else{
-                console.error("Not existing modality")
-            }
-        })
-
-        this.socket.on('state', (msg) => {
-            let st: State = State[msg as keyof typeof State];
-            if(st !== undefined){
-                this.machine.setNewState(st)
-
-            }else{
-                console.error("Not existing state")
-            }
-        })
-    }
-
-    public emit(topic: string, msg: string){
-        this.socket.emit(topic, msg);
-    }
-}
-
-interface MachineInterface{
-    setNewInterval(newPeriod: number): void;
-    setNewModality(newModality: Modality): void;
-    setNewState(newState: State): void;
-}
-
-interface Auth{
-    type: string;
-    machine_id: number;
-    token: string;
-}
-
-interface Report{
-    machine_id: number;
-    state: string;
-    modality: string;
-    timestamp?: Date;
-    working_time?: number;
-    temperature?: number;
-    kWh?: number;
-}
