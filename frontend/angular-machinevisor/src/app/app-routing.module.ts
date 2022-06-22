@@ -6,6 +6,7 @@ import { LogComponent } from './pages/log/log.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MachineComponent } from './pages/machine/machine.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { UserComponent } from './pages/user/user.component';
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'log/:machineID', component: LogComponent },
   { path: 'charts/:machineID', component: ChartsComponent },
   { path: 'machinePage/:machineID', component: MachineComponent },
-  { path: 'userPage/:userID', component: UserComponent }
+  { path: 'userPage/:userID', component: UserComponent },
+  { path: 'statistics', component: StatisticsComponent }
 ];
 
 @NgModule({

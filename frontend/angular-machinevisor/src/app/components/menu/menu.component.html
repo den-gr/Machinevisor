@@ -1,18 +1,18 @@
 <mat-drawer-container class="container">
-  <mat-drawer #sidenav class="sidenav" mode="over" [opened]="openMenu" (closed)="close()">
+  <mat-drawer #sidenav class="sidenav" mode="over" [opened]="menuService.getMenuState()" (closed)="menuService.close()">
     <mat-toolbar class="sidenav-header">
       <span>MENU</span>
     </mat-toolbar>
     <mat-nav-list class="links-list">
-      <mat-list-item (click)="goToHome()">
+      <mat-list-item (click)="goToPage('/home')">
         <mat-icon class="material-icons-outlined">home</mat-icon>
         <a>Home</a>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="goToPage('/statistics')">
         <mat-icon class="material-icons-outlined">analytics</mat-icon>
         <a>Statistics</a>
       </mat-list-item>
-      <mat-list-item (click)="goTo('/userPage', this.user)">
+      <mat-list-item (click)="goToPageWithParam('/userPage', this.user)">
         <mat-icon class="material-icons-outlined">person</mat-icon>
         <a>User</a>
       </mat-list-item>
@@ -25,7 +25,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
     
-        <mat-list-item *ngFor="let machine of machineries; let i = index" (click)="goTo('/machinePage', i+1)">
+        <mat-list-item *ngFor="let machine of machineries; let i = index" (click)="goToPageWithParam('/machinePage', i+1)">
           <a>{{machine}}</a>
         </mat-list-item>
     
@@ -38,6 +38,6 @@
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
-  <app-navbar (sidenavToggle)="clickMenu()"></app-navbar>
+  <app-navbar (sidenavToggle)="menuService.clickMenu()"></app-navbar>
   <router-outlet></router-outlet>
 </mat-drawer-container>

@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { SwitchOffDialogComponent } from '../switch-off-dialog/switch-off-dialog.component';
+import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
+import { OnOffButtonService } from 'src/app/utilities/services/on-off-buttonService/on-off-button.service';
 
 @Component({
   selector: 'app-machine-info',
@@ -11,45 +12,16 @@ import { SwitchOffDialogComponent } from '../switch-off-dialog/switch-off-dialog
 export class MachineInfoComponent implements OnInit {
   @Input() machineID:any;
 
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(private navService: NavigationService, public buttonService: OnOffButtonService) { }
 
   name = '';
   status = 'Error';
   photo = '../../../assets/img/ciambella.jpeg';
   infoMix = Array()
   valuesMix = Array()
-  isOnChecked = true;
-
-  clickOn(){
-    if(!this.isOnChecked){
-      console.log("On");
-      this.isOnChecked = !this.isOnChecked;
-    }
-  }
-
-  clickOff(){
-    if(this.isOnChecked){
-      console.log("Off");
-      this.openDialog();
-      console.log("DIALOG --> " + this.isOnChecked)
-      this.isOnChecked = !this.isOnChecked;
-    }
-  }
 
   goTo(page: string){
-    this.router.navigate([page, this.machineID.toString()]);
-  }
-
-  private openDialog(): void {
-    console.log("Apri dialog!")
-    const dialogRef = this.dialog.open(SwitchOffDialogComponent, {
-      width: '250px',
-      data: {machineID: "machine-"+this.machineID},
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed --> ' + result);
-      this.isOnChecked = !result;
-    });
+    this.navService.goToPageWithParameters(page, this.machineID.toString());
   }
 
   ngOnInit(): void {

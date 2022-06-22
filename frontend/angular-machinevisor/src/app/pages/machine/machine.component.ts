@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 
 @Component({
   selector: 'app-machine',
@@ -10,14 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MachineComponent implements OnInit {
 
-  constructor( private http: HttpClient, private routes: ActivatedRoute) { }
+  constructor(private routes: ActivatedRoute, private apiService: APIService) { }
 
   machineID = ''
 
   getMachineData(){
-    const url = `${environment.apiUrl}/machines/1`;
-    this.http.get(url).subscribe(responce => {
-      console.log("Responce :) --> " + JSON.stringify(responce));
+    this.apiService.getAPI('machines/1').subscribe(res => {
+      console.log("Responce :) --> " + JSON.stringify(res));
     });
   }
 
@@ -29,7 +28,7 @@ export class MachineComponent implements OnInit {
         this.machineID = res;
       }
     })
-    //this.getMachineData();
+    this.getMachineData();
   }
 
 }

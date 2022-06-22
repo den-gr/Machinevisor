@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
+import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,6 +12,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login-card.component.scss']
 })
 export class LoginCardComponent implements OnInit {
+
+  constructor(private authService: AuthService, private navService: NavigationService) { }
 
   myGroup: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -28,15 +31,13 @@ export class LoginCardComponent implements OnInit {
       //CONTROLLO FINTO PER FARE DELLE PROVE! 
       if(user === "homer.simpson@gmail.com" && psw === "Admin0987654321"){ //togliere if
         this.authService.login(user, psw); //save token in storage
-        this.router.navigate(["/home"]);
+        this.navService.goToPage('/home')
       }else{
         this.errorLogin = true;
         this.myGroup.get('password')?.patchValue(null);
       }
     }
   }
-
-  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }

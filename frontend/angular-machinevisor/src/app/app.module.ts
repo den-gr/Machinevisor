@@ -31,6 +31,7 @@ import { LogComponent } from './pages/log/log.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationCardComponent } from './components/registration-card/registration-card.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { RegistrationCardComponent } from './components/registration-card/regist
     LoginCardComponent,
     RegistrationComponent,
     RegistrationCardComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,

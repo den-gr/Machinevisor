@@ -1,23 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from "moment";
-import { environment } from 'src/environments/environment';
-import * as crypto from 'crypto-js';
-import { Router } from '@angular/router';
+import { NavigationService } from '../navigationService/navigation.service';
+import { APIService } from '../APIService/api.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private http: HttpClient, private navService: NavigationService, private apiService: APIService) { }
 
   login(email:string, password:string){
-    let salt = '1234567899WebApp' //chiamata API
-    let hashedPsw = crypto.PBKDF2(password, salt, {
-      keySize: 128 / 32
-    });
-    //this.signUpUser(email, hashedPsw.toString()); //questa ha http --> da cambiare!!
+    this.signUpUser('homer@unibo.it', 'admin');
     const token = '0123456789';
     this.setSession(token)
   }
@@ -30,7 +26,7 @@ export class AuthService {
   }
 
   public logout() {
-    this.router.navigate(["/login"]);
+    this.navService.goToPage('/login');
 
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
@@ -54,21 +50,16 @@ export class AuthService {
   }
 
   private signUpUser(email: string, password: string){
-    const url = `${environment.apiUrl}/auth/sign_in`;
+    const url = "auth/sign_in";
+    
     const data = {
-      "username": email,
+      "email": email,
       "password": password
     };
-    console.log(data);
-    //user: homerthebest
-    //psw: admin
-    this.http.post(url, data,
-    { observe: 'response' }).subscribe(responce => {
-      if(responce.status){
-        console.log("SI");
-      }else{
-        console.log("NO");
-      }
+    
+    //esempio chiamata
+    this.apiService.postAPI(url, data).subscribe(res => {
+      console.log(JSON.stringify(res));
     });
   }
 }
