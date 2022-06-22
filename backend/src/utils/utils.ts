@@ -19,3 +19,14 @@ export enum State{
     ON,
     ALLARM, 
 }
+
+
+export interface Report{
+    machine_id: number;
+    state: string;
+    modality: string;
+    timestamp: Date;
+    working_time?: number;
+    temperature: number;
+    kWh: number;
+}

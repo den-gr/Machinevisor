@@ -7,6 +7,8 @@ servers:
   develop:
     url: https://localhost:8080
     protocol: ws
+    security:
+      - bearerAuth: []
 channels:
   machines/period:
     publish:
@@ -14,7 +16,7 @@ channels:
         $ref: '#/components/messages/ChangePeriod'
   machines/subscribe:
     publish:
-      description: "AAllows subcribe to updates of one or all machines"
+      description: "Allows subcribe to updates of one or all machines"
       message:
         $ref: "#/components/messages/Subscribe"
   machines/modality:
@@ -74,11 +76,11 @@ components:
     Modality:
       payload:
         type: object
-        required:
-          - machine_id
-          - modality
+       
         allOf:
-          - properties:
+          - required:
+            - machine_id 
+            properties:
               machine_id:
                 type: integer
                 example: 1
@@ -101,14 +103,21 @@ components:
       payload:
         type: object
         allOf:
-          - properties:
+          - required:
+                - machine_id
+                - state
+                - timestamp
+                - working_time
+                - temperature
+                - kWh
+            properties:
               machine_id:
                 type: integer
                 example: 1
               state:
                 type: string
                 enum: [OFFLINE, OFF, ON, ALLARM]
-                example: OFFLINE
+                example: ALLARM
               timestamp:
                 type: string
                 format: date-time
@@ -128,6 +137,14 @@ components:
                 format: float
                 multipleOf: 0.01
                 example: 5.23
+              allarm: 
+                type: array
+                description: "Optional. Shows what values of machine provocate allarm state"
+                items:
+                  type: string
+                  enum: [temperature, kWh]
+                example: 
+                  - temperature
           - $ref: "#/components/schemas/Modality"
 
     Error:
@@ -144,8 +161,15 @@ components:
                 type: string
   schemas:
     Modality:
+      required:
+        - modality
       properties:
         modality:
           type: string
           enum: [SLEEP_MODE, ENERGY_ECONOMY_PRODUCTION_MODE, PRODUCTION_MODE]
           example:  SLEEP_MODE
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

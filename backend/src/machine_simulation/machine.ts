@@ -1,22 +1,10 @@
-
-import { threadId } from "worker_threads";
-import { Modality, isNumber, State } from "../utils/utils";
+import { Modality, State, Report } from "../utils/utils";
 import { MachineConnection } from "./machine_connection";
 
 export interface MachineInterface{
     setNewInterval(newPeriod: number): void;
     setNewModality(newModality: Modality): void;
     setNewState(newState: State): void;
-}
-
-interface Report{
-    machine_id: number;
-    state: string;
-    modality: string;
-    timestamp: Date;
-    working_time?: number;
-    temperature: number;
-    kWh: number;
 }
 
 export class MachineSimulation implements MachineInterface{
@@ -44,6 +32,7 @@ export class MachineSimulation implements MachineInterface{
         this.currentModality = this.modalities[0]
     }
 
+    // make an "image" of current state of the machine
     public createReport(): Object{
         let timeDiff = this.getTimeDiff();
         
@@ -61,20 +50,23 @@ export class MachineSimulation implements MachineInterface{
         }else if(this.state === State.OFF){
             report.working_time = 0;
         }else{
-            console.error("Illegal state for mahine side")
+            console.error("Illegal state for machine")
         }
         return report;
     }
 
+    //send report to server
     public sendReport(conn: MachineConnection, self: MachineSimulation){
         conn.emit("clients/update", JSON.stringify(self.createReport()))
     }
 
+    //set new update period
     public setNewInterval(newPeriod: number){
         clearInterval(this.reportLoop);
         this.reportLoop = setInterval(this.sendReport, newPeriod, this.conn, this);
     }
 
+    //set machine to a new modality 
     public setNewModality(newModality: Modality): void {
         if(this.modalities.some(x => x == newModality)){
             if(this.currentModality !== newModality){
@@ -86,6 +78,7 @@ export class MachineSimulation implements MachineInterface{
         }
     }
 
+    // Set new state of machine, can be only  ON or OFF
     public setNewState(newState: State): void{
         if(newState === State.ON || newState === State.OFF){
             if(newState === State.ON && this.state === State.OFF){

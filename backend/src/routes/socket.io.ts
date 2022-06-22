@@ -1,10 +1,6 @@
 import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
-import { getServers } from "dns";
-import { Machine } from "src/database/models/machine_schema";
-import { STATES } from "mongoose";
-const { makeErr, isNumber } = require("../utils/utils");
-// const utils = require('../utils/utils');
+const { makeErr, isNumber, Report } = require("../utils/utils");
 
 let period: number = 20000;
 export class SocketIOService {
@@ -15,7 +11,6 @@ export class SocketIOService {
   private readonly machinesSubscribers: Map<number, Set<string>>; // machine_id -> array of subscribed clients (their SocketIDs)
   private readonly clientsSubcribes: Map<string, number> // clientID -> machine_id
   private readonly EXCEPTION_CHANNEL = "exception";
-
 
   private constructor() {
     this.machinesSubscribers = new Map();
@@ -72,7 +67,7 @@ export class SocketIOService {
 
         socket.on("machines/subscribe", (msg) => {
           try{
-            let obj = JSON.parse(msg);
+            let obj: any = JSON.parse(msg);
             if((obj.machine_id || obj.machine_id == 0) && obj.machine_id >= 0){
               let prevSubscribe = this.clientsSubcribes.get(socket.id);
               if(prevSubscribe !== undefined){ 
@@ -98,14 +93,20 @@ export class SocketIOService {
           try{
             let obj = JSON.parse(msg);
             //TODO save to database all new updates
-            if(obj.machine_id && obj.machine_id >= 0){ // send updates to clients that want to have updates from all machines
-  
+            if(obj.machine_id && obj.machine_id >= 0 && obj.state){ // send updates to clients that want to have updates from all machines
+              if(isAllarm(obj)){
+                console.log("before", obj.state)
+                obj.state = State[State.ALLARM];
+                obj.allarm = ["temperature"] //debito tecnico
+                console.log("after", obj.state)
+
+              }
               console.log("I'm inside")
               if(this.machinesSubscribers.has(0)){
-                this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", msg))
+                this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
               }
               if(this.machinesSubscribers.has(obj.machine_id)){
-                this.machinesSubscribers.get(obj.machine_id)?.forEach((e: string) => this.sendMessage(e, "update", msg))
+                this.machinesSubscribers.get(obj.machine_id)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
               }
             }else{
                 this.sendBadRequest(socket)
@@ -194,6 +195,6 @@ enum State{
   ALLARM, 
 }
 
-function defineMachineState(){
-  return State.ON
+function isAllarm(obj: any): boolean{
+  return obj.temperature > 80;
 }

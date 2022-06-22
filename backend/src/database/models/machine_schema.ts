@@ -13,6 +13,7 @@ export interface IMachine extends Document{
     client_service_number: string;
     img_uri: string;
     modalities: Modality[];
+    values: string[];
 }
 
 const MachineSchema = new Schema<IMachine>({ 
@@ -24,7 +25,9 @@ const MachineSchema = new Schema<IMachine>({
     last_revision: {type: Date, require: true},
     client_service_number: {type: String, require: true},
     img_uri: {type: String, default: "/images/machines/default.jpg"},
-    modalities: {type: [String], enum: Modality, required: true}
+    modalities: {type: [String], enum: Modality, required: true},
+    values: {type: [String], required: true}
+
 });
 
 MachineSchema.plugin(AutoIncrement, {inc_field: "machine_id"})
