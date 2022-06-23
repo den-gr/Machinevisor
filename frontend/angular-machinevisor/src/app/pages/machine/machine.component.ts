@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-machine',
@@ -15,8 +16,8 @@ export class MachineComponent implements OnInit {
   machineID = ''
 
   getMachineData(){
-    this.apiService.getAPI('machines/1').subscribe(res => {
-      console.log("Responce :) --> " + JSON.stringify(res));
+    this.apiService.getMachineInfo(this.machineID).subscribe(data => {
+      console.log("machine -> " + data.machine_name)
     });
   }
 
