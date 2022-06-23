@@ -1,4 +1,5 @@
-import { NextFunction } from "express";
+import { Request, Response, NextFunction} from "express";
+import { JsonWebTokenError } from "jsonwebtoken";
 import { Database } from "./database/db_connector";
 import { SocketIOService } from "./routes/socket.io";
 const express = require('express');
@@ -6,13 +7,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
-const authRouter = require('./routes/auth');
+const authMiddleware =  require('./routes/auth').authMiddleware;
+
+const authRouter = require('./routes/auth').router;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const machinesRouter = require('./routes/machines');
-const socketIoRouter = require('./routes/socket.io') 
+
 
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -50,17 +54,14 @@ app.use(session({
     }) 
 }));
 
-
 app.use('/auth', authRouter);
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/machines', machinesRouter);
-
+app.use('/users', authMiddleware,  usersRouter);
+app.use('/machines',authMiddleware, machinesRouter);
 
 
 
 SocketIOService.instance().initialize(server)
-
 
 server.listen(process.env.PORT, () => {
     console.log("Listening on port ", process.env.PORT);
@@ -70,8 +71,6 @@ server.listen(process.env.PORT, () => {
         
     })
 });
-
-
 
 // function verifyToken(req :Request, res: Response, next : NextFunction){
 //     req.token = "bla";

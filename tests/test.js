@@ -3,6 +3,16 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 const supertest = require('supertest');
 const server = require('../backend/bin/app');
 const requestWithSupertest = supertest(server);
+let token 
+beforeAll(async () =>{
+    let payload = {
+        email: "homer@unibo.it",
+        password: "admin"
+    }
+    let res = await requestWithSupertest.post("/auth/sign_in").send(payload);
+    token = res.body.token
+})
+
 
 it('GET /test default check', async () => {
     const res = await requestWithSupertest.get('/test');
@@ -11,7 +21,7 @@ it('GET /test default check', async () => {
 
 describe('User Endpoints',  () => {
     it('GET /users/:id should show a user', async () => {
-        let res = await requestWithSupertest.get('/users/1')
+        let res = await requestWithSupertest.get('/users/1').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('user_id')
         expect(res.body).toHaveProperty('name')
@@ -22,13 +32,13 @@ describe('User Endpoints',  () => {
     });
 
     it('Get /users/:id where id is not a number should return 400 code', async () => {
-        let res = await requestWithSupertest.get('/users/word')
+        let res = await requestWithSupertest.get('/users/word').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(400);
         expect(res.body).toHaveProperty('error_name')
     });
 
     it('Get /users/:id should return 404 if user is not found', async () => {
-        let res = await requestWithSupertest.get('/users/999999')
+        let res = await requestWithSupertest.get('/users/999999').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(404);
         expect(res.body).toHaveProperty('message')
     });
@@ -36,7 +46,7 @@ describe('User Endpoints',  () => {
 
 describe('Machines Endpoints',  () => {
     it('GET /machines/:id should show a machine', async () => {
-        let res = await requestWithSupertest.get('/machines/1')
+        let res = await requestWithSupertest.get('/machines/1').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('machine_id')
         expect(res.body).toHaveProperty('brand')
@@ -47,19 +57,19 @@ describe('Machines Endpoints',  () => {
     });
 
     it('GET /:machineId should return 404 if machine is not found', async () => {
-        const res = await requestWithSupertest.get('/machines/999999');
+        const res = await requestWithSupertest.get('/machines/999999').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(404);
         expect(res.body).toHaveProperty('message')
     });
 
     it('GET /:machineId should return 400 id is not a number', async () => {
-        const res = await requestWithSupertest.get('/machines/word');
+        const res = await requestWithSupertest.get('/machines/word').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(400);
         expect(res.body).toHaveProperty('message')
     });
 
     it('GET /machines should return a list of machines', async () => {
-        const res = await requestWithSupertest.get('/machines');
+        const res = await requestWithSupertest.get('/machines').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(200);
     });
 });
