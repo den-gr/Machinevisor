@@ -1,28 +1,24 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from "moment";
 import { NavigationService } from '../navigationService/navigation.service';
 import { APIService } from '../APIService/api.service';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private navService: NavigationService, private apiService: APIService) { }
+  constructor(private navService: NavigationService, private apiService: APIService) { }
 
   login(email:string, password:string){
-    this.signUpUser('homer@unibo.it', 'admin');
-    const token = '0123456789';
-    this.setSession(token)
+    this.signUpUser(email, password);
   }
 
-  private setSession(authResult: any) {
-    const expiresAt = moment().add(authResult.expiresIn,'second');
+  private setSession(token: string) {
+    //const expiresAt = moment().add(authResult.expiresIn,'second');
 
-        localStorage.setItem('id_token', authResult.idToken);
-        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    localStorage.setItem('id_token', token);
+    //localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
   }
 
   public logout() {
@@ -46,7 +42,7 @@ export class AuthService {
   } 
 
   public isTokenStored(){
-    return localStorage.getItem("id_token") != null;
+    return localStorage.getItem("id_token") !== null;
   }
 
   private signUpUser(email: string, password: string){
@@ -56,10 +52,16 @@ export class AuthService {
       "email": email,
       "password": password
     };
+
+    console.log(data)
     
-    //esempio chiamata
-    this.apiService.postAPI(url, data).subscribe(res => {
-      console.log(JSON.stringify(res));
+    this.apiService.login(url, data).subscribe(res => {
+      if(res.body != null){
+        console.log(res.body.token)
+        const token = res.body.token;
+        console.log(token)
+        this.setSession(token);
+      }
     });
   }
 }

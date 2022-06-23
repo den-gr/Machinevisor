@@ -23,13 +23,13 @@ export class LoginCardComponent implements OnInit {
   errorLogin = false;
 
   onSubmit(){
-    console.log("LOGIN");
     const user = this.myGroup.get('email')?.value;
     const psw = this.myGroup.get('password')?.value
+    console.log(user + " | " + psw);
 
     if(user !== '' &&  psw !== ''){
       //CONTROLLO FINTO PER FARE DELLE PROVE! 
-      if(user === "homer.simpson@gmail.com" && psw === "Admin0987654321"){ //togliere if
+      if(user === "homer@unibo.it" && psw === "admin"){ //togliere if
         this.authService.login(user, psw); //save token in storage
         this.navService.goToPage('/home')
       }else{
