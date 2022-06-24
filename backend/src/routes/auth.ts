@@ -86,11 +86,11 @@ router.post('/sign_up', (req:Request, res:Response) => {
     }   
 });
 
-router.get("/logout", (req:Request, res:Response) => {
-    req.session.destroy;
-    res.clearCookie("connect.sid")
-    res.json({})
-})
+// router.get("/logout", (req:Request, res:Response) => {
+//     req.session.destroy;
+//     res.clearCookie("connect.sid")
+//     res.json({})
+// })
 
 
 module.exports.authMiddleware = function authMiddleware(req: Request, res: Response, next: NextFunction){
