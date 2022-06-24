@@ -20,15 +20,14 @@ export class AuthService {
 
   constructor(private navService: NavigationService, private http: HttpClient) { }
 
-  private token = '';
   private statusOk = 200;
 
   public getToken(){
-    return this.token;
+    return localStorage.getItem('token');
   }
 
   public setToken(token: string){
-    this.token = token;
+    localStorage.setItem('token', token);
   }
 
   public getStatusOk(){
@@ -38,11 +37,11 @@ export class AuthService {
   public logout() {
     this.navService.goToPage('/login');
 
-    this.token = '';
+   localStorage.removeItem('token')
   }
 
   public isTokenStored(){
-    return this.token !== '';
+    return this.getToken() !== null;
   }
 
   public signInUser(email: string, password: string){    
