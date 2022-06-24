@@ -1,16 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-
-export interface Login{
-  headers: string,
-  status: number,
-  statusText:string,
-  url: string,
-  ok: boolean,
-  type: number,
-  token: string
-}
+import { AuthService } from '../authService/auth.service';
 
 export interface Machine{
   machine_id: number,
@@ -29,7 +20,7 @@ export interface Machine{
 })
 export class APIService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   public getAPI(obj:string){
     const url = environment.apiUrl + obj;
@@ -41,13 +32,19 @@ export class APIService {
     return this.http.post(url, arg, { observe: 'response' });
   }
 
-  public login(obj:string, arg:any){
-    const url = environment.apiUrl + obj;
-    return this.http.post<Login>(url, arg, { observe: 'response' });
-  }
-
   public getMachineInfo(ID:string){
     const url = environment.apiUrl + 'machines/' + ID;
-    return this.http.get<Machine>(url);
+
+    return this.http.get<Machine>(url, this.makeHeader());
+  }
+
+  private makeHeader(){
+    const header = {
+      Authorization: `Bearer ${this.authService.getToken()}`
+    }
+
+    return {                                                                                                                                                                                 
+      headers: new HttpHeaders(header), 
+    };
   }
 }
