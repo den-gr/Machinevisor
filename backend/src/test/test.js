@@ -1,7 +1,7 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../../test.env') });
 const supertest = require('supertest');
-const server = require('../backend/bin/app');
+const server = require('../../bin/app');
 const requestWithSupertest = supertest(server);
 let token 
 beforeAll(async () =>{
@@ -101,5 +101,7 @@ describe("Authentification endpoing", () => {
         expect(res.body).toHaveProperty("token")
         res = await requestWithSupertest.get("/auth/logout");
         expect(res.status).toEqual(200)
+        res = await requestWithSupertest.get("/users/1");
+        expect(res.status).toEqual(401)
     });
 });
