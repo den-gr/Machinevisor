@@ -21,17 +21,18 @@ export class AuthService {
   constructor(private navService: NavigationService, private http: HttpClient) { }
 
   private token = '';
+  private statusOk = 200;
 
   public getToken(){
     return this.token;
   }
 
-  public login(email:string, password:string){
-    this.signUpUser(email, password);
+  public setToken(token: string){
+    this.token = token;
   }
 
-  private setSession(token: string) {
-    this.token = token;
+  public getStatusOk(){
+    return this.statusOk;
   }
 
   public logout() {
@@ -44,7 +45,7 @@ export class AuthService {
     return this.token !== '';
   }
 
-  private signUpUser(email: string, password: string){    
+  public signInUser(email: string, password: string){    
     const data = {
       "email": email,
       "password": password
@@ -53,13 +54,6 @@ export class AuthService {
     console.log(data)
 
     const url = environment.apiUrl + "auth/sign_in";
-    return this.http.post<Login>(url, data, { observe: 'response' }).subscribe(res => {
-      if(res.body != null){
-        console.log(res.body.token)
-        const token = res.body.token;
-        console.log(token)
-        this.setSession(token);
-      }
-    });
+    return this.http.post<Login>(url, data, { observe: 'response' });
   }
 }

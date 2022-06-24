@@ -27,15 +27,19 @@ export class LoginCardComponent implements OnInit {
     const psw = this.myGroup.get('password')?.value
     console.log(user + " | " + psw);
 
-    if(user !== '' &&  psw !== ''){
-      //CONTROLLO FINTO PER FARE DELLE PROVE! 
-      if(user === "homer@unibo.it" && psw === "admin"){ //togliere if
-        this.authService.login(user, psw); //save token in storage
-        this.navService.goToPage('/home')
-      }else{
-        this.errorLogin = true;
-        this.myGroup.get('password')?.patchValue(null);
-      }
+    if(user !== '' &&  psw !== ''){ 
+      this.authService.signInUser(user, psw).subscribe(res => {
+        console.log("mi sono autenticata? " + res.status);
+        if(res.status === this.authService.getStatusOk()){
+          if(res.body !== null){
+            this.authService.setToken(res.body.token);
+          }
+          this.navService.goToPage('/home');
+        }else{
+          this.errorLogin = true;
+          this.myGroup.get('password')?.patchValue(null);
+        }
+      });
     }
   }
 
