@@ -99,9 +99,5 @@ describe("Authentification endpoing", () => {
         let res  = await requestWithSupertest.post("/auth/sign_in").send(payload);
         expect(res.status).toEqual(200)
         expect(res.body).toHaveProperty("token")
-        res = await requestWithSupertest.get("/auth/logout");
-        expect(res.status).toEqual(200)
-        res = await requestWithSupertest.get("/users/1");
-        expect(res.status).toEqual(401)
     });
 });
