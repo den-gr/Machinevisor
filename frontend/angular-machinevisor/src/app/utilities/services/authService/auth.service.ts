@@ -1,67 +1,58 @@
 import { Injectable } from '@angular/core';
-import * as moment from "moment";
 import { NavigationService } from '../navigationService/navigation.service';
-import { APIService } from '../APIService/api.service';
+import { environment } from 'src/environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
+
+export interface Login{
+  headers: string,
+  status: number,
+  statusText:string,
+  url: string,
+  ok: boolean,
+  type: number,
+  token: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private navService: NavigationService, private apiService: APIService) { }
+  constructor(private navService: NavigationService, private http: HttpClient) { }
 
-  login(email:string, password:string){
-    this.signUpUser(email, password);
+  private statusOk = 200;
+
+  public getToken(){
+    return localStorage.getItem('token');
   }
 
-  private setSession(token: string) {
-    //const expiresAt = moment().add(authResult.expiresIn,'second');
+  public setToken(token: string){
+    localStorage.setItem('token', token);
+  }
 
-    localStorage.setItem('id_token', token);
-    //localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+  public getStatusOk(){
+    return this.statusOk;
   }
 
   public logout() {
     this.navService.goToPage('/login');
 
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expires_at");
+   localStorage.removeItem('token')
   }
-
-  public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
-  }
-
-  getExpiration() {
-    const expiration = localStorage.getItem("expires_at");
-    if(expiration != null){
-      const expiresAt = JSON.parse(expiration);
-      return moment(expiresAt);
-    }
-    return moment(JSON.parse('0'));
-  } 
 
   public isTokenStored(){
-    return localStorage.getItem("id_token") !== null;
+    return this.getToken() !== null;
   }
 
-  private signUpUser(email: string, password: string){
-    const url = "auth/sign_in";
-    
+  public signInUser(email: string, password: string){    
     const data = {
       "email": email,
       "password": password
     };
 
     console.log(data)
-    
-    this.apiService.login(url, data).subscribe(res => {
-      if(res.body != null){
-        console.log(res.body.token)
-        const token = res.body.token;
-        console.log(token)
-        this.setSession(token);
-      }
-    });
+
+    const url = environment.apiUrl + "auth/sign_in";
+    return this.http.post<Login>(url, data, { observe: 'response' });
   }
 }

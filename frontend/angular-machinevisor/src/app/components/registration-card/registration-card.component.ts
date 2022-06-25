@@ -77,7 +77,7 @@ export class RegistrationCardComponent implements OnInit {
       //inserisco i dati nel DB
       if(user?.value === "prova.prova@prova.com"){ //togliere!!!
         //aggiungo l'utente al db
-        this.authService.login(user?.value, psw?.value.toString()); //save token in storage
+        this.authService.signInUser(user?.value, psw?.value.toString()) //save token in storage
         this.navService.goToPage('/home');
       }else{
         this.errorReg = true;
