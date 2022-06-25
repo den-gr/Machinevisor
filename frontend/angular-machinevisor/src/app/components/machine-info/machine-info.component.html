@@ -2,7 +2,7 @@
     <div class="switch-container">
       <mat-button-toggle-group>
         <mat-button-toggle value="true" [checked]="buttonService.getIsOnChecked()" (change)="buttonService.clickOn()">On</mat-button-toggle>
-        <mat-button-toggle value="false" [checked]="!buttonService.getIsOnChecked()" (change)="buttonService.clickOff(machineID)">Off</mat-button-toggle>
+        <mat-button-toggle value="false" [checked]="!buttonService.getIsOnChecked()" (change)="buttonService.clickOff(name)">Off</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <mat-card-header class="header">
