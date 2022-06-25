@@ -69,7 +69,7 @@ describe('Machines Endpoints',  () => {
     });
 
     it('GET /machines should return a list of machines', async () => {
-        const res = await requestWithSupertest.get('/machines').set("authorization", "Bearer "+ token);
+        const res = await requestWithSupertest.get('/machines');
         expect(res.status).toEqual(200);
     });
 });
@@ -99,5 +99,6 @@ describe("Authentification endpoing", () => {
         let res  = await requestWithSupertest.post("/auth/sign_in").send(payload);
         expect(res.status).toEqual(200)
         expect(res.body).toHaveProperty("token")
+        expect(res.body).toHaveProperty("user_id")
     });
 });

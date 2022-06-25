@@ -57,7 +57,7 @@ app.use(session({
 app.use('/auth', authRouter);
 app.use('/', indexRouter);
 app.use('/users', authMiddleware,  usersRouter);
-app.use('/machines',authMiddleware, machinesRouter);
+app.use('/machines', machinesRouter);
 
 
 

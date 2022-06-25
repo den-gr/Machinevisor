@@ -5,8 +5,9 @@ const {makeErr, isNumber} = require('../utils/utils');
 const express = require('express');
 const router = express.Router();
 const db_service = new DBService_mongo();
+const authMiddleware =  require('./auth').authMiddleware;
 
-router.get("/:machineId", (req: Request, res: Response)  => {
+router.get("/:machineId", authMiddleware, (req: Request, res: Response)  => {
     if(isNumber(req.params.machineId)){
         let promise = db_service.getMachine(+req.params.machineId);
         promise.then((machine) => {

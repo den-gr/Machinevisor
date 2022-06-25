@@ -52,8 +52,17 @@ export class DBService_mongo implements DBService{
 
     public getAuth(email: string): Promise<IAuth> {
         return new Promise((resolve, reject) => {
-            this.findUser({email: email}, {_id:0, auth:1, email: 1}).then((user: IUser | null) => {  
-                user != null ? resolve(user.auth) : reject("Wrong email") 
+            this.findUser({email: email}, {_id:0, auth:1, user_id:1}).then((user: IUser | null) => {  
+                if(user != null){
+                    let auth: IAuth = {
+                        password_hash: user?.auth.password_hash,
+                        salt: user?.auth.salt,
+                        user_id: user?.user_id
+                    }
+                    resolve(auth)
+                }else{
+                    reject("Wrong email") 
+                }
             }).catch((err) => reject(err))
         })
     }

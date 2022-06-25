@@ -27,6 +27,7 @@ password_schema
 router.post('/sign_in', (req:Request, res:Response) => {
     if(req.body.password && req.body.email){
         db_service.getAuth(req.body.email).then((auth: IAuth) => {
+            console.log(auth)
             hash({password: req.body.password, salt: auth.salt}, function(err: Error, pass:string, salt: string, hash: string){
                 if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
                 if(hash === auth.password_hash){
@@ -42,7 +43,7 @@ router.post('/sign_in', (req:Request, res:Response) => {
                             res.status(status.INTERNAL_SERVER_ERROR).send(makeErr(err.name, err.message))
                         }else{
                             console.log("My token", token)
-                            res.json({token})
+                            res.json({token, user_id: auth.user_id})
                         }
                     })
                 }else{

@@ -16,6 +16,7 @@ interface WorkSheet{
 }
 
 export interface IAuth{
+    user_id?: number;
     password_hash: String;
     salt: String;
 }
