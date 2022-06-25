@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 
 @Component({
   selector: 'app-machine-modes',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MachineModesComponent implements OnInit {
   @Input() machineID:any;
 
-  constructor() { }
+  constructor(private apiService: APIService) { }
 
   modes = Array()
 
@@ -17,7 +18,14 @@ export class MachineModesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.modes = Array('Sleepmode', 'Cool down', 'Fast production')
+    this.apiService.getMachineInfo(this.machineID).subscribe(res => {
+      res.modalities.forEach(mode => {
+        let tmp = '';
+        tmp = mode.toLowerCase()
+        tmp = tmp.replaceAll('_', ' ');
+        this.modes.push(tmp)
+      });
+    });
   }
 
 }
