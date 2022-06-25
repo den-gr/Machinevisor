@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 import { OnOffButtonService } from 'src/app/utilities/services/on-off-buttonService/on-off-button.service';
 

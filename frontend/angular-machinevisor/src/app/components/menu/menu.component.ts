@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
@@ -12,11 +13,11 @@ import { NavigationService } from 'src/app/utilities/services/navigationService/
 export class MenuComponent implements OnInit {
 
   machineries: any[] = Array();
+  
   constructor(public authService: AuthService, private navService: NavigationService, public menuService: MenuService) { 
     navService.refreshPage();
   }
 
-  //openMenu = false;
   user = 1;
 
   goToPage(page: string){
@@ -29,24 +30,13 @@ export class MenuComponent implements OnInit {
     this.menuService.close()
   }
 
-  /*clickMenu() {
-    console.log("CLICK MENU");
-    this.openMenu = !this.openMenu;
-  }
-  
-  close(){
-    this.openMenu = false
-    console.log("CHIUSO")
-  }*/
-
   logout(){
     this.authService.logout();
     this.menuService.close()
   }
 
   ngOnInit(): void {
-    //Ex. machines
-    this.machineries = Array('Machine-1', 'Machine-2', 'Machine-3', 'Machine-4', 'Machine-5');
+    this.machineries = Array("machine-1", "machine-2", "machine-3", "machine-4", "machine-5")
   }
 
 }

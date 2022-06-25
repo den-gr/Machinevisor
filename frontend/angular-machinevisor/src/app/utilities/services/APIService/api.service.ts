@@ -15,6 +15,11 @@ export interface Machine{
   modalities: string, //questo non va bene così
 }
 
+export interface Machines{
+  machine_id: number,
+  machine_name: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +27,7 @@ export class APIService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  public getAPI(obj:string){
+  /*public getAPI(obj:string){
     const url = environment.apiUrl + obj;
     return this.http.get(url);
   }
@@ -30,12 +35,18 @@ export class APIService {
   public postAPI(obj:string, arg:any){
     const url = environment.apiUrl + obj;
     return this.http.post(url, arg, { observe: 'response' });
-  }
+  }*/
 
   public getMachineInfo(ID:string){
     const url = environment.apiUrl + 'machines/' + ID;
 
     return this.http.get<Machine>(url, this.makeHeader());
+  }
+
+  public getMachinesList(){
+    const url = environment.apiUrl + 'machines';
+
+    return this.http.get<Machines[]>(url, this.makeHeader());
   }
 
   private makeHeader(){
