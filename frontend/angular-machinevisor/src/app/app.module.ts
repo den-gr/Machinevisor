@@ -32,6 +32,7 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationCardComponent } from './components/registration-card/registration-card.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,7 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
     useValue: { color: 'accent' },
-  }],
+  }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,7 +12,7 @@ export interface Machine{
   last_revision: string,
   client_service_number: string,
   img_uri: string,
-  modalities: string, //questo non va bene così
+  modalities: [], //questo non va bene così
 }
 
 export interface Machines{

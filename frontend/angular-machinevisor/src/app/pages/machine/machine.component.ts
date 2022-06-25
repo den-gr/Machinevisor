@@ -15,12 +15,6 @@ export class MachineComponent implements OnInit {
 
   machineID = ''
 
-  getMachineData(){
-    this.apiService.getMachineInfo(this.machineID).subscribe(data => {
-      console.log("machine -> " + data.machine_name)
-    });
-  }
-
   ngOnInit(): void {
     this.routes.paramMap.subscribe(params => {
       console.log("ID della macchina --> " + params.get('machineID'));
@@ -29,7 +23,6 @@ export class MachineComponent implements OnInit {
         this.machineID = res;
       }
     })
-    this.getMachineData();
   }
 
 }
