@@ -46,7 +46,7 @@ export class APIService {
   public getMachinesList(){
     const url = environment.apiUrl + 'machines';
 
-    return this.http.get<Machines[]>(url, this.makeHeader());
+    return this.http.get<Machines[]>(url);
   }
 
   private makeHeader(){

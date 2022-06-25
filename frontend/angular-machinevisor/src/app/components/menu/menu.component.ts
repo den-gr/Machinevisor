@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { MenuService } from 'src/app/utilities/services/menuService/menu.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
@@ -14,7 +15,7 @@ export class MenuComponent implements OnInit {
 
   machineries: any[] = Array();
   
-  constructor(public authService: AuthService, private navService: NavigationService, public menuService: MenuService) { 
+  constructor(public authService: AuthService, private navService: NavigationService, public menuService: MenuService, private apiService: APIService) { 
     navService.refreshPage();
   }
 
@@ -36,7 +37,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.machineries = Array("machine-1", "machine-2", "machine-3", "machine-4", "machine-5")
+    this.apiService.getMachinesList().subscribe(res => {
+      res.forEach(m => this.machineries.push(m.machine_name));
+    });
+    //this.machineries = Array("machine-1", "machine-2", "machine-3", "machine-4", "machine-5")
   }
 
 }
