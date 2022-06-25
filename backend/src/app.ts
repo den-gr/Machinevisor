@@ -72,12 +72,5 @@ server.listen(process.env.PORT, () => {
     })
 });
 
-// function verifyToken(req :Request, res: Response, next : NextFunction){
-//     req.token = "bla";
-//     next
-// }
-
-
-
 module.exports = app;
 
