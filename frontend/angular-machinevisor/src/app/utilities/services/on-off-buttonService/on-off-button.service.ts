@@ -22,20 +22,20 @@ export class OnOffButtonService {
     }
   }
 
-  public clickOff(ID: string){
+  public clickOff(name: string){
     if(this.isOnChecked){
-      console.log("Off");
-      this.openDialog(ID);
+      console.log("Off --> " + name);
+      this.openDialog(name);
       console.log("DIALOG --> " + this.isOnChecked)
       this.isOnChecked = !this.isOnChecked;
     }
   }
 
-  private openDialog(ID: string): void {
+  private openDialog(name: string): void {
     console.log("Apri dialog!")
     const dialogRef = this.dialog.open(SwitchOffDialogComponent, {
       width: '250px',
-      data: {machineID: "machine-"+ ID},
+      data: {machineName: name},
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed --> ' + result);

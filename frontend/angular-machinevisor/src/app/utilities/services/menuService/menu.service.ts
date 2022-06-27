@@ -16,7 +16,7 @@ export class MenuService {
     return this.openMenu;
   }
 
-  public async initMenuMachines(): Promise<Array<string>> {
+  /*public async initMenuMachines(): Promise<Array<string>> {
     return new Promise((result) => {
       let tmpArray = Array<string>();
       this.ApiService.getMachinesList().subscribe(res => {
@@ -33,7 +33,7 @@ export class MenuService {
     });
     console.log("macchine --> " + array);
     return array;
-  }
+  }*/
 
   public clickMenu() {
     console.log("CLICK MENU");

@@ -12,7 +12,7 @@ export interface Machine{
   last_revision: string,
   client_service_number: string,
   img_uri: string,
-  modalities: [], //questo non va bene così
+  modalities: Array<String>,
 }
 
 export interface Machines{
@@ -46,7 +46,7 @@ export class APIService {
   public getMachinesList(){
     const url = environment.apiUrl + 'machines';
 
-    return this.http.get<Machines[]>(url, this.makeHeader());
+    return this.http.get<Machines[]>(url);
   }
 
   private makeHeader(){
