@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 
 @Component({
@@ -13,5 +12,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }

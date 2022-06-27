@@ -33,6 +33,7 @@ export class LoginCardComponent implements OnInit {
         if(res.status === this.authService.getStatusOk()){
           if(res.body !== null){
             this.authService.setToken(res.body.token);
+            this.authService.setUserID(res.body.user_id);
           }
           this.navService.goToPage('/home');
         }else{

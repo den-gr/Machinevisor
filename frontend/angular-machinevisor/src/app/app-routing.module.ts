@@ -18,7 +18,7 @@ const routes: Routes = [
     { path: 'log/:machineID', component: LogComponent },
     { path: 'charts/:machineID', component: ChartsComponent },
     { path: 'machinePage/:machineID', component: MachineComponent },
-    { path: 'userPage/:userID', component: UserComponent },
+    { path: 'userPage', component: UserComponent },
     { path: 'statistics', component: StatisticsComponent }
   ]},
   { path: '', canActivate:[LogoutGuard], children: [

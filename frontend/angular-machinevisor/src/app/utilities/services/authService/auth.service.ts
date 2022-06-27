@@ -10,7 +10,8 @@ export interface Login{
   url: string,
   ok: boolean,
   type: number,
-  token: string
+  token: string,
+  user_id: number
 }
 
 @Injectable({
@@ -28,6 +29,14 @@ export class AuthService {
 
   public setToken(token: string){
     localStorage.setItem('token', token);
+  }
+
+  public setUserID(ID: number){
+    localStorage.setItem('userID', ID.toString());
+  }
+
+  public getUserID(){
+    return localStorage.getItem('userID');
   }
 
   public getStatusOk(){
