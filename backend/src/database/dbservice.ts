@@ -19,7 +19,7 @@ export class DBService_mongo implements DBService{
     
     private findUser(query: Object, projection: Object): Promise<IUser | null>{
         return new Promise((resolve, reject) => {
-            if(!this.isConnected()) reject("DB is not connected");
+            if(!this.isConnected()) reject(this.getErrorDBNotConnected());
             resolve(User.findOne(query, projection))
         })
     }
@@ -30,7 +30,7 @@ export class DBService_mongo implements DBService{
 
     public addUser(user: IUser): Promise<any>{
         return new Promise((resolve, reject) =>{
-            if(!this.isConnected()) reject("DB is not connected");
+            if(!this.isConnected()) reject(this.getErrorDBNotConnected());
             User.create(user).then((newUser: IUser) => {
                 resolve({
                     name: newUser.name,
@@ -44,7 +44,7 @@ export class DBService_mongo implements DBService{
 
     public getMachine(machine_id: number): Promise<IMachine | null> {
         return new Promise((resolve, reject) =>{
-            if(!this.isConnected()) reject("DB is not connected");
+            if(!this.isConnected()) reject(this.getErrorDBNotConnected());
             resolve(Machine.findOne({machine_id: machine_id}, {_id:0}))
         })
     }
@@ -63,16 +63,16 @@ export class DBService_mongo implements DBService{
                 }else{
                     reject("Wrong email") 
                 }
-            }).catch((err) => reject(err))
+            }).catch((err) => reject(this.handleError(err)))
         })
     }
 
     public getMachineList(): Promise<IMachine[]> {
         return new Promise((resolve, reject) => {
-            if(!this.isConnected()) reject("DB is not connected");
+            if(!this.isConnected()) reject(this.getErrorDBNotConnected());
             Machine.find({},{_id: 0, machine_id: 1, machine_name: 1}).then((machines: IMachine[]) => {
                 resolve(machines)
-            }).catch((err) => reject(err))
+            }).catch((err) => reject(this.handleError(err)))
         })
     }
 
@@ -93,22 +93,21 @@ export class DBService_mongo implements DBService{
                     }
                 }else{
                     return {
-                        message: "Duplicate key value",
-                        keyValue: error.keyValue
+                        errorType: "Duplicate key value",
+                        message: `Duplicated key: ${error.keyValue}` 
                     }
                 }
             }
-            return error;
-        }else{
-            return {errorName: error.name};
         }
+        return {errorType: error.name, message: error.message};
+    }
 
+    private getErrorDBNotConnected(){
+        return {errorType: "MongoServerError", message: "DB is not connected"}
     }
 
     private isConnected(): boolean{ 
         let state = mongoose.connection.readyState
         return state === this.CONNECTED || state === this.CONNECTING;
     }
-
-
 }

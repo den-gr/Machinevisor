@@ -35,12 +35,14 @@ describe('User Endpoints',  () => {
         let res = await requestWithSupertest.get('/users/word').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(400);
         expect(res.body).toHaveProperty('error_name')
+        expect(res.body).toHaveProperty('message')
     });
 
     it('Get /users/:id should return 404 if user is not found', async () => {
         let res = await requestWithSupertest.get('/users/999999').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(404);
         expect(res.body).toHaveProperty('message')
+        expect(res.body).toHaveProperty('error_name')
     });
 });
 
@@ -60,12 +62,14 @@ describe('Machines Endpoints',  () => {
         const res = await requestWithSupertest.get('/machines/999999').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(404);
         expect(res.body).toHaveProperty('message')
+        expect(res.body).toHaveProperty('error_name')
     });
 
     it('GET /:machineId should return 400 id is not a number', async () => {
         const res = await requestWithSupertest.get('/machines/word').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(400);
         expect(res.body).toHaveProperty('message')
+        expect(res.body).toHaveProperty('error_name')
     });
 
     it('GET /machines should return a list of machines', async () => {
@@ -86,9 +90,13 @@ describe("Authentification endpoing", () => {
         }
         const res  = await requestWithSupertest.post("/auth/sign_up").send(payload);
         expect(res.status).toEqual(400); //wrong password format
+        expect(res.body).toHaveProperty('message')
+        expect(res.body).toHaveProperty('error_name')
         payload.password = "1Mypasss";
         const res2  = await requestWithSupertest.post("/auth/sign_up").send(payload);
         expect(res2.status).toEqual(409); //conflict
+        expect(res.body).toHaveProperty('message')
+        expect(res.body).toHaveProperty('error_name')
     });
 
     it("try log in with /auth/sign_in and logout with /auth/logout", async () => {
