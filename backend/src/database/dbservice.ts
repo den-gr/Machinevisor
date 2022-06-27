@@ -10,7 +10,6 @@ export interface DBService{
     getMachine(machine_id: number): Promise<IMachine | null>;
     getAuth(email: string): Promise<IAuth | null>;
     getMachineList(): Promise<IMachine[]>; 
-    
 }
 
 export class DBService_mongo implements DBService{
@@ -37,7 +36,6 @@ export class DBService_mongo implements DBService{
                     surname: newUser.surname,
                     user_id: newUser.user_id
                 })
-
             }).catch((err) => reject(this.handleError(err)))
         })
     }
@@ -103,7 +101,7 @@ export class DBService_mongo implements DBService{
     }
 
     private getErrorDBNotConnected(){
-        return {errorType: "MongoServerError", message: "DB is not connected"}
+        return {errorType: "ConnectionServerError", message: "DB is not connected"}
     }
 
     private isConnected(): boolean{ 
