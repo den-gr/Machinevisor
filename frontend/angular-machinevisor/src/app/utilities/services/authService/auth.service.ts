@@ -21,8 +21,6 @@ export class AuthService {
 
   constructor(private navService: NavigationService, private http: HttpClient) { }
 
-  private statusOk = 200;
-
   public getToken(){
     return localStorage.getItem('token');
   }
@@ -37,10 +35,6 @@ export class AuthService {
 
   public getUserID(){
     return localStorage.getItem('userID');
-  }
-
-  public getStatusOk(){
-    return this.statusOk;
   }
 
   public logout() {
@@ -62,6 +56,6 @@ export class AuthService {
     console.log(data)
 
     const url = environment.apiUrl + "auth/sign_in";
-    return this.http.post<Login>(url, data, { observe: 'response' });
+    return this.http.post<Login>(url, data, { observe: 'response' })
   }
 }

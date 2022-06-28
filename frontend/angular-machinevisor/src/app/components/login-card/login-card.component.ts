@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 import { environment } from 'src/environments/environment';
@@ -13,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginCardComponent implements OnInit {
 
-  constructor(private authService: AuthService, private navService: NavigationService) { }
+  constructor(private authService: AuthService, private navService: NavigationService, private apiService: APIService) { }
 
   myGroup: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -30,7 +31,7 @@ export class LoginCardComponent implements OnInit {
     if(user !== '' &&  psw !== ''){ 
       this.authService.signInUser(user, psw).subscribe(res => {
         console.log("mi sono autenticata? " + res.status);
-        if(res.status === this.authService.getStatusOk()){
+        if(res.status === this.apiService.statusOk){
           if(res.body !== null){
             this.authService.setToken(res.body.token);
             this.authService.setUserID(res.body.user_id);

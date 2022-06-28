@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 
@@ -62,7 +64,7 @@ export class RegistrationCardComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private datePipe: DatePipe, private authService: AuthService, private navService: NavigationService) { }
+  constructor(private datePipe: DatePipe, private navService: NavigationService, private apiService: APIService, private authService: AuthService) { }
 
   onSubmit(){
     console.log("REGISTRATION");
@@ -74,23 +76,37 @@ export class RegistrationCardComponent implements OnInit {
     const confirmPsw = this.myForm.get('confirmPassword');
 
     if(user?.value !== '' && name?.value !== '' && surname?.value !== '' && date?.value !== '' && psw?.value !== '' && confirmPsw?.value !== ''){
-      //inserisco i dati nel DB
-      if(user?.value === "prova.prova@prova.com"){ //togliere!!!
-        //aggiungo l'utente al db
-        this.authService.signInUser(user?.value, psw?.value.toString()) //save token in storage
-        this.navService.goToPage('/home');
-      }else{
-        this.errorReg = true;
-        user?.patchValue(null);
-        psw?.patchValue(null);
-        confirmPsw?.patchValue(null);
+      
+      if(psw?.value === confirmPsw?.value){ 
+        this.apiService.signUpUser(name?.value, surname?.value, date?.value, user?.value, psw?.value).subscribe(res => {
+          console.log("Status --> " + res.status);
+          if(res.status === this.apiService.statusRegOk){
+            //signIn
+            this.authService.signInUser(user?.value, psw?.value).subscribe(res => {
+              if(res.status === this.apiService.statusOk){
+                if(res.body !== null){
+                  this.authService.setToken(res.body.token);
+                  this.authService.setUserID(res.body.user_id);
+                }
+                this.navService.goToPage('/home');
+              }
+            });
+          }
+        }, (error: HttpErrorResponse) => {
+          if(error.status === this.apiService.statusWrongEmail){
+            this.errorReg = true;
+            user?.patchValue(null);
+            psw?.patchValue(null);
+            confirmPsw?.patchValue(null);
+          }
+        });
+        
       }
     }
   }
 
   ngOnInit(): void {
     this.maxDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');
-    console.log(this.maxDate)
   }
 
 }

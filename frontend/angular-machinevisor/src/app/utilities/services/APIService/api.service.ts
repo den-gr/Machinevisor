@@ -57,6 +57,10 @@ export class APIService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
+  statusOk = 200;
+  statusRegOk = 201;
+  statusWrongEmail = 409;
+
   /*public getAPI(obj:string){
     const url = environment.apiUrl + obj;
     return this.http.get(url);
@@ -83,6 +87,19 @@ export class APIService {
     const url = environment.apiUrl + 'users/' + this.authService.getUserID();
 
     return this.http.get<User>(url, this.makeHeader());
+  }
+
+  public signUpUser(name:string, surname:string, bDate:string, email:string, password:string){
+    const data = {
+      "name": name,
+      "surname": surname,
+      "birth_date": bDate,
+      "email": email,
+      "password": password
+    }
+
+    const url = environment.apiUrl + "auth/sign_up";
+    return this.http.post(url, data, { observe: 'response' });
   }
 
   private makeHeader(){
