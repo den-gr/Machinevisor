@@ -1,0 +1,20 @@
+@import "../../utilities/variables";
+$margin: 5%;
+
+.card{
+    width: 70%;
+    margin: auto;
+    margin-bottom: $card-distance;
+    margin-top: $card-distance;
+    background-color: $card-gray;
+  }
+
+mat-card-header{
+    margin-bottom: 1%;
+}
+
+@media only screen and (max-width: $tablet) {
+    .card{
+        width: 85%;
+    }
+}

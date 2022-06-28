@@ -1,0 +1,16 @@
+<mat-card class="card">
+    <mat-card-header>
+        My chart name
+    </mat-card-header>
+    <!-- <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button> -->
+    <mat-card-content class="content">
+              <canvas baseChart 
+                          [data]="data"
+                          [options]="options"
+                          [type]="chartType"
+                          (chartHover)="chartHovered($event)"
+                          (chartClick)="chartClicked($event)"></canvas>        
+    </mat-card-content>
+</mat-card>
+
+

@@ -33,6 +33,9 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { RegistrationCardComponent } from './components/registration-card/registration-card.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { DatePipe } from '@angular/common';
+import { ChartComponent } from './components/chart/chart.component';
+
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import { DatePipe } from '@angular/common';
     RegistrationComponent,
     RegistrationCardComponent,
     StatisticsComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +72,9 @@ import { DatePipe } from '@angular/common';
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    NgChartsModule
   ],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,

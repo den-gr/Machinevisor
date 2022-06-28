@@ -21,8 +21,10 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "@material/top-app-bar": "^14.0.0",
+    "chart.js": "^3.8.0",
     "escape-string-regexp": "^5.0.0",
     "moment": "^2.29.3",
+    "ng2-charts": "^3.0.11",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
