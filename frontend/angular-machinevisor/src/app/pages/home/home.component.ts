@@ -10,7 +10,8 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Actual token home --> " + localStorage.getItem("id_token"))
+    console.log("Actual token home --> " + localStorage.getItem("token"))
+    console.log("Actual User home --> " + localStorage.getItem("userID"))
     //console.log(this.authService.isTokenStored())
   }
 

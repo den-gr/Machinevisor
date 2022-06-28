@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 
-export interface Schedule {
-  day: string;
-  AM: string;
-  PM: string;
-}
-
-const ELEMENT_DATA: Schedule[] = [
+/*const ELEMENT_DATA: Schedule[] = [
   {day: "Monday", AM: '09:00-13:00', PM: '14:00-18:00'},
   {day: "Tuesday", AM: '09:00-13:00', PM: '14:00-18:00'},
   {day: "Wednesday", AM: '09:00-13:00', PM: '14:00-18:00'},
   {day: "Thursday", AM: '09:00-13:00', PM: '14:00-18:00'},
   {day: "Friday", AM: '09:00-13:00', PM: '14:00-18:00'},
-]
+]*/
+
+export interface Schedule{
+  day: string,
+  AM: string,
+  PM: string
+}
 
 @Component({
   selector: 'app-weekly-schedule',
@@ -21,12 +22,25 @@ const ELEMENT_DATA: Schedule[] = [
 })
 export class WeeklyScheduleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: APIService) { }
 
-  dataSource = ELEMENT_DATA;
+  dataSource: Schedule[] = Array();
   displayedColumns: string[] = ['day', 'AM', 'PM'];
 
   ngOnInit(): void {
+    this.apiService.getUser().subscribe(res => {
+        
+        const schedule: Schedule[] = [
+          {day: 'monday', AM: res.work_sheet.monday.first_shift, PM: res.work_sheet.monday.second_shift},
+          {day: 'tuesday', AM: res.work_sheet.tuesday.first_shift, PM: res.work_sheet.tuesday.second_shift},
+          {day: 'wednesday', AM: res.work_sheet.wednesday.first_shift, PM: res.work_sheet.wednesday.second_shift},
+          {day: 'thursday', AM: res.work_sheet.thursday.first_shift, PM: res.work_sheet.thursday.second_shift},
+          {day: 'friday', AM: res.work_sheet.friday.first_shift, PM: res.work_sheet.friday.second_shift}
+        ];
+        this.dataSource = schedule;
+    });
+
+    console.log(this.dataSource)
   }
 
 }

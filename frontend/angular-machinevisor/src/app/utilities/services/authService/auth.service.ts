@@ -10,7 +10,8 @@ export interface Login{
   url: string,
   ok: boolean,
   type: number,
-  token: string
+  token: string,
+  user_id: number
 }
 
 @Injectable({
@@ -20,8 +21,6 @@ export class AuthService {
 
   constructor(private navService: NavigationService, private http: HttpClient) { }
 
-  private statusOk = 200;
-
   public getToken(){
     return localStorage.getItem('token');
   }
@@ -30,8 +29,12 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  public getStatusOk(){
-    return this.statusOk;
+  public setUserID(ID: number){
+    localStorage.setItem('userID', ID.toString());
+  }
+
+  public getUserID(){
+    return localStorage.getItem('userID');
   }
 
   public logout() {
@@ -53,6 +56,6 @@ export class AuthService {
     console.log(data)
 
     const url = environment.apiUrl + "auth/sign_in";
-    return this.http.post<Login>(url, data, { observe: 'response' });
+    return this.http.post<Login>(url, data, { observe: 'response' })
   }
 }

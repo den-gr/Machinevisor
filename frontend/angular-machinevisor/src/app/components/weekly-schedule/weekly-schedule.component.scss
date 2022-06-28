@@ -17,7 +17,6 @@ table {
 }
 
 .day-col{
-    width: 20%;
     background-color: $card-blue;
 }
 
@@ -34,5 +33,9 @@ table {
         width: 90%;
         margin-right: 0;
         padding: 3%;
+    }
+
+    .day-col{
+        width: 20%;
     }
 }
