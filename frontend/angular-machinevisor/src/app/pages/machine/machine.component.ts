@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MachineComponent implements OnInit {
 
-  constructor(private routes: ActivatedRoute, private apiService: APIService) { }
+  constructor(private routes: ActivatedRoute) { }
 
   machineID = ''
 

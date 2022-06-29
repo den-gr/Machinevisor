@@ -1,0 +1,18 @@
+<mat-card class="card">
+    <mat-card-header class="header">
+        <mat-card-title class="title">{{dateTime}}</mat-card-title>
+      </mat-card-header> 
+    <mat-card-content class="content">
+        <div class="values">
+            <ul>
+              <li *ngFor="let elem of values; let i = index" 
+              [ngClass]="{
+                'colored' : i%2 === 0,
+                'not-colored' : i%2 !== 0
+              }">
+                  <p>{{elem.key}}:</p><p>{{elem.value}}</p>
+              </li>
+             </ul>
+          </div>
+    </mat-card-content>   
+</mat-card>

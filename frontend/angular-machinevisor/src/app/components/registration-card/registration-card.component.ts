@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
@@ -78,7 +79,19 @@ export class RegistrationCardComponent implements OnInit {
     if(user?.value !== '' && name?.value !== '' && surname?.value !== '' && date?.value !== '' && psw?.value !== '' && confirmPsw?.value !== ''){
       
       if(psw?.value === confirmPsw?.value){ 
-        this.apiService.signUpUser(name?.value, surname?.value, date?.value, user?.value, psw?.value).subscribe(res => {
+        this.apiService.signUpUser(name?.value, surname?.value, date?.value, user?.value, psw?.value)
+        .pipe(
+          catchError(error => {
+              if(error.status === this.apiService.statusWrongEmail){
+                this.errorReg = true;
+                user?.patchValue(null);
+                psw?.patchValue(null);
+                confirmPsw?.patchValue(null);
+              }
+              return throwError(() => new Error('Email already in use!'));
+          })
+        )
+        .subscribe(res => {
           console.log("Status --> " + res.status);
           if(res.status === this.apiService.statusRegOk){
             //signIn
@@ -91,13 +104,6 @@ export class RegistrationCardComponent implements OnInit {
                 this.navService.goToPage('/home');
               }
             });
-          }
-        }, (error: HttpErrorResponse) => {
-          if(error.status === this.apiService.statusWrongEmail){
-            this.errorReg = true;
-            user?.patchValue(null);
-            psw?.patchValue(null);
-            confirmPsw?.patchValue(null);
           }
         });
         

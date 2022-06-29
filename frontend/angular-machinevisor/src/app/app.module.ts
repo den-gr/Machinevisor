@@ -36,6 +36,7 @@ import { DatePipe } from '@angular/common';
 import { ChartComponent } from './components/chart/chart.component';
 
 import { NgChartsModule } from 'ng2-charts';
+import { LogCardComponent } from './components/log-card/log-card.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { NgChartsModule } from 'ng2-charts';
     RegistrationComponent,
     RegistrationCardComponent,
     StatisticsComponent,
-    ChartComponent
+    ChartComponent,
+    LogCardComponent
   ],
   imports: [
     BrowserModule,

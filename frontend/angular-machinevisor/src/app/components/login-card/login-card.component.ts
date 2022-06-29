@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
@@ -29,7 +30,17 @@ export class LoginCardComponent implements OnInit {
     console.log(user + " | " + psw);
 
     if(user !== '' &&  psw !== ''){ 
-      this.authService.signInUser(user, psw).subscribe(res => {
+      this.authService.signInUser(user, psw)
+      .pipe(
+        catchError(error => {
+            if(error.status === this.apiService.statusUnauthorized){
+              this.errorLogin = true;
+              this.myGroup.get('password')?.patchValue(null);
+            }
+            return throwError(() => new Error('Wrong credentials!'));
+        })
+      )
+      .subscribe(res => {
         console.log("mi sono autenticata? " + res.status);
         if(res.status === this.apiService.statusOk){
           if(res.body !== null){
@@ -37,9 +48,6 @@ export class LoginCardComponent implements OnInit {
             this.authService.setUserID(res.body.user_id);
           }
           this.navService.goToPage('/home');
-        }else{
-          this.errorLogin = true;
-          this.myGroup.get('password')?.patchValue(null);
         }
       });
     }
