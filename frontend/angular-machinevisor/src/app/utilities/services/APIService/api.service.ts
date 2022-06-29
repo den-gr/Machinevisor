@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { AuthService } from '../authService/auth.service';
 
@@ -60,6 +61,7 @@ export class APIService {
   statusOk = 200;
   statusRegOk = 201;
   statusWrongEmail = 409;
+  statusUnauthorized = 401;
 
   /*public getAPI(obj:string){
     const url = environment.apiUrl + obj;
@@ -74,7 +76,11 @@ export class APIService {
   public getMachineInfo(ID:string){
     const url = environment.apiUrl + 'machines/' + ID;
 
-    return this.http.get<Machine>(url, this.makeHeader());
+    return this.http.get<Machine>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
   }
 
   public getMachinesList(){
@@ -86,7 +92,11 @@ export class APIService {
   public getUser(){
     const url = environment.apiUrl + 'users/' + this.authService.getUserID();
 
-    return this.http.get<User>(url, this.makeHeader());
+    return this.http.get<User>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
   }
 
   public signUpUser(name:string, surname:string, bDate:string, email:string, password:string){
@@ -110,5 +120,12 @@ export class APIService {
     return {                                                                                                                                                                                 
       headers: new HttpHeaders(header), 
     };
+  }
+
+  private tokenError(error: any){
+    if(error.status === this.statusUnauthorized){
+      this.authService.logout();
+    }
+    return throwError(() => new Error('Token expired!'));
   }
 }
