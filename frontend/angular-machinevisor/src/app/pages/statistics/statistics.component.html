@@ -1,6 +1,6 @@
-<div>
-    <app-chart [data]="data1" [chartType]="lineChart" [options]="lineChartOptions"></app-chart>
-    <app-chart [data]="data2" [chartType]="lineChart" [options]="lineChartOptions"></app-chart>
-    <app-chart [data]="barChartData" [chartType]="barChart" [options]="barChartOptions"></app-chart>
+<div id="statistics">
+    <app-chart [chartType]="lineChart" [chartValue]="temperature"></app-chart>
+    <app-chart [chartType]="lineChart" [chartValue]="kWatt"></app-chart>
+    <app-chart [chartType]="barChart"></app-chart>
 </div>
 

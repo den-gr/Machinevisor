@@ -1,12 +1,13 @@
 @import "../../utilities/variables";
 
-// .test{
-//     margin-top: $card-distance;
-//     margin-bottom: $card-distance;
-// }
-.registration-page-content{
-    margin-top: $card-distance;
-    margin-bottom: $card-distance;
+#statistics{
+    width: 100%;
+    margin: auto;
 }
 
-
+@media only screen and (min-width: $mobile) {
+    #statistics{
+        width: 80%;
+        margin: auto;
+    }
+}

@@ -1,0 +1,26 @@
+@import "../../utilities/variables";
+
+// .charts{
+//     margin-left: 5%;
+//     width: 40%;
+//     box-sizing: border-box;
+// }
+$margin: 1%;
+
+
+@media only screen and (min-width: $tablet) {
+    .charts{
+        min-height:80vh;
+        margin-left: $margin;
+        margin-right: $margin;
+    }
+    
+    app-chart{
+        // margin: auto;
+        margin-top: 1%;
+        width: 50%;
+        float: left;
+
+    }
+ 
+}
