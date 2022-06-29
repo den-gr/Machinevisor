@@ -21,7 +21,7 @@ export class MachineInfoComponent implements OnInit {
   valuesMix = Array()
 
   goTo(page: string){
-    this.navService.goToPageWithParameters(page, this.machineID.toString());
+    this.navService.goToPageWithTwoParameters(page, this.machineID.toString(), this.name);
   }
 
   ngOnInit(): void {

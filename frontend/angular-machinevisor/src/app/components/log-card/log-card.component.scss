@@ -1,0 +1,59 @@
+@import "../../utilities/variables";
+
+$margin: 5%;
+
+.card{
+    width: $card-width;
+    margin: auto;
+    margin-bottom: $card-distance;
+    background-color: $card-gray;
+    padding: $margin;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.values{
+    margin-top: $margin;
+    width: 100%;
+}
+
+
+ul, li{
+    margin: 0;
+    padding: 0;
+    margin-bottom: $margin;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1%;
+    font-size: medium;
+}
+
+@media only screen and (min-width: $tablet) {
+    li{
+        font-size:small;
+    }
+    .card{
+        width: 90%;
+        padding: 2%;
+    }
+}
+
+.colored, .not-colored{
+    margin-bottom: 2%;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+}
+
+.colored{
+    background-color: $card-blue;
+}
+

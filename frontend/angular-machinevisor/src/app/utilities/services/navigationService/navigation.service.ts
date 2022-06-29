@@ -18,6 +18,11 @@ export class NavigationService {
     this.router.navigate([page, param1.toString()]);
   }
 
+  public goToPageWithTwoParameters(page: string, param1:any, param2:any){
+    console.log('NAVIGATE WITH PARAM!');
+    this.router.navigate([page, param1.toString(), param2.toString()]);
+  }
+
   public refreshPage(){
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;

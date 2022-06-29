@@ -2,17 +2,7 @@ import { Injectable } from '@angular/core';
 import { NavigationService } from '../navigationService/navigation.service';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
-
-export interface Login{
-  headers: string,
-  status: number,
-  statusText:string,
-  url: string,
-  ok: boolean,
-  type: number,
-  token: string,
-  user_id: number
-}
+import { Login } from '../../dataInterfaces/login';
 
 @Injectable({
   providedIn: 'root'
