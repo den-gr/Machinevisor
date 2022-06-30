@@ -44,7 +44,6 @@ app.use('/users', authMiddleware,  usersRouter);
 app.use('/machines', machinesRouter);
 
 SocketIOService.instance().initialize(server)
-
 server.listen(process.env.PORT, () => {
     console.log("Listening on port ", process.env.PORT);
     const db: Database = new Database();
