@@ -1,18 +1,14 @@
 import { NextFunction, Request, Response} from "express";
 import { DBService_mongo } from "../database/dbservice";
-import { IAuth, IUser } from "../database/models/user_schema";
+import { IAuth} from "../database/models/user_schema";
 import status from 'http-status-codes';
 import { JsonWebTokenError } from "jsonwebtoken";
-import e = require("cors");
 require('dotenv').config();
 const passwordValidator = require('password-validator');
 const {makeErr} = require('../utils/utils');
 const jwt = require("jsonwebtoken");
 const hash = require('pbkdf2-password')()
-const path = require('path');
-const session = require('express-session');
 const express = require('express');
-const app = express();
 const router = express.Router();
 const db_service = new DBService_mongo();
 
@@ -31,7 +27,6 @@ router.post('/sign_in', (req:Request, res:Response) => {
             hash({password: req.body.password, salt: auth.salt}, function(err: Error, pass:string, salt: string, hash: string){
                 if(err) res.status(status.INTERNAL_SERVER_ERROR).send(err);
                 if(hash === auth.password_hash){
-                    // req.session.email = req.body.email
                     const token_data = {
                         email: req.body.email,
                     }
@@ -87,22 +82,13 @@ router.post('/sign_up', (req:Request, res:Response) => {
     }   
 });
 
-// router.get("/logout", (req:Request, res:Response) => {
-//     req.session.destroy;
-//     res.clearCookie("connect.sid")
-//     res.json({})
-// })
-
-
 module.exports.authMiddleware = function authMiddleware(req: Request, res: Response, next: NextFunction){
-    console.log("enter in my midleware", req.headers.authorization)
     if(req.headers.authorization && req.headers.authorization?.split(" ")[0] === "Bearer"){
         jwt.verify(req.headers.authorization?.split(" ")[1], process.env.SECRET, (err:JsonWebTokenError, authData:string) => {
             if(err){
                 res.status(status.UNAUTHORIZED).send(makeErr(err.name, err.message)); //401
             }else{
                 next();
-                // console.log("authDAta:", authData)
             }
         })
     }else{

@@ -18,8 +18,7 @@ router.get('/test', function(req:Request, res:Response) {
         }
     })
   }
-  // res.send("Expressss A. \n your session: " + req.session.username)
-  // console.log("Session id", req.sessionID)
+
 });
 
 module.exports = router;
