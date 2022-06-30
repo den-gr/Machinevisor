@@ -9,16 +9,37 @@ $margin: 5%;
     padding: $margin;
     margin-top: $card-distance;
     margin-bottom: $card-distance;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .title{
     padding-top: 10%;
+}
+.header{
+    width: fit-content;
+}
+
+@media only screen and (max-width: $mobile) {
+    .right{
+        padding-top: 5%;
+        width: 40%;
+    }
+    
+    .select{
+        width: 100%;
+        float: right;
+    }
 }
 
 @media only screen and (min-width: $tablet) {
     .card{
         width: 90%;
         padding: 2%;
+    }
+    .right{
+        padding-top: 1%;
     }
   }
   

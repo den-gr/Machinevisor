@@ -25,12 +25,9 @@ $margin: 5%;
 ul, li{
     margin: 0;
     padding: 0;
-    margin-bottom: $margin;
 }
 
 li{
-    margin: 0;
-    padding: 0;
     list-style: none;
     line-height: 1%;
     font-size: medium;
@@ -38,17 +35,16 @@ li{
 
 @media only screen and (min-width: $tablet) {
     li{
-        font-size:small;
+        font-size:medium;
     }
     .card{
-        width: 90%;
+        width: 30%;
         padding: 2%;
     }
 }
 
 .colored, .not-colored{
-    margin-bottom: 2%;
-    padding: 1%;
+    padding-left: 1%;
     display: flex;
     align-items: center;
 }
