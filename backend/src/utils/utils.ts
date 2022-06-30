@@ -28,5 +28,5 @@ export interface Report{
     timestamp: Date;
     working_time?: number;
     temperature: number;
-    kWh: number;
+    kWatt: number;
 }

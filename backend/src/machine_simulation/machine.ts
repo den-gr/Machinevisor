@@ -15,7 +15,7 @@ export class MachineSimulation implements MachineInterface{
     private readonly modalities: Modality[]
     private reportLoop;
     private temperature: number = MachineSimulation.ENVIRONMENT_TEMPERATURE;
-    private kWh: number = 5
+    private kWatt: number = 5
     private turnOnTimestamp: Date;
     private lastTimestamp: Date;
     private currentModality: Modality
@@ -42,7 +42,7 @@ export class MachineSimulation implements MachineInterface{
             modality: Modality[this.currentModality],
             timestamp: this.lastTimestamp,
             temperature: this.updateTemperature(timeDiff),
-            kWh: this.updateEnergyConsumption(timeDiff)
+            kWatt: this.updateEnergyConsumption(timeDiff)
         }
 
         if(this.state === State.ON){
@@ -92,11 +92,11 @@ export class MachineSimulation implements MachineInterface{
 
     private setEnergyConsumption(){
         if(this.currentModality === Modality.SLEEP_MODE){
-            this.kWh = 0.1;
+            this.kWatt = 0.1;
         }else if(this.currentModality === Modality.PRODUCTION_MODE){
-            this.kWh = 5;
+            this.kWatt = 5;
         }else if(this.currentModality === Modality.ENERGY_ECONOMY_PRODUCTION_MODE){
-            this.kWh = 3;
+            this.kWatt = 3;
         }else{
             console.log("illegal machine modality")
         }
@@ -139,29 +139,29 @@ export class MachineSimulation implements MachineInterface{
 
     private updateEnergyConsumption(timeDiff: number): number{
         let sign: number = Math.random() > 0.5 ? 1 : -1;
-        this.kWh = parseFloat((this.kWh + Math.random() * sign * (timeDiff * 0.00001)).toFixed(2))
+        this.kWatt = parseFloat((this.kWatt + Math.random() * sign * (timeDiff * 0.00001)).toFixed(2))
         if(this.currentModality === Modality.PRODUCTION_MODE && this.state === State.ON){
-            if(this.kWh > 6){
-                this.kWh = 6
-            }else if(this.kWh < 4){
-                this.kWh = 4
+            if(this.kWatt > 6){
+                this.kWatt = 6
+            }else if(this.kWatt < 4){
+                this.kWatt = 4
             }
         }else if(this.currentModality === Modality.ENERGY_ECONOMY_PRODUCTION_MODE && this.state === State.ON){
-            if(this.kWh > 4){
-                this.kWh = 4
-            }else if(this.kWh < 2){
-                this.kWh = 2
+            if(this.kWatt > 4){
+                this.kWatt = 4
+            }else if(this.kWatt < 2){
+                this.kWatt = 2
             }
         }else if(this.currentModality === Modality.SLEEP_MODE && this.state === State.ON){
-            if(this.kWh > 0.3){
-                this.kWh = 0.3
-            }else if(this.kWh < 0){
-                this.kWh = 0
+            if(this.kWatt > 0.3){
+                this.kWatt = 0.3
+            }else if(this.kWatt < 0){
+                this.kWatt = 0
             }
         }else{
-            this.kWh = 0;
+            this.kWatt = 0;
         }
-        return this.kWh;
+        return this.kWatt;
     }
 }
 
