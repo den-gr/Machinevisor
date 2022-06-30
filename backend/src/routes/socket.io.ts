@@ -1,6 +1,6 @@
 import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
-const { makeErr, isNumber, Report } = require("../utils/utils");
+import { makeErr, isNumber, State } from "../utils/utils";
 
 let period: number = 20000;
 export class SocketIOService {
@@ -188,12 +188,7 @@ export class SocketIOService {
   }
 }
 
-enum State{
-  OFFLINE,
-  OFF,
-  ON,
-  ALLARM, 
-}
+
 
 function isAllarm(obj: any): boolean{
   return obj.temperature > 80;

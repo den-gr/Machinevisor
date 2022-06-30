@@ -80,7 +80,7 @@ describe('Machines Endpoints',  () => {
 
 
 describe("Authentification endpoing", () => {
-    it("POST /auth/sign_up of already existing username record must return confilict http code", async () => {
+    it("POST /auth/sign_up of already existing username record must return confilict http code if password format is correct", async () => {
         let payload = {
             name: "Vitya",
             surname: "Bobik",

@@ -34,12 +34,13 @@ export class MachineConnection{
         this.socket.on("error", (error) => {
             console.error(error);
         });
+        
         this.socket.on("connect", () => {
             console.log("Connected"); 
         });
 
         this.socket.on("disconnect", () => {
-            console.log("Disconnected"); // undefined
+            console.log("Disconnected");
         });
 
         this.socket.on('pingpong', (msg) => {

@@ -1,7 +1,6 @@
 import { model, Schema, Document } from "mongoose";
 import { Modality } from "../../utils/utils";
-const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const AutoIncrement = require('mongoose-sequence')(require('mongoose'));
 
 export interface IMachine extends Document{
     machine_id: number;
@@ -27,7 +26,6 @@ const MachineSchema = new Schema<IMachine>({
     img_uri: {type: String, default: "/images/machines/default.jpg"},
     modalities: {type: [String], enum: Modality, required: true},
     values: {type: [String], required: true}
-
 });
 
 MachineSchema.plugin(AutoIncrement, {inc_field: "machine_id"})

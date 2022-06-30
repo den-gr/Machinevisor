@@ -164,5 +164,3 @@ export class MachineSimulation implements MachineInterface{
         return this.kWatt;
     }
 }
-
-

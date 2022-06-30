@@ -11,8 +11,8 @@
   <script src="socket.io/socket.io.js"></script>
   <script>
     const auth = {
-      type: "client",
-      token: "blatoken1"
+      type: "client",//statico, non cambiare
+      token: "blatoken1" // qui mettete il vostro token
     }
 
     let socket = io("https://localhost:8080", { transports: ["websocket"], auth});
@@ -30,8 +30,6 @@
       let element = document.createElement('div');
       element.innerText = msg;
       document.body.appendChild(element);
-      socket.emit("pingpong", "pong")
-
     })
 
     // socket.onAny(m => {
@@ -43,7 +41,7 @@
     });
 
     socket.on("disconnect", () => {
-        console.log("Disconnected"); // undefined
+        console.log("Disconnected");
     });
 
     socket.on("error", (error) => {

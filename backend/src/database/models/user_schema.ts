@@ -1,6 +1,5 @@
 import { model, Schema, Document } from "mongoose";
-const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const AutoIncrement = require('mongoose-sequence')(require('mongoose'));
 
 interface DaySchedule{
     first_shift?: String;

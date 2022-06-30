@@ -1,6 +1,6 @@
 import { Machine, IMachine } from "./models/machine_schema";
 import User, { IUser, IAuth } from "./models/user_schema";
-const mongoose = require("mongoose");
+import mongoose = require("mongoose");
 
 export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;

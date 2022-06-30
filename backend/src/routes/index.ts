@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 import { JsonWebTokenError } from "jsonwebtoken";
-const express = require('express');
-const router = express.Router();
+import express = require('express');
 const jwt = require("jsonwebtoken");
+const router = express.Router();
 require('dotenv').config();
 
 /* GET home page. */
