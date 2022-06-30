@@ -1,5 +1,3 @@
-import { Query } from "mongoose";
-import { resolve } from "path";
 import { Machine, IMachine } from "./models/machine_schema";
 import User, { IUser, IAuth } from "./models/user_schema";
 const mongoose = require("mongoose");

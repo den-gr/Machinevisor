@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import { DBService_mongo } from "../database/dbservice";
 import status from 'http-status-codes';
-import { statSync } from "fs";
 const {makeErr, isNumber} = require('../utils/utils');
 const express = require('express');
 const router = express.Router();

@@ -1,7 +1,7 @@
 import { model, Schema, Document } from "mongoose";
+import { Modality } from "../../utils/utils";
 const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
-import { Modality } from "../../utils/utils";
 
 export interface IMachine extends Document{
     machine_id: number;

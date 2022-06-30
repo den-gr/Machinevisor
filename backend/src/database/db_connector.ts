@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-
 export class Database {
     private uri: String;
     private  options = {
