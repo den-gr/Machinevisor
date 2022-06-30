@@ -109,7 +109,7 @@ components:
                 - timestamp
                 - working_time
                 - temperature
-                - kWh
+                - kWatt
             properties:
               machine_id:
                 type: integer
@@ -132,7 +132,7 @@ components:
                 description: "temperature in celsius"
                 multipleOf: 0.1 
                 example: 20.2
-              kWh: 
+              kWatt: 
                 type: number
                 format: float
                 multipleOf: 0.01
@@ -142,7 +142,7 @@ components:
                 description: "Optional. Shows what values of machine provocate allarm state"
                 items:
                   type: string
-                  enum: [temperature, kWh]
+                  enum: [temperature, kWatt]
                 example: 
                   - temperature
           - $ref: "#/components/schemas/Modality"
