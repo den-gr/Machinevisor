@@ -1,4 +1,5 @@
-<mat-card class="card">
+<div>
+  <mat-card class="card">
     <mat-card-header class="header">
       <mat-card-title class="title">Log {{machineName}}</mat-card-title>
     </mat-card-header> 
@@ -14,6 +15,9 @@
     </mat-card-content>
 </mat-card>
 
-<div>
-  <app-log-card></app-log-card>
+<div class="log-collector">
+  <div class="log-card" *ngFor="let data of machineLogs">
+    <app-log-card [data]="data"></app-log-card>
+  </div>
+</div>
 </div>

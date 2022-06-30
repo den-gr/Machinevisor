@@ -38,6 +38,8 @@
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
-  <app-navbar (sidenavToggle)="menuService.clickMenu()"></app-navbar>
+  <mat-drawer-content>
+    <app-navbar (sidenavToggle)="menuService.clickMenu()"></app-navbar>
   <router-outlet></router-outlet>
+  </mat-drawer-content>
 </mat-drawer-container>

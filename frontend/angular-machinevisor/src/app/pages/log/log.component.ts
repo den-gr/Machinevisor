@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Period } from 'src/app/utilities/dataInterfaces/periods';
 
@@ -11,6 +11,7 @@ export class LogComponent implements OnInit {
 
   machineID = ''
   machineName = ''
+  machineLogs = Array();
 
   periods: Period[] = [
     {value: '1', viewValue: '1h'},
@@ -26,6 +27,8 @@ export class LogComponent implements OnInit {
   constructor(private routes: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    this.machineLogs = Array("data1", "data2", "data3", "data4");
 
     this.routes.paramMap.subscribe(params => {
       let res = params.get('machineID');

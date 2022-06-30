@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 
 @Component({
@@ -11,14 +11,19 @@ export class LogCardComponent implements OnInit {
 
   constructor(private apiService: APIService, public datepipe: DatePipe) { }
 
+  @Input() data: any; //TODO change type
+
   dateTime = ''
   values = Array();
 
   ngOnInit(): void {
+
+    console.log("dati del log --> " + this.data.toString());
+
     this.dateTime = "29/06/2022 11:52:35"
 
     let info = Array("Val1", "Val2", "Val3", "Val4", "Val5");
-    let data = Array("123", "123", "123", "123", "123");
+    let data = Array(this.data.toString(), "123", "123", "123", "123");
 
     for(let i=0; i<data.length; i++){
       this.values.push({key:info[i], value:data[i]})

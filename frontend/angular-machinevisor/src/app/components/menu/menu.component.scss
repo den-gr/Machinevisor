@@ -44,6 +44,10 @@ mat-expansion-panel-header{
     padding-left: 7%;
 }
 
+mat-drawer-content{
+    min-height: 100vh;
+}
+
 .container{
     background-color: $background-gray;
 }

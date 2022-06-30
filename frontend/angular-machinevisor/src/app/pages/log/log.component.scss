@@ -41,5 +41,16 @@ $margin: 5%;
     .right{
         padding-top: 1%;
     }
+
+    .log-collector{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .log-card{
+        margin: 0;
+        padding: 0;
+        width: 50%;
+    }
   }
   
