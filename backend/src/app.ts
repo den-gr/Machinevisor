@@ -1,30 +1,24 @@
 import { Database } from "./database/db_connector";
 import { SocketIOService } from "./routes/socket.io";
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const cors = require('cors');
+import express = require('express');
+import path = require('path');
+import logger = require('morgan');
+import cors = require('cors');
+import http = require('https');
+import fs = require('fs');
 require('dotenv').config();
 
-const authMiddleware =  require('./routes/auth').authMiddleware;
-
-const authRouter = require('./routes/auth').router;
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const machinesRouter = require('./routes/machines');
-
 const app = express();
-const http = require('https');
 
-const fs = require('fs');
+//SSL
 var privateKey = fs.readFileSync( './ssl/key.pem' );
 var certificate = fs.readFileSync( './ssl/certificate.pem');
-
 const server = http.createServer({
     key: privateKey,
     cert: certificate
-}, app);
+},app );
 
+//Middlewares
 app.use(cors({credentials: true,  origin: true}))
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,11 +26,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));//give static access to "public" folder 
 app.use("/socket.io", express.static(path.join(__dirname, '../nodes_module/socket.io/client-dist')))
 
+
+//Routin
+const authMiddleware =  require('./routes/auth').authMiddleware;
+const authRouter = require('./routes/auth').router;
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const machinesRouter = require('./routes/machines');
 app.use('/auth', authRouter);
 app.use('/', indexRouter);
 app.use('/users', authMiddleware,  usersRouter);
 app.use('/machines', machinesRouter);
 
+//Run server
 SocketIOService.instance().initialize(server)
 server.listen(process.env.PORT, () => {
     console.log("Listening on port ", process.env.PORT);
