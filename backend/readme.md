@@ -6,8 +6,9 @@
 # API
 * Link to [HTTP API](https://app.swaggerhub.com/apis/DenGuzawr22/Machinevisor)
 * For describe socket.io api we use AsyncAPI
-    * For open documentation go to ./public/doc/index.html
-    * If serve is active you can go to https://localhost:8080/doc
+    * For open documentation:
+        * If serve is active you can go to https://localhost:8080/doc
+        * Or open with a browser the file ./public/doc/index.html
     * For create new version of api: 
         1. Update the file ./public/doc/asycapi.yaml
         2. Run `npm run generate_async_doc`
