@@ -6,7 +6,6 @@ import { makeErr } from '../utils/utils';
 import status from 'http-status-codes';
 import express = require('express');
 import passwordValidator = require('password-validator');
-import { nextTick } from "process";
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const hash = require('pbkdf2-password')()
@@ -49,7 +48,7 @@ router.post('/sign_up', (req:Request, res:Response, next:NextFunction) => {
 
 
 const options = { // token options
-    expiresIn: "2h"
+    expiresIn: "7d"
 }
 
 //Control token is valid

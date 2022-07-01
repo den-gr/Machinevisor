@@ -46,7 +46,7 @@ describe('User Endpoints',  () => {
     });
 });
 
-describe('Machines Endpoints',  () => {
+describe('Machines Endpoints /machines',  () => {
     it('GET /machines/:id should show a machine', async () => {
         let res = await requestWithSupertest.get('/machines/1').set("authorization", "Bearer "+ token)
         expect(res.statusCode).toEqual(200)
@@ -72,8 +72,13 @@ describe('Machines Endpoints',  () => {
         expect(res.body).toHaveProperty('error_name')
     });
 
-    it('GET /machines should return a list of machines', async () => {
+    it('GET / should return a list of machines', async () => {
         const res = await requestWithSupertest.get('/machines');
+        expect(res.status).toEqual(200);
+    });
+
+    it('GET /:machineId/charts should return datas of machine charts', async () => {
+        const res = await requestWithSupertest.get('/machines/1/charts').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(200);
     });
 });
