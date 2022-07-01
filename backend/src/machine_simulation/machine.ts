@@ -29,7 +29,7 @@ export class MachineSimulation implements MachineInterface{
         this.turnOnTimestamp = new Date;
         this.lastTimestamp = new Date;
         this.modalities = modalities;
-        this.currentModality = this.modalities[0]
+        this.currentModality = Modality.NO_MODE
     }
 
     // make an "image" of current state of the machine
@@ -83,6 +83,8 @@ export class MachineSimulation implements MachineInterface{
         if(newState === State.ON || newState === State.OFF){
             if(newState === State.ON && this.state === State.OFF){
                 this.start()
+            }else{
+                this.currentModality = Modality.NO_MODE;
             }
             this.state = newState;
         }else{
@@ -103,6 +105,7 @@ export class MachineSimulation implements MachineInterface{
     }
 
     private start(){
+        this.currentModality = this.modalities[0]
         this.turnOnTimestamp = new Date;
         this.setEnergyConsumption();
     }

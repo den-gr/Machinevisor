@@ -166,7 +166,7 @@ components:
       properties:
         modality:
           type: string
-          enum: [SLEEP_MODE, ENERGY_ECONOMY_PRODUCTION_MODE, PRODUCTION_MODE]
+          enum: [SLEEP_MODE, ENERGY_ECONOMY_PRODUCTION_MODE, PRODUCTION_MODE, NO_MODE]
           example:  SLEEP_MODE
   securitySchemes:
     bearerAuth:

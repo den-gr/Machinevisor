@@ -92,17 +92,10 @@ export class SocketIOService {
         socket.on("clients/update", (msg) => {
           try{
             let obj = JSON.parse(msg);
-            //TODO save to database all new updates
-            if(obj.machine_id && obj.machine_id >= 0 && obj.state){ // send updates to clients that want to have updates from all machines
-              if(isAllarm(obj)){
-                console.log("before", obj.state)
-                obj.state = State[State.ALLARM];
-                obj.allarm = ["temperature"] //debito tecnico
-                console.log("after", obj.state)
-
-              }
-              console.log("I'm inside")
-              if(this.machinesSubscribers.has(0)){
+            //TODO save to database all new updates (AFTER checkAllarm)
+            if(obj.machine_id && obj.machine_id >= 0 && obj.state){ 
+              obj = checkAllarm(obj);
+              if(this.machinesSubscribers.has(0)){ // send updates to the clients that want to have updates from all machines
                 this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
               }
               if(this.machinesSubscribers.has(obj.machine_id)){
@@ -188,8 +181,13 @@ export class SocketIOService {
   }
 }
 
+function checkAllarm(obj: any): Object{
+  if(obj.temperature > 80){
+    console.log("before", obj.state)
+    obj.state = State[State.ALLARM];
+    obj.allarm = ["temperature"]
+    console.log("after", obj.state)
 
-
-function isAllarm(obj: any): boolean{
-  return obj.temperature > 80;
+  }
+  return obj;
 }

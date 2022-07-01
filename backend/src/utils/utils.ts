@@ -9,6 +9,7 @@ export {makeErr, isNumber }
 
 //Possible machine work modality
 export enum Modality{
+    NO_MODE,
     SLEEP_MODE,
     ENERGY_ECONOMY_PRODUCTION_MODE,
     PRODUCTION_MODE
