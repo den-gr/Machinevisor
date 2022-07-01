@@ -12,17 +12,13 @@ import { OnOffButtonService } from 'src/app/utilities/services/on-off-buttonServ
 export class MachineInfoComponent implements OnInit {
   @Input() machineID:any;
 
-  constructor(private navService: NavigationService, public buttonService: OnOffButtonService, private apiService: APIService, public datepipe: DatePipe) { }
+  constructor(public navService: NavigationService, public buttonService: OnOffButtonService, private apiService: APIService, public datepipe: DatePipe) { }
 
   name = '';
   status = 'Error';
   photo = '../../../assets/img/ciambella.jpeg';
   infoMix = Array()
   valuesMix = Array()
-
-  goTo(page: string){
-    this.navService.goToPageWithTwoParameters(page, this.machineID.toString(), this.name);
-  }
 
   ngOnInit(): void {
 
