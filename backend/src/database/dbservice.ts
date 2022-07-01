@@ -72,8 +72,6 @@ export class DBService_mongo implements DBService{
         })
     }
 
-
-
     private handleError(error: any) : {[k: string]: any} {
         if(error.name == "ValidationError"){
             return {
