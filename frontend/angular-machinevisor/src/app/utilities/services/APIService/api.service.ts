@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { MachineChart } from '../../dataInterfaces/charts';
 import { Machine, Machines } from '../../dataInterfaces/machine';
 import { User } from '../../dataInterfaces/user';
 import { AuthService } from '../authService/auth.service';
@@ -55,6 +56,15 @@ export class APIService {
 
     const url = environment.apiUrl + "auth/sign_up";
     return this.http.post(url, data, { observe: 'response' });
+  }
+
+  public getMachineCharts(ID:string){
+    const url = environment.apiUrl + 'machines/' + ID + "/charts";
+    return this.http.get<MachineChart[]>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
   }
 
   private makeHeader(){

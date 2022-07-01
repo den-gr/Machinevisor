@@ -62,6 +62,17 @@ function getFakeData(): Object[]{
         date = new Date(date.getTime() + (1000 * 60 * 60 * 24))
     }
 
+    
+    let bla : Object[] = []
+    date = new Date();
+    for(let i = 0; i < 20; i++){
+        bla.push({
+            value: parseFloat((4 + Math.random()).toFixed(2)),
+            date: date
+        })
+        date = new Date(date.getTime() + (1000 * 60 * 60 * 24))
+    }
+
     let obj = [
         {
             type: "temperature",
@@ -70,6 +81,10 @@ function getFakeData(): Object[]{
         {
             type: "kWatt",
             values: kWatts
+        },
+        {
+            type: "BlA",
+            values: bla
         }
     ]
     return obj;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Observable, Subject } from 'rxjs';
+import { APIService } from '../APIService/api.service';
 
 class Data {
   temperature: ChartConfiguration['data'];
@@ -58,7 +59,7 @@ export class ChartService {
   private readonly updateSubject = new Subject<any>();
   public readonly updateObservable: Observable<any> = this.updateSubject.asObservable();
 
-  constructor() { }
+  constructor(apiService: APIService) { }
 
   public getDataConfiguration(chartValue: string): ChartConfiguration['data'] {
     if(chartValue === "temperature"){

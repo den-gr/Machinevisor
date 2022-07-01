@@ -1,4 +1,10 @@
 <div class="charts">
-    <app-chart [chartType]="lineChart" [chartValue]="temperature"></app-chart>
-    <app-chart [chartType]="lineChart" [chartValue]="kWatt"></app-chart>
+    <div *ngFor="let chart of observables | keyvalue" >
+        <app-chart [options]="chartsService.lineChartOptions" 
+                   [updateObservable]="chart.value" 
+                   [chartType]="lineChart" 
+                   [chartValue]="chart.key"
+                   [data]="chartValuesMap.get(chart.key)" ></app-chart>
+    </div>
 </div>
+<!-- <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button> -->
