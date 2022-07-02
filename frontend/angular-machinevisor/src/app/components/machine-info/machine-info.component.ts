@@ -1,8 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { Log } from 'src/app/utilities/dataInterfaces/log';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
 import { OnOffButtonService } from 'src/app/utilities/services/on-off-buttonService/on-off-button.service';
+import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-machine-info',
@@ -12,18 +15,31 @@ import { OnOffButtonService } from 'src/app/utilities/services/on-off-buttonServ
 export class MachineInfoComponent implements OnInit {
   @Input() machineID:any;
 
-  constructor(public navService: NavigationService, public buttonService: OnOffButtonService, private apiService: APIService, public datepipe: DatePipe) { }
+  constructor(
+    public navService: NavigationService, 
+    public buttonService: OnOffButtonService, 
+    private apiService: APIService, 
+    public datepipe: DatePipe,
+    private socketService: SocketService) { }
 
   name = '';
-  status = 'Error';
-  photo = '../../../assets/img/ciambella.jpeg';
+  status = '...';
+  photo = '';
   infoMix = Array()
   valuesMix = Array()
 
   ngOnInit(): void {
 
+    this.socketService.getSocket().on('update', (msg: string) => {
+      let log: Log = JSON.parse(msg);
+      console.log("receive mode: ", log.machine_id);
+      this.status = log.state;
+      this.buttonService.setIsOnChecked(log.state !== 'OFF');
+    });
 
     this.apiService.getMachineInfo(this.machineID).subscribe(data => {
+      this.photo = environment.apiUrl + data.img_uri;
+
       console.log("machine -> " + data.production_year);
       this.name = data.machine_name;
 
