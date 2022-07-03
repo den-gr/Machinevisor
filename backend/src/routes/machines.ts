@@ -47,7 +47,7 @@ function getFakeData(): Object[]{
     for(let i = 0; i < 20; i++){
         temperatures.push({
             value: parseFloat((20 + Math.random() * 10).toFixed(2)),
-            date: date
+            label: date
         })
         date = new Date(date.getTime() + (1000 * 60 * 60 * 24))
     }
@@ -57,7 +57,7 @@ function getFakeData(): Object[]{
     for(let i = 0; i < 20; i++){
         kWatts.push({
             value: parseFloat((4 + Math.random()).toFixed(2)),
-            date: date
+            label: date
         })
         date = new Date(date.getTime() + (1000 * 60 * 60 * 24))
     }

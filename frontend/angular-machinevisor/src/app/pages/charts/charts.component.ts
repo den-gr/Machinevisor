@@ -18,9 +18,9 @@ export class ChartsComponent implements OnInit {
 
   private machineID: string;
 
-  public observables : Map<string, Observable<number>> = new Map(); // chart name -> observabel
+  public observables : Map<string, Observable<ChartEntry>> = new Map(); // chart name -> observabel
   public chartValuesMap: Map<string, ChartConfiguration['data']> = new Map(); // chart name -> chart configuration
-  private readonly updateSubjectsMap : Map<string, Subject<number>> = new Map();
+  private readonly updateSubjectsMap : Map<string, Subject<ChartEntry>> = new Map();
   
   constructor(public chartsService: ChartsService, private routes: ActivatedRoute,private socketService: SocketService) {
     this.routes.paramMap.subscribe(params => {
@@ -36,7 +36,7 @@ export class ChartsComponent implements OnInit {
           this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, e.type));
       })
       topics.forEach(topic =>{
-        let sub = new Subject<number>()
+        let sub = new Subject<ChartEntry>()
         let obs = sub.asObservable();
         this.updateSubjectsMap.set(topic, sub)
         this.observables.set(topic, obs)
@@ -44,10 +44,11 @@ export class ChartsComponent implements OnInit {
     })
   }
 
-  private fillChartConfiguration(entry: ChartEntry[], title: string): ChartConfiguration['data']{
+  private fillChartConfiguration(entries: ChartEntry[], title: string): ChartConfiguration['data']{
     let labels: string[] = [];
     let values: number[] = [];
-    entry.forEach(e => {
+    console.log("Entries: ", entries)
+    entries.forEach(e => {
       // labels.push(new Date(e.date).toLocaleDateString("it"))
       labels.push(new Date(e.label).toLocaleTimeString())
       values.push(e.value)
@@ -66,7 +67,13 @@ export class ChartsComponent implements OnInit {
         if(this.updateSubjectsMap.has(prop)){
           console.log(prop)
           const field = prop as keyof typeof log;
-          this.updateSubjectsMap.get(prop)?.next(+log[field])
+          this.updateSubjectsMap.get(prop)?.next(
+            {
+              value: +log[field],
+              label: new Date(log.timestamp).toLocaleTimeString()
+
+            }
+          )
         }
       }
     })

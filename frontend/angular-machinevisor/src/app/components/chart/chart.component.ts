@@ -4,6 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { Observable } from 'rxjs';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartsService } from 'src/app/utilities/services/chartService/charts.service';
+import { ChartEntry } from 'src/app/utilities/dataInterfaces/charts';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ChartComponent implements OnInit {
   @Input() chartValue: string;
   @Input() data: ChartConfiguration['data'] | undefined;
   @Input() options: ChartConfiguration['options']; 
-  @Input() updateObservable?: Observable<number> ;
+  @Input() updateObservable?: Observable<ChartEntry> ;
   title: string;
 
   constructor(){
@@ -36,8 +37,8 @@ export class ChartComponent implements OnInit {
     // this.options = this.chartService.getOptionsConfiguration(this.chartType)
     // this.chartService.updateObservable.subscribe(_ => this.chart?.update())
     this.updateObservable?.subscribe(val => {
-      this.data?.datasets[0].data.push(val)
-      this.data?.labels?.push("label")
+      this.data?.datasets[0].data.push(val.value)
+      this.data?.labels?.push(val.label)
       this.chart?.update();
     })
     this.title = "Chart of " + this.chartValue;
