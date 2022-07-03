@@ -46,7 +46,7 @@ export class MachineSimulation implements MachineInterface{
         }
 
         if(this.state === State.ON){
-            report.working_time = Math.ceil(((this.lastTimestamp.getTime() - this.turnOnTimestamp.getTime())/1000)/60);
+            report.working_time = Math.ceil(((this.lastTimestamp.getTime() - this.turnOnTimestamp.getTime())/1000));
         }else if(this.state === State.OFF){
             report.working_time = 0;
         }else{
