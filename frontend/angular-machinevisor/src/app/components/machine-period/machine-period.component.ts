@@ -19,7 +19,7 @@ export class MachinePeriodComponent implements OnInit {
   showTicks = false;
   step = 1;
   thumbLabel = false;
-  value = 20;
+  value = 5;
   vertical = false;
   tickInterval = 1;
 

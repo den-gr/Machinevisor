@@ -18,7 +18,7 @@ export class MachineComponent implements OnInit, OnDestroy {
     console.log("ONINIT");
     this.socketService.connect();
     this.socketService.subscribe(1); //TODO ID DELLA MACCHINA
-    this.socketService.setMachinePeriod(1, 20000);
+    this.socketService.setMachinePeriod(1, 5000);
 
     this.routes.paramMap.subscribe(params => {
       console.log("ID della macchina --> " + params.get('machineID'));

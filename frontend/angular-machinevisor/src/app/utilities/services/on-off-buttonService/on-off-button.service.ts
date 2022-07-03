@@ -24,6 +24,7 @@ export class OnOffButtonService {
   public clickOn(){
     if(!this.isOnChecked){
       console.log("On");
+      this.isOnChecked = true;
       this.socketService.setState(1,'ON');
     }
   }

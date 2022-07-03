@@ -28,6 +28,7 @@ export class MachineInfoComponent implements OnInit {
     public datepipe: DatePipe,
     private socketService: SocketService) { }
 
+  onInit = true;
   name = '';
   status = '...';
   mode = '';
@@ -41,7 +42,7 @@ export class MachineInfoComponent implements OnInit {
 
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
-      console.log("receive mode: ", log);
+      console.log("-> ", log);
       this.status = log.state;
       if(this.status !== "OFF"){
         let tmp = '';
@@ -51,11 +52,24 @@ export class MachineInfoComponent implements OnInit {
       }else{
         this.mode = '';
       }
-      this.buttonService.setIsOnChecked(log.state !== 'OFF');
+      
+      if(this.onInit){
+        this.buttonService.setIsOnChecked(log.state !== 'OFF');// <- problema qui
+        this.onInit = false;
+      }
 
-      this.temp = {val : log.temperature, error : true};
-      this.cons = {val : log.kWatt, error : true};
-      this.time = {val : log.working_time, error : true};      
+      let tempErr = false;
+      let consErr = false;
+      let timeErr = false;
+      if(log.allarm){
+        tempErr = log.allarm.includes('temperature')
+        consErr = log.allarm.includes('kWatt')
+        timeErr = log.allarm.includes('working_time')
+      }
+      
+      this.temp = {val : log.temperature, error : !tempErr};
+      this.cons = {val : log.kWatt, error : !consErr};
+      this.time = {val : log.working_time, error : !timeErr};      
     });
 
     this.apiService.getMachineInfo(this.machineID).subscribe(data => {

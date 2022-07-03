@@ -1,4 +1,5 @@
 export interface Log {
+    allarm: string[],
     machine_id: number,
     state: string,
     modality: string,
