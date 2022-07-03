@@ -8,31 +8,11 @@ import { APIService } from '../APIService/api.service';
 })
 export class ChartsService {
  
-
-  private readonly updateSubjectsMap : Map<string, Subject<number>> = new Map();
-
   constructor(private apiService: APIService) { }
 
   public getChartsInfo(machineID: string){
     this.reset()
     return this.apiService.getMachineCharts(machineID);
-  }
-
-  public getSubjects(topics: string[]){
-    let observables : Map<string, Observable<number>> = new Map();
-    topics.forEach(topic =>{
-      let sub = new Subject<number>()
-      let obs = sub.asObservable();
-      this.updateSubjectsMap.set(topic, sub)
-      observables.set(topic, obs)
-    })
-    return observables;
-  }
-
-  public push(){
-    for(let v of this.updateSubjectsMap.values()){
-      v.next(Math.ceil(Math.random() * 20))
-    }
   }
 
   private reset(){

@@ -83,15 +83,15 @@ function getFakeData(): Object[]{
             values: kWatts
         },
         {
-            type: "esempio",
+            type: "wfake1",
             values: bla
         },
         {
-            type: "temperaturee",
+            type: "wfake2",
             values: temperatures
         },
         {
-            type: "kWattt",
+            type: "wfake3",
             values: kWatts
         },
     ]

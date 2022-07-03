@@ -3,7 +3,7 @@ import {Server as HttpServer} from "http";
 import { makeErr, isNumber, State } from "../utils/utils";
 import { Machine } from "src/database/models/machine_schema";
 
-let period: number = 20000;
+let period: number = 60000;
 export class SocketIOService {
   private readonly CLIENTS_ROOM = "client";
   private readonly MACHIES_ROOM = "machine";
