@@ -14,6 +14,7 @@ export class LogComponent implements OnInit {
   machineLogs = Array();
 
   periods: Period[] = [
+    {value: '0', viewValue: 'Real time'},
     {value: '1', viewValue: '1h'},
     {value: '12', viewValue: '12h'},
     {value: '24', viewValue: '1 day'},
