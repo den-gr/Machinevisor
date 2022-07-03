@@ -10,9 +10,9 @@
         [min]="min"
         [step]="step"
         [thumbLabel]="thumbLabel"
-        [tickInterval]="getSliderTickInterval()"
         [(ngModel)]="value"
         [vertical]="vertical"
+        (change)="onChangePeriod()"
         class="slider"></mat-slider>
     </mat-card-content>   
 </mat-card>

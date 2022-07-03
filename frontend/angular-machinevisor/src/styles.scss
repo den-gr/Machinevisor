@@ -14,7 +14,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-color: $toolbar-blue;
 }
 .radio-button.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color:$toolbar-blue;
+    visibility: hidden;
 }
 //background color select button
 .radio-button.mat-radio-button .mat-radio-outer-circle {

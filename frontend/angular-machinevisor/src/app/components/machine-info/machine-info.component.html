@@ -8,7 +8,7 @@
     <mat-card-header class="header">
         <!-- nome + stato -->
       <mat-card-title class="name">{{name}}</mat-card-title>
-      <mat-card-subtitle class="status">{{status}}</mat-card-subtitle>
+      <mat-card-subtitle class="status">{{status}}{{mode}}</mat-card-subtitle>
     </mat-card-header>
     <!-- info + foto (in colonna)-->
     <!-- card con i dati -->
@@ -23,19 +23,33 @@
       </div>
       <div class="values">
         <ul>
-          <li *ngFor="let elem of valuesMix"  
+          <li 
           [ngClass]="{
-            'ok' : elem.error == true,
-            'ko' : elem.error == false
+            'ok' : temp.error == true,
+            'ko' : temp.error == false
           }">
-              <p class="value-key">{{elem.key}}</p><p class="value-val">{{elem.value}}</p>
+              <p class="value-key">Temperature</p><p class="value-val">{{temp.val}} °C</p>
+          </li>
+          <li 
+          [ngClass]="{
+            'ok' : cons.error == true,
+            'ko' : cons.error == false
+          }">
+              <p class="value-key">Energy consumption</p><p class="value-val">{{cons.val}} KWh</p>
+          </li>
+          <li 
+          [ngClass]="{
+            'ok' : time.error == true,
+            'ko' : time.error == false
+          }">
+              <p class="value-key">Working time</p><p class="value-val">{{time.val}} s</p>
           </li>
           </ul>
       </div>
     </mat-card-content>
         <!-- bottoni "charts e log" -->
     <div class="buttons">
-      <button mat-button class="button" (click)="goTo('/charts')">Charts</button>
-      <button mat-button class="button" (click)="goTo('/log')">Log</button>
+      <button mat-button class="button" (click)="navService.goToPageWithParameters('/charts', machineID.toString())">Charts</button>
+      <button mat-button class="button" (click)="navService.goToPageWithTwoParameters('/log', machineID.toString(), name)">Log</button>
     </div>    
 </mat-card>

@@ -4,8 +4,10 @@
     </mat-card-header>
     <mat-card-content class="content">
         <mat-radio-group class="radio-group">
-        <mat-radio-button class="radio-button" *ngFor="let mode of modes" [value]="mode" (change)="onChangeValue($event.value)">
-            {{mode}}
+        <mat-radio-button class="radio-button" *ngFor="let mode of modes" 
+        [value]="mode.val" (change)="onChangeValue($event.value)"
+        [disabled]="isDisabled" [checked]="mode.val === currMode">
+            {{mode.view}}
         </mat-radio-button>
         </mat-radio-group>
     </mat-card-content>   

@@ -27,6 +27,7 @@
     "moment": "^2.29.3",
     "ng2-charts": "^3.0.11",
     "rxjs": "~7.5.0",
+    "socket.io-client": "^4.5.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

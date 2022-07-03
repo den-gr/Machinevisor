@@ -1,13 +1,28 @@
+@import "../../utilities/variables";
+
 .svg-container { 
     box-sizing: border-box;
     position: relative;
     margin: 2%;                
     margin-right: 10px;
-    vertical-align: middle;                
+    vertical-align: middle; 
+    background-color: $background-gray;               
 }
 
-.svg-content-goup{
-    fill: #004770;             
+/*.svg-content-goup{
+    fill: $on-off-blue;             
+}*/
+
+.machine-on{
+    fill: $correct-value;
+}
+
+.machine-off{
+    fill: $on-off-blue;
+}
+
+.machine-allarm{
+    fill: $wrong-value;
 }
 
 .machine-o,  .machine-v { 
@@ -27,12 +42,7 @@
 
 .machine-o:hover, .machine-v:hover{
     opacity: 1;
-} 
-
-/*.machine-o:active, .machine-v:active{
-    fill: red;
-    opacity: 1;
-}*/
+}
  
 .wall{
     width: 0.4px;
