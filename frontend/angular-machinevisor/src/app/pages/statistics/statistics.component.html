@@ -1,6 +1,15 @@
 <div id="statistics">
-    <app-chart [chartType]="lineChart" [chartValue]="temperature"></app-chart>
-    <app-chart [chartType]="lineChart" [chartValue]="kWatt"></app-chart>
-    <app-chart [chartType]="barChart"></app-chart>
+    <app-chart [chartType]="lineChart" 
+               [chartValue]="defaultValuesTitle"
+               [options]="meanTemperatureTemp?.options"
+               [data]="meanTemperatureTemp?.data"></app-chart>
+    <app-chart [chartType]="barChart" 
+               [chartValue]="allarmTitle"
+               [options]="allarmsTemp?.options"
+               [data]="allarmsTemp?.data"></app-chart>
+    <app-chart [chartType]="pieChart" 
+               [chartValue]="allarmTitle"
+               [options]="activeTimeTemp?.options"
+               [data]="activeTimeTemp?.data"></app-chart>
 </div>
 

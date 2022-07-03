@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { MachineChart } from '../../dataInterfaces/charts';
+import { ChartDefaultValues, ChartEntry, MachineChart } from '../../dataInterfaces/charts';
 import { Machine, Machines } from '../../dataInterfaces/machine';
 import { User } from '../../dataInterfaces/user';
 import { AuthService } from '../authService/auth.service';
@@ -65,6 +65,34 @@ export class APIService {
           return this.tokenError(error)
       })
     );
+  }
+
+  public getChartDefaultValues(){
+    const url = environment.apiUrl + 'statistics/defaultValues';
+    return this.http.get<ChartDefaultValues>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
+  }
+
+  public getChartMachineAllarms(){
+    const url = environment.apiUrl + 'statistics/allarms';
+    return this.http.get<ChartEntry[]>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
+  }
+
+  public getChartActiveTime(){
+    const url = environment.apiUrl + 'statistics/activeTime';
+    return this.http.get<ChartEntry[]>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
+
   }
 
   private makeHeader(){

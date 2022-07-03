@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Observable } from 'rxjs';
 import { ChartEntry } from 'src/app/utilities/dataInterfaces/charts';
@@ -11,27 +12,27 @@ import { ChartsService } from 'src/app/utilities/services/chartService/charts.se
 })
 export class ChartsComponent implements OnInit {
   public readonly lineChart: ChartType = "line"
-  public readonly barChart: ChartType = 'bar';
+  // public readonly barChart: ChartType = 'bar';
 
-  // @Input() machineID: number;
-  machineID: number = 1;
-  public readonly temperature = "temperature";
-  public readonly kWatt = "kWatt"
+  private machineID: string;
 
   public observables : Map<string, Observable<number>>;
   public chartValuesMap: Map<string, ChartConfiguration['data']> = new Map();
 
-
-
-  constructor(public chartsService: ChartsService) {
-    chartsService.getChartsInfo("1").subscribe((res) =>{
+  constructor(public chartsService: ChartsService, private routes: ActivatedRoute) {
+    this.routes.paramMap.subscribe(params => {
+      let res = params.get('machineID');
+      if(res != null){
+        this.machineID = res;
+      }
+    })
+    chartsService.getChartsInfo(this.machineID).subscribe((res) =>{
       let topics: string[] = []; 
       res.forEach(e => {
           topics.push(e.type)
           this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, e.type));
       })
       this.observables = chartsService.getSubjects(topics)
-
     })
   }
 
@@ -40,16 +41,17 @@ export class ChartsComponent implements OnInit {
     let values: number[] = [];
     entry.forEach(e => {
       // labels.push(new Date(e.date).toLocaleDateString("it"))
-      labels.push(new Date(e.date).toLocaleTimeString())
+      labels.push(new Date(e.label).toLocaleTimeString())
       values.push(e.value)
     })
     return this.chartsService.getDatasetTemplate(values, labels, title)
   }
-
+  
   ngOnInit(): void {
+   
   }
 
-  public pushOne(){
-    this.chartsService.push()
-  }
+  // public pushOne(){
+  //   this.chartsService.push()
+  // }
 }

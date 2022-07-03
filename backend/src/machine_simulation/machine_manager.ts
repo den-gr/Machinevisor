@@ -8,4 +8,4 @@ let machineModalitiesType_1: Modality[] = [Modality.SLEEP_MODE, Modality.PRODUCT
 let machineModalitiesType_2: Modality[] = [Modality.SLEEP_MODE, Modality.PRODUCTION_MODE]
 
 const mach: MachineSimulation = new MachineSimulation(HOST, id, machineModalitiesType_1);
-// const mach2: MachineSimulation = new MachineSimulation("https://localhost:8080", 2);
+const mach2: MachineSimulation = new MachineSimulation(HOST, 2, machineModalitiesType_2);

@@ -1,3 +1,5 @@
+import { ChartConfiguration, ChartType } from "chart.js";
+
 export interface MachineChart{
     type: string;
     values: ChartEntry[]
@@ -5,5 +7,18 @@ export interface MachineChart{
 
 export interface ChartEntry{
     value: number;
-    date: string;
+    label: string;
 }
+
+export interface ChartTemplate{
+    chartType: ChartType;
+    options: ChartConfiguration["options"];
+    data: ChartConfiguration['data'];
+}
+
+export interface ChartDefaultValues{
+    temperatures: number[];
+    kWatts: number[],
+    dates: string[]
+}
+

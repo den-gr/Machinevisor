@@ -27,16 +27,18 @@ app.use(express.static(path.join(__dirname, '../public')));//give static access 
 app.use("/socket.io", express.static(path.join(__dirname, '../nodes_module/socket.io/client-dist')))
 
 
-//Routin
+//Routing
 const authMiddleware =  require('./routes/auth').authMiddleware;
 const authRouter = require('./routes/auth').router;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const machinesRouter = require('./routes/machines');
+const statisticsRouter = require('./routes/statistics');
 app.use('/auth', authRouter);
 app.use('/', indexRouter);
 app.use('/users', authMiddleware,  usersRouter);
 app.use('/machines', machinesRouter);
+app.use('/statistics', statisticsRouter);
 
 //Run server
 SocketIOService.instance().initialize(server)

@@ -2,7 +2,7 @@ import {  Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, View
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Observable } from 'rxjs';
-import { ChartService } from 'src/app/utilities/services/chartService/chart.service';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartsService } from 'src/app/utilities/services/chartService/charts.service';
 
 
@@ -12,6 +12,8 @@ import { ChartsService } from 'src/app/utilities/services/chartService/charts.se
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
+  public pieChartPlugins = [ DatalabelsPlugin ];
+  public readonly line: ChartType = "line"
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
@@ -19,18 +21,21 @@ export class ChartComponent implements OnInit {
   @Input() chartValue: string;
   @Input() data: ChartConfiguration['data'] | undefined;
   @Input() options: ChartConfiguration['options']; 
-  @Input() updateObservable: Observable<number> ;
+  @Input() updateObservable?: Observable<number> ;
   title: string;
 
-  constructor(public chartService: ChartService){
+  constructor(){
     
   }
 
   ngOnInit(): void {
+    if(this.chartType == this.line){
+      this.pieChartPlugins = [];
+    }
     // this.data = this.chartService.getDataConfiguration(this.chartValue);
     // this.options = this.chartService.getOptionsConfiguration(this.chartType)
     // this.chartService.updateObservable.subscribe(_ => this.chart?.update())
-    this.updateObservable.subscribe(val => {
+    this.updateObservable?.subscribe(val => {
       this.data?.datasets[0].data.push(val)
       this.data?.labels?.push("label")
       this.chart?.update();
@@ -49,7 +54,7 @@ export class ChartComponent implements OnInit {
   }
 
   public pushOne(): void {
-    this.chartService.pushOne();
+    // this.chartService.pushOne();
     this.chart?.update();
   }
 }
