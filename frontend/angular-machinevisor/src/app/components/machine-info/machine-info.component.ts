@@ -30,6 +30,7 @@ export class MachineInfoComponent implements OnInit {
 
   name = '';
   status = '...';
+  mode = '';
   photo = '';
   temp: Values = {val : 0, error : true};
   cons: Values = {val : 0, error : true};
@@ -42,6 +43,14 @@ export class MachineInfoComponent implements OnInit {
       let log: Log = JSON.parse(msg);
       console.log("receive mode: ", log);
       this.status = log.state;
+      if(this.status !== "OFF"){
+        let tmp = '';
+        tmp = log.modality.toLowerCase()
+        tmp = tmp.replaceAll('_', ' ');
+        this.mode = " - " + tmp;
+      }else{
+        this.mode = '';
+      }
       this.buttonService.setIsOnChecked(log.state !== 'OFF');
 
       this.temp = {val : log.temperature, error : true};
