@@ -3,9 +3,11 @@ import { Modality } from "../utils/utils";
 
 const HOST = "https://localhost:8080";
 
-let id = 1;
 let machineModalitiesType_1: Modality[] = [Modality.SLEEP_MODE, Modality.PRODUCTION_MODE, Modality.ENERGY_ECONOMY_PRODUCTION_MODE]
 let machineModalitiesType_2: Modality[] = [Modality.SLEEP_MODE, Modality.PRODUCTION_MODE]
 
-const mach: MachineSimulation = new MachineSimulation(HOST, id, machineModalitiesType_1);
-const mach2: MachineSimulation = new MachineSimulation(HOST, 2, machineModalitiesType_2);
+new MachineSimulation(HOST, 1, machineModalitiesType_2);
+new MachineSimulation(HOST, 2, machineModalitiesType_1);
+new MachineSimulation(HOST, 3, machineModalitiesType_1);
+new MachineSimulation(HOST, 4, machineModalitiesType_1);
+new MachineSimulation(HOST, 5, machineModalitiesType_1);

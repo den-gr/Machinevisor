@@ -5,6 +5,7 @@ export interface MachineInterface{
     setNewInterval(newPeriod: number): void;
     setNewModality(newModality: Modality): void;
     setNewState(newState: State): void;
+    forceReportDelivery(): void;
 }
 
 export class MachineSimulation implements MachineInterface{
@@ -59,7 +60,10 @@ export class MachineSimulation implements MachineInterface{
     public sendReport(conn: MachineConnection, self: MachineSimulation){
         conn.emit("clients/update", JSON.stringify(self.createReport()))
     }
-
+    
+    public forceReportDelivery(){
+        this.conn.emit("clients/update", JSON.stringify(this.createReport()))
+    }
     //set new update period
     public setNewInterval(newPeriod: number){
         clearInterval(this.reportLoop);

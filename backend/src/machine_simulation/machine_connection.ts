@@ -47,8 +47,12 @@ export class MachineConnection{
             console.log("receive:", msg )
             this.socket.emit("pingpong", "machine pong");
         })
+        this.socket.on('subscribe', (msg) => {
+            this.machine.forceReportDelivery()
+        })
 
         this.socket.on('period', (msg)=>{
+            console.log("change period to " +  msg + " my id:" + machine_id)
             let period = +msg;
             if(isNumber(period)){
                 if(period >= 1000 && period <= 300000){
@@ -65,7 +69,7 @@ export class MachineConnection{
             let mod: Modality = Modality[msg as keyof typeof Modality];
             if(mod !== undefined){
                 this.machine.setNewModality(mod)
-
+                this.machine.forceReportDelivery()
             }else{
                 console.error("Not existing modality")
             }
@@ -75,6 +79,7 @@ export class MachineConnection{
             let st: State = State[msg as keyof typeof State];
             if(st !== undefined){
                 this.machine.setNewState(st)
+                this.machine.forceReportDelivery()
 
             }else{
                 console.error("Not existing state")

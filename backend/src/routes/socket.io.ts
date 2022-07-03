@@ -1,6 +1,7 @@
 import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
 import { makeErr, isNumber, State } from "../utils/utils";
+import { Machine } from "src/database/models/machine_schema";
 
 let period: number = 20000;
 export class SocketIOService {
@@ -79,6 +80,8 @@ export class SocketIOService {
               }
               this.clientsSubcribes.set(socket.id, obj.machine_id)
               this.machinesSubscribers.get(obj.machine_id)?.add(socket.id)
+              this.sendMessage(obj.machine_id, "subscribe", "")
+
             }else{
                 this.sendBadRequest(socket)
             }
