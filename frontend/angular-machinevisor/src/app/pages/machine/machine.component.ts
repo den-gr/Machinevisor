@@ -11,22 +11,24 @@ export class MachineComponent implements OnInit, OnDestroy {
 
   constructor(private routes: ActivatedRoute, private socketService: SocketService) {  }
 
-  machineID = ''
+  machineID:number;
   prova = ''
 
   ngOnInit(): void {
     console.log("ONINIT");
-    this.socketService.connect();
-    this.socketService.subscribe(1); //TODO ID DELLA MACCHINA
-    this.socketService.setMachinePeriod(1, 5000);
 
     this.routes.paramMap.subscribe(params => {
       console.log("ID della macchina --> " + params.get('machineID'));
       let res = params.get('machineID');
       if(res != null){
-        this.machineID = res;
+        this.machineID = +res;
       }
     })
+
+    console.log("machine id :) --> " + this.machineID)
+    this.socketService.connect();
+    this.socketService.subscribe(this.machineID);
+    this.socketService.setMachinePeriod(this.machineID, 5000);
   }
 
   ngOnDestroy(): void {

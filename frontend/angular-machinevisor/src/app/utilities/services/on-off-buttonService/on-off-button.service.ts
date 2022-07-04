@@ -21,24 +21,24 @@ export class OnOffButtonService {
     return this.isOnChecked;
   }
 
-  public clickOn(){
+  public clickOn(ID: number){
     if(!this.isOnChecked){
       console.log("On");
       this.isOnChecked = true;
-      this.socketService.setState(1,'ON');
+      this.socketService.setState(ID,'ON');
     }
   }
 
-  public clickOff(name: string){
+  public clickOff(name: string, ID:number){
     if(this.isOnChecked){
       console.log("Off --> " + name);
-      this.openDialog(name);
+      this.openDialog(name, ID);
       console.log("DIALOG --> " + this.isOnChecked)
       this.isOnChecked = !this.isOnChecked;
     }
   }
 
-  private openDialog(name: string): void {
+  private openDialog(name: string, ID:number): void {
     console.log("Apri dialog!")
     const dialogRef = this.dialog.open(SwitchOffDialogComponent, {
       width: '250px',
@@ -48,7 +48,7 @@ export class OnOffButtonService {
       console.log('The dialog was closed --> ' + result);
       this.isOnChecked = !result;
       if(result){
-        this.socketService.setState(1,'OFF');
+        this.socketService.setState(ID,'OFF');
       }
     });
   }

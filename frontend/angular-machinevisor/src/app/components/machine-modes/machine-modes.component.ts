@@ -15,7 +15,7 @@ export interface Mode{
 })
 
 export class MachineModesComponent implements OnInit {
-  @Input() machineID:any;
+  @Input() machineID:number;
 
   constructor(private apiService: APIService, private socketService: SocketService) { }
 
@@ -26,7 +26,7 @@ export class MachineModesComponent implements OnInit {
   onChangeValue(val: String){
     console.log("Selezionato --> " + val);
     if(val !== this.currMode){
-      this.socketService.setModality(1, val)
+      this.socketService.setModality(this.machineID, val)
     }
   }
 
@@ -38,7 +38,7 @@ export class MachineModesComponent implements OnInit {
       this.isDisabled = this.currMode == "NO_MODE"
     });
 
-    this.apiService.getMachineInfo(this.machineID).subscribe(res => {
+    this.apiService.getMachineInfo(this.machineID.toString()).subscribe(res => {
       res.modalities.forEach(mode => {
         let tmp = '';
         tmp = mode.toLowerCase()
