@@ -22,7 +22,7 @@ export class MachineConnection{
         let auth: Auth = {
             type: "machine",
             machine_id: machine_id,
-            token: "test"
+            token: "machineToken"
         }
         
         options.auth = auth;

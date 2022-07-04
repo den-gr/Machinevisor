@@ -1,7 +1,8 @@
 import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
 import { makeErr, isNumber, State } from "../utils/utils";
-import { Machine } from "src/database/models/machine_schema";
+import { JsonWebTokenError } from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
 let period: number = 60000;
 export class SocketIOService {
@@ -31,8 +32,18 @@ export class SocketIOService {
 
     SocketIOService.server = new Server(httpServer);
     SocketIOService.server.on('connection', (socket : Socket) => {
-        console.log(`A new connection of ${socket.handshake.auth.type} with id ${socket.id}`);
-        console.log('Presented token is', socket.handshake.auth.token);
+        jwt.verify(socket.handshake.auth.token, process.env.SECRET, (err:JsonWebTokenError, authData:string) => {
+          if(err && socket.handshake.auth.token != "machineToken"){
+             socket.disconnect();
+             console.log("Invalid Token")
+          }else{
+            console.log("Token is valid")
+            // console.log(`A new connection of ${socket.handshake.auth.type} with id ${socket.id}`);
+            // console.log('Presented token is', socket.handshake.auth.token);
+          }
+
+        })
+
         if(socket.handshake.auth.type === this.CLIENTS_ROOM || socket.handshake.query.type === this.CLIENTS_ROOM){
           // socket.leave(socket.id)
           socket.join(this.CLIENTS_ROOM)
