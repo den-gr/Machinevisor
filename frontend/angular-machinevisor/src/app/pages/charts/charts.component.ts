@@ -50,7 +50,7 @@ export class ChartsComponent implements OnInit {
     console.log("Entries: ", entries)
     entries.forEach(e => {
       // labels.push(new Date(e.date).toLocaleDateString("it"))
-      labels.push(new Date(e.label).toLocaleTimeString())
+      labels.push(this.getDateLabel(new Date(e.label)))
       values.push(e.value)
     })
     return this.chartsService.getDatasetTemplate(values, labels, title)
@@ -70,7 +70,7 @@ export class ChartsComponent implements OnInit {
           this.updateSubjectsMap.get(prop)?.next(
             {
               value: +log[field],
-              label: new Date(log.timestamp).toLocaleTimeString()
+              label: this.getDateLabel(new Date(log.timestamp))
 
             }
           )
@@ -79,7 +79,7 @@ export class ChartsComponent implements OnInit {
     })
   }
 
-  // public pushOne(){
-  //   this.chartsService.push()
-  // }
+  private getDateLabel(date: Date):string{
+    return date.toLocaleTimeString("it") //+" "+ date.toLocaleDateString("it", {day: "numeric", month: "numeric", year: "2-digit"})
+  }
 }

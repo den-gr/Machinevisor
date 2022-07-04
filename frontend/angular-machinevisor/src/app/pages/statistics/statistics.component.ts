@@ -42,7 +42,7 @@ export class StatisticsComponent implements OnInit {
     [obs, chartTemplate] = this.statisticService.getDefaultValuesTemp();
     obs.subscribe(res => {
       res.dates.forEach(e =>{
-        chartTemplate.data.labels?.push(new Date(e).toLocaleTimeString())
+        chartTemplate.data.labels?.push(this.getDateLabel(new Date(e)))
       })
       chartTemplate.data.datasets[0].data = res.temperatures
       chartTemplate.data.datasets[1].data = res.kWatts;
@@ -96,12 +96,7 @@ export class StatisticsComponent implements OnInit {
     })
   }
 
-  private  getRandomColor() {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  private getDateLabel(date: Date):string{
+    return date.toLocaleTimeString("it", {hour: "numeric", minute: "numeric"}) +" "+ date.toLocaleDateString("it", {day: "numeric", month: "numeric", year: "2-digit"})
   }
 }
