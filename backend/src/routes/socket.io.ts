@@ -13,6 +13,7 @@ export class SocketIOService {
   private readonly machinesSubscribers: Map<number, Set<string>>; // machine_id -> array of subscribed clients (their SocketIDs)
   private readonly clientsSubcribes: Map<string, number> // clientID -> machine_id
   private readonly EXCEPTION_CHANNEL = "exception";
+  private static readonly AUTH: boolean = false;
 
   private constructor() {
     this.machinesSubscribers = new Map();
@@ -32,17 +33,19 @@ export class SocketIOService {
 
     SocketIOService.server = new Server(httpServer);
     SocketIOService.server.on('connection', (socket : Socket) => {
-        jwt.verify(socket.handshake.auth.token, process.env.SECRET, (err:JsonWebTokenError, authData:string) => {
-          if(err && socket.handshake.auth.token != "machineToken"){
-             socket.disconnect();
-             console.log("Invalid Token")
-          }else{
-            console.log("Token is valid")
-            // console.log(`A new connection of ${socket.handshake.auth.type} with id ${socket.id}`);
-            // console.log('Presented token is', socket.handshake.auth.token);
-          }
-
-        })
+        if(SocketIOService.AUTH){
+          jwt.verify(socket.handshake.auth.token, process.env.SECRET, (err:JsonWebTokenError, authData:string) => {
+            if(err && socket.handshake.auth.token != "machineToken"){
+               socket.disconnect();
+               console.log("Invalid Token")
+            }else{
+              console.log("Token is valid")
+              // console.log(`A new connection of ${socket.handshake.auth.type} with id ${socket.id}`);
+              // console.log('Presented token is', socket.handshake.auth.token);
+            }
+  
+          })
+        }
 
         if(socket.handshake.auth.type === this.CLIENTS_ROOM || socket.handshake.query.type === this.CLIENTS_ROOM){
           // socket.leave(socket.id)
@@ -196,11 +199,16 @@ export class SocketIOService {
 }
 
 function checkAllarm(obj: any): Object{
+  let allarms: string[] = []
   if(obj.temperature > 80){
-    console.log("before", obj.state)
     obj.state = State[State.ALLARM];
-    obj.allarm = ["temperature"]
-    console.log("after", obj.state)
+    allarms.push("temperature");
+  }else if(obj.machine_oil_level < 10){
+    obj.state = State[State.ALLARM];
+    allarms.push("machine_oil_level");
+  }
+  if(allarms.length > 0){
+    obj.allarm = allarms
 
   }
   return obj;

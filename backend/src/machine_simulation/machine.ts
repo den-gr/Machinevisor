@@ -147,6 +147,8 @@ export class MachineSimulation implements MachineInterface{
         this.temperature = parseFloat((this.temperature + Math.random() * sign * (timeDiff * 0.001)).toFixed(1))
         if(this.temperature < MachineSimulation.ENVIRONMENT_TEMPERATURE){
             this.temperature = MachineSimulation.ENVIRONMENT_TEMPERATURE;
+        }else if(this.temperature > 99){
+            this.temperature = 99
         }
         return this.temperature;
     }

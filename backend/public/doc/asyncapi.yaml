@@ -150,7 +150,7 @@ components:
                 description: "Optional. Shows what values of machine provocate allarm state"
                 items:
                   type: string
-                  enum: [temperature, kWatt]
+                  enum: [temperature, kWatt, machine_oil_level]
                 example: 
                   - temperature
           - $ref: "#/components/schemas/Modality"
