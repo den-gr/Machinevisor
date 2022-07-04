@@ -34,7 +34,7 @@ function getFakeWorkingTimes(list: IMachine[]): Object[]{
     let objs: Object[] = [];
     list.forEach(e => {
         objs.push({
-            value: parseFloat((4 + Math.random()*20).toFixed(1)),
+            value: parseFloat((0 + Math.random()*20).toFixed(1)),
             label: e.machine_name
         })
     })

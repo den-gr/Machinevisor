@@ -1,3 +1,4 @@
+import { CONTEXT_NAME } from '@angular/compiler/src/render3/view/util';
 import { Injectable } from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { Observable } from 'rxjs';
@@ -87,6 +88,7 @@ export class StatisticService {
   public pieChartData: ChartConfiguration['data'] = {
     labels: [  'Download Sales' ,  'In Store Sales' , 'Mail Sales' ],
     datasets: [ {
+      label: "test",
       data: [ 300, 500, 100 ]
     } ]
   };
@@ -131,8 +133,10 @@ export class StatisticService {
         position: "left"
       },
       datalabels: {
+        display: false,
         anchor: 'center',
-        align: 'top'
+        align: 'top',
+        color: "white"
       }
     }
   };
@@ -146,10 +150,14 @@ export class StatisticService {
       },
       datalabels: {
         formatter: (value, ctx) => {
-          if (ctx.chart.data.labels) {
+          if (ctx.chart.data.labels && ctx.chart.width > 800) {
             return ctx.chart.data.labels[ctx.dataIndex];
           }
         },
+        color: "white",
+        display: 'auto',
+        font: { size: 15}
+
       },
     }
   };

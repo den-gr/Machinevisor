@@ -4,13 +4,31 @@
     </mat-card-header>
     <!-- <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button> -->
     <mat-card-content class="content">
-              <canvas baseChart 
-                          [data]="data"
-                          [options]="options"
-                          [type]="chartType"
-                          (chartHover)="chartHovered($event)"
-                          (chartClick)="chartClicked($event)"
-                          [plugins]="pieChartPlugins"></canvas>    
+        <canvas baseChart 
+                [data]="data"
+                [options]="options"
+                [type]="chartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"
+                [plugins]="pieChartPlugins"
+                role="img"
+                [attr.aria-label]="title">
+                <table>
+                    <caption>Alternative to chart data</caption>
+                    <thead>
+                        <tr>
+                            <th id="label">Label</th>
+                            <th  *ngFor="let dataset of data?.datasets" id="{{dataset.label}}" scope="col" >{{dataset.label}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let label of data?.labels; let i = index">
+                            <th id="label-{{i}}" scope="row" headers="label">{{label}}</th>
+                            <td  *ngFor="let dataset of data?.datasets" headers="label-{{i}} {{dataset.label}}">{{dataset.data[i]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </canvas>    
     </mat-card-content>
 </mat-card>
 

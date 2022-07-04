@@ -16,7 +16,7 @@ export class StatisticsComponent implements OnInit {
   public readonly pieChart: ChartType = 'pie';
   public readonly defaultValuesTitle = "average temperature and kWatt of all machines";
   public readonly allarmTitle = "the number of machines allarms"
-  public readonly activeTimeTitle = "total working time of the machines"
+  public readonly activeTimeTitle = "machine working time in hours"
   
   public readonly kWatt = "kWatt"
 
@@ -31,7 +31,7 @@ export class StatisticsComponent implements OnInit {
   
   ngOnInit(): void {
     this.setUpDefaulValuesChart();
-    this.setUpErrorsChart();
+    this.setUpAllarmsChart();
     this.setUpActiveTimeTemp();
    
   }
@@ -50,23 +50,24 @@ export class StatisticsComponent implements OnInit {
     })
   }
 
-  private setUpErrorsChart(){
+  private colors: string[] =  ["#0096D6", "#004770", "#AED681", "#E57373", "#002044"]
+  private setUpAllarmsChart(){
     let obs:Observable<ChartEntry[]>
     let chartTemplate:ChartTemplate
     [obs, chartTemplate] = this.statisticService.getAllarmsTemp();
     obs.subscribe(ris => {
       chartTemplate.data.datasets = [];
       let data: number[] = []
-      let colors: string[] =  []
       chartTemplate.data.labels = []
       ris.forEach(e => {
         data.push(e.value)
-        colors.push(this.getRandomColor())
+        // colors.push(this.getRandomColor())
         chartTemplate.data.labels?.push(e.label)
       })
       let newDataset = {
           data: data,
-          backgroundColor: colors
+          label: this.allarmTitle,
+          backgroundColor: this.colors
         }
       chartTemplate.data.datasets.push(newDataset)
       this.allarmsTemp = chartTemplate;
@@ -86,7 +87,9 @@ export class StatisticsComponent implements OnInit {
         chartTemplate.data.labels?.push(e.label)
       })
       let newDataset = {
-          data: data
+          data: data,
+          label: this.activeTimeTitle,
+          backgroundColor: this.colors
       }	
       chartTemplate.data.datasets.push(newDataset)
       this.activeTimeTemp = chartTemplate;
