@@ -4,15 +4,13 @@
     </mat-card-header>
     <mat-card-content class="content">
         <mat-slider 
-        [disabled]="disabled"
-        [invert]="invert"
         [max]="max"
         [min]="min"
         [step]="step"
-        [thumbLabel]="thumbLabel"
         [(ngModel)]="value"
-        [vertical]="vertical"
         (change)="onChangePeriod()"
+        thumbLabel
+        [displayWith]="formatLabel"
         class="slider"></mat-slider>
     </mat-card-content>   
 </mat-card>

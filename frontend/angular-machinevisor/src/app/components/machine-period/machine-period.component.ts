@@ -7,7 +7,7 @@ import { SocketService } from 'src/app/utilities/services/socketService/socket.s
   styleUrls: ['./machine-period.component.scss']
 })
 export class MachinePeriodComponent implements OnInit {
-  @Input() machineID:any;
+  @Input() machineID:number;
 
   constructor(private socketService: SocketService) { }
 
@@ -23,9 +23,13 @@ export class MachinePeriodComponent implements OnInit {
   vertical = false;
   tickInterval = 1;
 
+  formatLabel(value: number) {
+    return value;
+  }
+
   public onChangePeriod(){
     console.log("period -->" + this.value);
-    this.socketService.setMachinePeriod(1, (this.value*1000))
+    this.socketService.setMachinePeriod(this.machineID, (this.value*1000))
   }
 
   ngOnInit(): void {

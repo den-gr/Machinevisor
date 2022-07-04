@@ -14,7 +14,7 @@
 }*/
 
 .machine-on{
-    fill: $correct-value;
+    fill: $machine-on
 }
 
 .machine-off{
@@ -22,7 +22,7 @@
 }
 
 .machine-allarm{
-    fill: $wrong-value;
+    fill: $machine-off
 }
 
 .machine-o,  .machine-v { 
