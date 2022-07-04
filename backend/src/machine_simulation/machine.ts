@@ -14,6 +14,7 @@ export class MachineSimulation implements MachineInterface{
     private readonly machine_id: number;
     private readonly conn: MachineConnection;
     private readonly modalities: Modality[]
+    private readonly oil: boolean;
     private reportLoop;
     private temperature: number = MachineSimulation.ENVIRONMENT_TEMPERATURE;
     private kWatt: number = 5
@@ -21,9 +22,10 @@ export class MachineSimulation implements MachineInterface{
     private lastTimestamp: Date;
     private currentModality: Modality
     private state: State = State.OFF;
+    private machine_oil_level: number = 11;
 
 
-    constructor(serverURL: string, machine_id: number, modalities: Modality[]){
+    constructor(serverURL: string, machine_id: number, modalities: Modality[], oil: boolean){
         this.conn = new MachineConnection(serverURL, machine_id, this);
         this.machine_id = machine_id;
         this.reportLoop =  setInterval(this.sendReport, MachineSimulation.DEFAULT_PERIOD, this.conn, this);
@@ -31,6 +33,7 @@ export class MachineSimulation implements MachineInterface{
         this.lastTimestamp = new Date;
         this.modalities = modalities;
         this.currentModality = Modality.NO_MODE
+        this.oil = oil;
     }
 
     // make an "image" of current state of the machine
@@ -52,6 +55,10 @@ export class MachineSimulation implements MachineInterface{
             report.working_time = 0;
         }else{
             console.error("Illegal state for machine")
+        }
+
+        if(this.oil){
+            report.machine_oil_level = this.updateMachineOilLevel(timeDiff)
         }
         return report;
     }
@@ -169,5 +176,17 @@ export class MachineSimulation implements MachineInterface{
             this.kWatt = 0;
         }
         return this.kWatt;
+    }
+
+    private updateMachineOilLevel(timeDiff: number): number{
+        if(this.state === State.ON && 
+           (this.currentModality === Modality.PRODUCTION_MODE || 
+           this.currentModality === Modality.ENERGY_ECONOMY_PRODUCTION_MODE)){
+            this.machine_oil_level = parseFloat((this.machine_oil_level - (timeDiff * 0.00001)).toFixed(2));
+            if(this.machine_oil_level < 0){
+                this.machine_oil_level = 0
+            }
+        }
+        return this.machine_oil_level;
     }
 }

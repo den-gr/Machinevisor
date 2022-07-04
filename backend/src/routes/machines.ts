@@ -83,17 +83,9 @@ function getFakeData(): Object[]{
             values: kWatts
         },
         {
-            type: "wfake1",
+            type: "machine_oil_level",
             values: bla
-        },
-        {
-            type: "wfake2",
-            values: temperatures
-        },
-        {
-            type: "wfake3",
-            values: kWatts
-        },
+        }
     ]
     return obj;
 }

@@ -137,6 +137,14 @@ components:
                 format: float
                 multipleOf: 0.01
                 example: 5.23
+              machine_oil_level:
+                description: "Remaining machine oil level in %"
+                type: number
+                format: float
+                maximum: 100
+                minimum: 0
+                multipleOf: 0.01
+                exemple: 11.20
               allarm: 
                 type: array
                 description: "Optional. Shows what values of machine provocate allarm state"

@@ -32,4 +32,5 @@ export interface Report{
     working_time?: number;
     temperature: number;
     kWatt: number;
+    machine_oil_level?: number;
 }
