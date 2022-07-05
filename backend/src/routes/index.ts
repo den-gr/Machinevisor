@@ -18,7 +18,14 @@ router.get('/test', function(req:Request, res:Response) {
         }
     })
   }
+});
 
+router.get('/overview', function(req:Request, res:Response) {
+    res.json({
+      consumption: 888,
+      detected_allarms: 8,
+      messages_every_minute: 10,
+    })
 });
 
 module.exports = router;
