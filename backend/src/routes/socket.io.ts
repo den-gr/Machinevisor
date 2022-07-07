@@ -115,7 +115,7 @@ export class SocketIOService {
 
             //add log to DB
             db_service.addLog(obj).then((log:ILog) =>{
-              console.log(log)
+              //console.log(log)
             }).catch((error) => {
                 console.log(error);
             })

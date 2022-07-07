@@ -91,9 +91,9 @@ function getFakeData(): Object[]{
     return obj;
 }
 
-router.get("/:machineId/logs", authMiddleware, (req: Request, res: Response)  => {
+router.get("/:machineId/logs/:gte", authMiddleware, (req: Request, res: Response)  => {
     if(isNumber(req.params.machineId)){
-        let promise = db_service.getLogs(+req.params.machineId);
+        let promise = db_service.getLogs(+req.params.machineId, req.params.gte);
         promise.then((logs) => {
             if(logs != null){
                 res.json(logs);
