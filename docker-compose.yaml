@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: "admin" # mongo admin username
+          MONGO_INITDB_ROOT_PASSWORD: "admin" # mongo admin password
+        ports:
+          - "27017:27017" # mongo default port
+        networks:
+            - interna
+
+    restore:
+        depends_on: 
+            - mongo
+        image: mongo
+        volumes:
+          - ./data/dump:/var/dump
+        command: mongorestore --uri=mongodb://admin:admin@mongo:27017/$admin?authSource=admin /var/dump
+        networks:
+            - interna
+            
+            
+    machinevisor_backend:
+        depends_on:
+            - restore
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        image: machinevisor_backend
+        ports: 
+            - 8080:8080
+        networks:
+            - interna
+            
+    machinevisor_frontend:
+        depends_on:
+            - restore
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        image: machinevisor_frontend
+        ports: 
+            - 4200:4200
+        networks:
+            - interna
+        
+        
+networks:
+  interna:
+    driver: bridge
+    driver_opts:
+       com.docker.network.bridge.name: "MachinevisorN" 

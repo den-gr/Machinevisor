@@ -6,7 +6,7 @@
     "start": "node bin/app.js",
     "build": "npx tsc",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q bin/app.js\"",
-    "machine_start": "node .\\bin\\machine_simulation\\machine_manager.js",
+    "machine_start": "node bin/machine_simulation/machine_manager.js",
     "generete_async_doc": "ag .\\public\\doc\\asyncapi.yaml @asyncapi/html-template --force-write -o .\\public\\doc\\",
     "test": "jest --verbose ./src/test --forceExit"
   },
