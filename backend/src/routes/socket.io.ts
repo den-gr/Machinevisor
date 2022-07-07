@@ -2,7 +2,10 @@ import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
 import { makeErr, isNumber, State } from "../utils/utils";
 import { JsonWebTokenError } from "jsonwebtoken";
+import { DBService_mongo } from "../database/dbservice";
+import { ILog } from "../database/models/log_schema";
 const jwt = require("jsonwebtoken");
+const db_service = new DBService_mongo();
 
 let period: number = 60000;
 export class SocketIOService {
@@ -109,6 +112,14 @@ export class SocketIOService {
         socket.on("clients/update", (msg) => {
           try{
             let obj = JSON.parse(msg);
+
+            //add log to DB
+            db_service.addLog(obj).then((log:ILog) =>{
+              console.log(log)
+            }).catch((error) => {
+                console.log(error);
+            })
+
             //TODO save to database all new updates (AFTER checkAllarm)
             if(obj.machine_id && obj.machine_id >= 0 && obj.state){ 
               obj = checkAllarm(obj);
@@ -130,6 +141,8 @@ export class SocketIOService {
         socket.on("machines/modality", (msg) => {
           try{
             let obj = JSON.parse(msg);
+            console.log("modality channel -> msg: " + msg);
+
             if(obj.machine_id && obj.machine_id >= 0 && obj.modality){
               this.sendMessage(obj.machine_id, "modality", obj.modality)
             }else{

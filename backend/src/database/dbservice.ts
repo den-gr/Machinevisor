@@ -1,18 +1,50 @@
 import { Machine, IMachine } from "./models/machine_schema";
 import User, { IUser, IAuth } from "./models/user_schema";
 import mongoose = require("mongoose");
+import { ILog, Log } from "./models/log_schema";
 
 export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;
     addUser(user: IUser): Promise<number>
     getMachine(machine_id: number): Promise<IMachine | null>;
     getAuth(email: string): Promise<IAuth | null>;
-    getMachineList(): Promise<IMachine[]>; 
+    getMachineList(): Promise<IMachine[]>;
+    addLog(log: ILog): Promise<any>;
+    getLogs(machine_id: number): Promise<ILog[] | null>;
 }
 
 export class DBService_mongo implements DBService{
     private readonly CONNECTED: number = 1;
     private readonly CONNECTING: number = 2;
+
+    public addLog(log: ILog): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if(!this.isConnected()){
+                reject(this.getErrorDBNotConnected());
+            }
+            Log.create(log).then((newLog: ILog) => {
+                resolve({
+                    allarm: newLog.allarm,
+                    machine_id: newLog.machine_id,
+                    state: newLog.state,
+                    modality: newLog.modality,
+                    timestamp: newLog.timestamp,
+                    temperature: newLog.temperature,
+                    kWatt: newLog.kWatt,
+                    working_time: newLog.working_time,
+                    machine_oil_level: newLog.machine_oil_level,
+
+                })
+            }).catch((err) => reject(this.handleError(err)))
+        })
+    }
+
+    public getLogs(machine_id: number): Promise<ILog[] | null> {
+        return new Promise((resolve, reject) =>{
+            if(!this.isConnected()) reject(this.getErrorDBNotConnected());
+            resolve(Log.find({machine_id: machine_id}, {_id:0}))
+        })
+    }
     
     private findUser(query: Object, projection: Object): Promise<IUser | null>{
         return new Promise((resolve, reject) => {

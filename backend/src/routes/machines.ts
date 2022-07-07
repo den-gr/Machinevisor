@@ -3,6 +3,7 @@ import { DBService_mongo } from "../database/dbservice";
 import status from 'http-status-codes';
 import { makeErr, isNumber } from '../utils/utils';
 import express = require('express');
+import { ILog } from "src/database/models/log_schema";
 
 const router = express.Router();
 const db_service = new DBService_mongo();
@@ -89,5 +90,21 @@ function getFakeData(): Object[]{
     ]
     return obj;
 }
+
+router.get("/:machineId/logs", authMiddleware, (req: Request, res: Response)  => {
+    if(isNumber(req.params.machineId)){
+        let promise = db_service.getLogs(+req.params.machineId);
+        promise.then((logs) => {
+            if(logs != null){
+                res.json(logs);
+            }else{
+                res.status(status.NOT_FOUND).send(makeErr("Not found","Logs not found"));
+            }
+        }).catch((err)=> res.status(status.INTERNAL_SERVER_ERROR).send(makeErr("ServerError", err)));
+       
+    }else{
+        res.status(status.BAD_REQUEST).send(makeErr("Bad request", "MachineId is not a number"));
+    }
+});
 
 module.exports = router;
