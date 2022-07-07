@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,9 +11,6 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Actual token home --> " + localStorage.getItem("token"))
-    console.log("Actual User home --> " + localStorage.getItem("userID"))
-    //console.log(this.authService.isTokenStored())
   }
 
 }
