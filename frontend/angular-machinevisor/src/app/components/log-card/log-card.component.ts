@@ -18,6 +18,14 @@ export class LogCardComponent implements OnInit {
 
   ngOnInit(): void {
 
+    /*
+    let curr = new Date();
+    let tmp = new Date(curr.setMonth(curr.getMonth()-1));
+    this.apiService.getLogs(this.machineID, tmp.toDateString()).subscribe(res => {
+      console.log("RES QUERY LOG DATE --> " + JSON.stringify(res))
+    });
+    */
+
     console.log("dati del log --> " + this.data.toString());
 
     this.dateTime = "29/06/2022 11:52:35"

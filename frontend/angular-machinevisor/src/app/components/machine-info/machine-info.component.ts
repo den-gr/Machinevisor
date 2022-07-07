@@ -36,7 +36,9 @@ export class MachineInfoComponent implements OnInit {
   temp: Values = {val : 0, error : true};
   cons: Values = {val : 0, error : true};
   time: Values = {val : 0, error : true};
+  oil: Values = {val : 0, error : true};
   infoMix = Array();
+  isOil = false;
 
   ngOnInit(): void {
 
@@ -61,15 +63,22 @@ export class MachineInfoComponent implements OnInit {
       let tempErr = false;
       let consErr = false;
       let timeErr = false;
+      let oilErr = false;
+
       if(log.allarm){
         tempErr = log.allarm.includes('temperature')
         consErr = log.allarm.includes('kWatt')
         timeErr = log.allarm.includes('working_time')
+        oilErr = log.allarm.includes('machine_oil_level')
       }
       
+      if(log.machine_oil_level){
+        this.isOil = true;
+        this.oil = {val : log.machine_oil_level, error : !oilErr};
+      }
       this.temp = {val : log.temperature, error : !tempErr};
       this.cons = {val : log.kWatt, error : !consErr};
-      this.time = {val : log.working_time, error : !timeErr};      
+      this.time = {val : log.working_time, error : !timeErr};    
     });
 
     this.apiService.getMachineInfo(this.machineID).subscribe(data => {

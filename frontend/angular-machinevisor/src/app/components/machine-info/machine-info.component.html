@@ -37,6 +37,13 @@
           }">
               <p class="value-key">Energy consumption</p><p class="value-val">{{cons.val}} KWh</p>
           </li>
+          <li *ngIf="isOil"
+          [ngClass]="{
+            'ok' : oil.error == true,
+            'ko' : oil.error == false
+          }">
+              <p class="value-key">Oil Level</p><p class="value-val">{{oil.val}} m</p>
+          </li>
           <li 
           [ngClass]="{
             'ok' : time.error == true,

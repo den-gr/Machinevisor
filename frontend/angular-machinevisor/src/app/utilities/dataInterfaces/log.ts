@@ -6,5 +6,6 @@ export interface Log {
     timestamp: string,
     temperature: number,
     kWatt: number,
-    working_time: number
+    working_time: number,
+    machine_oil_level: number
 }

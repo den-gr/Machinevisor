@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { ChartDefaultValues, ChartEntry, MachineChart } from '../../dataInterfaces/charts';
+import { Log } from '../../dataInterfaces/log';
 import { Machine, Machines } from '../../dataInterfaces/machine';
 import { User } from '../../dataInterfaces/user';
 import { AuthService } from '../authService/auth.service';
@@ -39,6 +40,16 @@ export class APIService {
     const url = environment.apiUrl + 'users/' + this.authService.getUserID();
 
     return this.http.get<User>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
+  }
+
+  public getLogs(ID: number, gte: string){
+    const url = environment.apiUrl + 'machines/' + ID.toString() + '/logs/' + gte;
+
+    return this.http.get<Log>(url, this.makeHeader()).pipe(
       catchError(error => {
           return this.tokenError(error)
       })
