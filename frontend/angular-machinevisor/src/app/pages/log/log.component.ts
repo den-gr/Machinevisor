@@ -48,7 +48,7 @@ export class LogComponent implements OnInit, OnDestroy {
       //unsubscribe della macchina...
       this.apiService.getLogs(this.machineID, this.selectedValue).subscribe(res => {
         console.log("--> " + res[0]);
-        this.machineLogs = res;
+        this.machineLogs = res.reverse();
       });
     }
   }

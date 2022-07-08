@@ -47,9 +47,7 @@ export class DBService_mongo implements DBService{
             const lte = new Date(currentDate.setDate(currentDate.getDate() + 1));
 
             resolve(
-                Log.find({
-                    machine_id: machine_id                  
-                    /*timestamp: { $gte: gte, $lte: lte.toDateString() }*/ }).limit(limit))
+                Log.find({machine_id: machine_id}).limit(limit).sort({timestamp:-1}))
         })
     }
     
