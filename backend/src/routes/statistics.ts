@@ -9,7 +9,9 @@ const router = express.Router();
 const db_service = new DBService_mongo();
 
 router.get('/defaultValues', (req:Request, res:Response) => {
-    res.json(getFakeValues())
+    db_service.getMachinesAvgValues().then(ris => {
+        res.json(ris[0])
+    }).catch((err)=> res.status(status.INTERNAL_SERVER_ERROR).send(makeErr("ServerError", err)));
 
 })
 

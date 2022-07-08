@@ -2,7 +2,7 @@ import { model, Schema, Document } from "mongoose";
 const AutoIncrement = require('mongoose-sequence')(require('mongoose'));
 
 export interface ILog extends Document{
-    allarm: string[],
+    allarm?: string[],
     machine_id: number,
     state: string,
     modality: string,
@@ -14,7 +14,7 @@ export interface ILog extends Document{
 }
 
 const LogSchema = new Schema<ILog>({ 
-    allarm: {type: [String]},
+    allarm: {type: [String], default: undefined},
     machine_id: {type: Number, require: true, readonly: true},
     state: {type: String, required: true},
     modality: {type: String, required: true},

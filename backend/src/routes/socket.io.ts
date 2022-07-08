@@ -113,15 +113,16 @@ export class SocketIOService {
             let obj = JSON.parse(msg);
 
             //add log to DB
-            db_service.addLog(obj).then((log:ILog) =>{
-              //console.log(log)
-            }).catch((error) => {
-                console.log(error);
-            })
+            
 
             //TODO save to database all new updates (AFTER checkAllarm)
             if(obj.machine_id && obj.machine_id >= 0 && obj.state){ 
               obj = checkAllarm(obj);
+              db_service.addLog(obj).then((log:ILog) =>{
+                //console.log(log)
+              }).catch((error) => {
+                  console.log(error);
+              })
               if(this.machinesSubscribers.has(0)){ // send updates to the clients that want to have updates from all machines
                 this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
               }

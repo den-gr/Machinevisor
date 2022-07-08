@@ -1,7 +1,5 @@
-
 import { Machine, IMachine } from "./models/machine_schema";
 import User, { IUser, IAuth } from "./models/user_schema";
-// import mongoose = require("mongoose");
 import { ILog, Log } from "./models/log_schema";
 import { GenericService } from "./services/genericService";
 import { ChartService } from "./services/chartService";
@@ -15,6 +13,7 @@ export interface DBService{
     addLog(log: ILog): Promise<any>;
     getLogs(machine_id: number, limit: number): Promise<ILog[] | null>;
     getMachineCharts(machine_id: number, values: string[]): Promise<any[]>;
+    getMachinesAvgValues(): Promise<any>;
 }
 
 export class DBService_mongo extends GenericService implements DBService{
@@ -114,5 +113,9 @@ export class DBService_mongo extends GenericService implements DBService{
 
     public getMachineCharts(machine_id: number, values: string[]): Promise<any[]>{
         return this.chartService.getMachineCharts(machine_id, values);
+    }
+
+    public getMachinesAvgValues(): Promise<any>{
+        return this.chartService.getMachinesAvgValues();
     }
 }
