@@ -46,10 +46,10 @@ export class APIService {
     );
   }
 
-  public getLogs(ID: number, gte: string){
-    const url = environment.apiUrl + 'machines/' + ID.toString() + '/logs/' + gte;
+  public getLogs(ID: number, limit: string){
+    const url = environment.apiUrl + 'machines/' + ID.toString() + '/logs/' + limit;
 
-    return this.http.get<Log>(url, this.makeHeader()).pipe(
+    return this.http.get<Log[]>(url, this.makeHeader()).pipe(
       catchError(error => {
           return this.tokenError(error)
       })

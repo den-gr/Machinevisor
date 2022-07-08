@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Period } from 'src/app/utilities/dataInterfaces/periods';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 
 @Component({
   selector: 'app-log',
@@ -9,33 +10,40 @@ import { Period } from 'src/app/utilities/dataInterfaces/periods';
 })
 export class LogComponent implements OnInit {
 
-  machineID = ''
+  machineID: number;
   machineName = ''
   machineLogs = Array();
 
   periods: Period[] = [
     {value: '0', viewValue: 'Real time'},
-    {value: '1', viewValue: '1h'},
-    {value: '12', viewValue: '12h'},
-    {value: '24', viewValue: '1 day'},
-    {value: '168', viewValue: '1 week'},
-    {value: '336', viewValue: '2 week'},
-    {value: '672', viewValue: '1 month'},
+    {value: '10', viewValue: '10 logs'},
+    {value: '20', viewValue: '20 logs'},
+    {value: '50', viewValue: '50 logs'},
+    {value: '100', viewValue: '100 logs'},
+    {value: '150', viewValue: '150 logs'},
+    {value: '200', viewValue: '200 logs'},
+    {value: '500', viewValue: '500 logs'},
   ];
 
-  selectedValue: any;
+  selectedValue: string;
 
-  constructor(private routes: ActivatedRoute) { }
+  constructor(private routes: ActivatedRoute, private apiService: APIService) { }
+
+  onChange(){
+    //selectedValue
+    this.apiService.getLogs(this.machineID, this.selectedValue).subscribe(res => {
+      console.log("--> " + res[0]);
+      this.machineLogs = res;
+    });
+  }
 
   ngOnInit(): void {
-
-    this.machineLogs = Array("data1", "data2", "data3", "data4");
 
     this.routes.paramMap.subscribe(params => {
       let res = params.get('machineID');
       let res2 = params.get('machineName');
       if(res != null && res2 != null){
-        this.machineID = res;
+        this.machineID = +res;
         this.machineName = res2;
       }
     })
