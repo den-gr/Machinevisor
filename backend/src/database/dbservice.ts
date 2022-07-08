@@ -10,7 +10,7 @@ export interface DBService{
     getAuth(email: string): Promise<IAuth | null>;
     getMachineList(): Promise<IMachine[]>;
     addLog(log: ILog): Promise<any>;
-    getLogs(machine_id: number, gte: string): Promise<ILog[] | null>;
+    getLogs(machine_id: number, limit: number): Promise<ILog[] | null>;
 }
 
 export class DBService_mongo implements DBService{
@@ -39,7 +39,7 @@ export class DBService_mongo implements DBService{
         })
     }
 
-    public getLogs(machine_id: number, gte: string): Promise<ILog[] | null> {
+    public getLogs(machine_id: number, limit: number): Promise<ILog[] | null> {
         return new Promise((resolve, reject) =>{
             if(!this.isConnected()) reject(this.getErrorDBNotConnected());
 
@@ -47,9 +47,7 @@ export class DBService_mongo implements DBService{
             const lte = new Date(currentDate.setDate(currentDate.getDate() + 1));
 
             resolve(
-                Log.find({
-                    machine_id: machine_id, 
-                    timestamp: { $gte: gte, $lte: lte.toDateString() } }))
+                Log.find({machine_id: machine_id}).limit(limit).sort({timestamp:-1}))
         })
     }
     

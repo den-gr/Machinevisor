@@ -4,19 +4,24 @@
     color: white; 
     display: block;
     text-align: center;
-    font-size: small;
+    font-size: x-small;
+    word-break: break-all;
 }
 
 mat-divider{
-    margin-bottom: 2%;
+    margin-top: 5%;
 }
 
 .button { 
     background-color: $menu-blue;
     display:  flex;
-    padding: auto ;
     margin : auto; 
+    margin-top: 8%;
     align-content: center ; 
     align-items:  center ; 
     align-self: center ; 
+    line-height:130%;
+    height: auto;
+    width: auto;
+    font-weight:normal;
 } 
