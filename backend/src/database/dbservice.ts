@@ -1,7 +1,10 @@
+
 import { Machine, IMachine } from "./models/machine_schema";
 import User, { IUser, IAuth } from "./models/user_schema";
-import mongoose = require("mongoose");
+// import mongoose = require("mongoose");
 import { ILog, Log } from "./models/log_schema";
+import { GenericService } from "./services/genericService";
+import { ChartService } from "./services/chartService";
 
 export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;
@@ -11,11 +14,11 @@ export interface DBService{
     getMachineList(): Promise<IMachine[]>;
     addLog(log: ILog): Promise<any>;
     getLogs(machine_id: number, limit: number): Promise<ILog[] | null>;
+    getMachineCharts(machine_id: number, values: string[]): Promise<any[]>;
 }
 
-export class DBService_mongo implements DBService{
-    private readonly CONNECTED: number = 1;
-    private readonly CONNECTING: number = 2;
+export class DBService_mongo extends GenericService implements DBService{
+    private chartService = new ChartService();
 
     public addLog(log: ILog): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -109,36 +112,7 @@ export class DBService_mongo implements DBService{
         })
     }
 
-    private handleError(error: any) : {[k: string]: any} {
-        if(error.name == "ValidationError"){
-            return {
-                errorType: "ValidationError",
-                message: error.message
-            };
-        }else if(error.name == "MongoServerError"){
-            if(error.code === 11000){ // duplicate key error
-                if(error.keyValue.email){
-                    return {
-                        errorType: "DuplicateUsername", 
-                        message: "Email " + error.keyValue.email + " already registered"
-                    }
-                }else{
-                    return {
-                        errorType: "Duplicate key value",
-                        message: `Duplicated key: ${error.keyValue}` 
-                    }
-                }
-            }
-        }
-        return {errorType: error.name, message: error.message};
-    }
-
-    private getErrorDBNotConnected(){
-        return {errorType: "ConnectionServerError", message: "DB is not connected"}
-    }
-
-    private isConnected(): boolean{ 
-        let state = mongoose.connection.readyState
-        return state === this.CONNECTED || state === this.CONNECTING;
+    public getMachineCharts(machine_id: number, values: string[]): Promise<any[]>{
+        return this.chartService.getMachineCharts(machine_id, values);
     }
 }

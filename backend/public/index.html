@@ -68,6 +68,10 @@
       socket.emit("machines/state", JSON.stringify({machine_id: machine_id, state: state}))
     }
 
+    function unsubscribe(){
+      socket.emit("machines/unsubscribe", "")
+    }
+
     subscribe(1)
   </script>
 </body>

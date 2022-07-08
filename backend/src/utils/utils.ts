@@ -34,3 +34,8 @@ export interface Report{
     kWatt: number;
     machine_oil_level?: number;
 }
+
+export interface ChartValue{
+    value: number;
+    label: string;
+}
