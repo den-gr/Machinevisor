@@ -19,6 +19,9 @@ channels:
       description: "Allows subcribe to updates of one or all machines"
       message:
         $ref: "#/components/messages/Subscribe"
+  machines/unsubscribe:
+    publish:
+      description: "Allows unsubscribe from machine updates"
   machines/modality:
     publish:
       description: "Allows change modality of a machine"

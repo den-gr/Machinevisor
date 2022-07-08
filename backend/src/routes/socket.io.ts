@@ -87,11 +87,7 @@ export class SocketIOService {
           try{
             let obj: any = JSON.parse(msg);
             if((obj.machine_id || obj.machine_id == 0) && obj.machine_id >= 0){
-              let prevSubscribe = this.clientsSubcribes.get(socket.id);
-              if(prevSubscribe !== undefined){ 
-                //remove previous subscription from  machines list
-                this.machinesSubscribers.get(prevSubscribe)?.delete(socket.id) 
-              }
+              this.unsubscribe(socket.id)
               if(!this.machinesSubscribers.has(obj.machine_id)){// if it is first subscription to this machine
                 this.machinesSubscribers.set(obj.machine_id, new Set())
               }
@@ -105,8 +101,11 @@ export class SocketIOService {
           }catch(err){
             this.sendBadRequest(socket)
           }
-          // console.log(this.machinesSubscribers)
-          // console.log(this.clientsSubcribes)
+        })
+
+
+        socket.on("machines/unsubscribe", (msg) => {
+            this.unsubscribe(socket.id)
         })
 
         socket.on("clients/update", (msg) => {
@@ -208,6 +207,15 @@ export class SocketIOService {
 
   private sendBadRequest(socket: Socket){
     socket.emit(this.EXCEPTION_CHANNEL, makeErr("Bad request", "Some field is missed"))
+  }
+
+  private unsubscribe(socketId: string){
+    let prevSubscribe = this.clientsSubcribes.get(socketId);
+    if(prevSubscribe !== undefined){ 
+      //remove previous subscription from  machines list
+      this.machinesSubscribers.get(prevSubscribe)?.delete(socketId)
+      this.clientsSubcribes.delete(socketId); 
+    }
   }
 }
 
