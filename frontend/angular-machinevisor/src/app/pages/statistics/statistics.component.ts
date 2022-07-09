@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartType } from 'chart.js';
 import { Observable } from 'rxjs';
 import { ChartDefaultValues, ChartEntry, ChartTemplate } from 'src/app/utilities/dataInterfaces/charts';
 import { StatisticService } from 'src/app/utilities/services/chartService/statistic.service';

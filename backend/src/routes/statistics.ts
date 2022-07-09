@@ -28,15 +28,4 @@ router.get('/activeTime', (req:Request, res:Response) => {
     }).catch((err)=> res.status(status.INTERNAL_SERVER_ERROR).send(makeErr("ServerError", err)));
 })
 
-function getFakeWorkingTimes(list: IMachine[]): Object[]{
-    let objs: Object[] = [];
-    list.forEach(e => {
-        objs.push({
-            value: parseFloat((0 + Math.random()*20).toFixed(1)),
-            label: e.machine_name
-        })
-    })
-    return objs;
-}
-
 module.exports = router;

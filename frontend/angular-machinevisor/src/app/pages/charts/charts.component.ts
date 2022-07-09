@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Observable, Subject } from 'rxjs';
@@ -14,7 +14,6 @@ import { SocketService } from 'src/app/utilities/services/socketService/socket.s
 })
 export class ChartsComponent implements OnInit {
   public readonly lineChart: ChartType = "line"
-  // public readonly barChart: ChartType = 'bar';
 
   private machineID: string;
 
@@ -49,7 +48,6 @@ export class ChartsComponent implements OnInit {
     let values: number[] = [];
     console.log("Entries: ", entries)
     entries.forEach(e => {
-      // labels.push(new Date(e.date).toLocaleDateString("it"))
       labels.push(this.getDateLabel(new Date(e.label)))
       values.push(e.value)
     })
@@ -62,14 +60,12 @@ export class ChartsComponent implements OnInit {
     this.socketService.setMachinePeriod(1, 5000);
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
-      console.log("-> ", log);
       for(let prop in log){
         if(this.updateSubjectsMap.has(prop)){
-          console.log(prop)
           const field = prop as keyof typeof log;
           this.updateSubjectsMap.get(prop)?.next(
             {
-              value: +log[field],
+              value: log[field] as number,
               label: this.getDateLabel(new Date(log.timestamp))
 
             }
