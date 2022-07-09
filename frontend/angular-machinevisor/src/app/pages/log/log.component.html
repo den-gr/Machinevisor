@@ -5,7 +5,7 @@
     </mat-card-header> 
     <mat-card-content class="right">
       <mat-form-field appearance="fill" class="select">
-        <mat-label class="label">Select period</mat-label>
+        <mat-label class="label">Select</mat-label>
         <mat-select [(ngModel)]="selectedValue" name="period" (selectionChange)="onChange()">
           <mat-option *ngFor="let p of periods" [value]="p.value">
             {{p.viewValue}}

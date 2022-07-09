@@ -30,35 +30,31 @@ export class LogComponent implements OnInit, OnDestroy {
     {value: '500', viewValue: '500 logs'},
   ];
 
-  selectedValue: string;
+  selectedValue:string = '0';
 
   constructor(private routes: ActivatedRoute, private apiService: APIService, private socketService: SocketService) { }
 
-  onChange(){
+  private static(){
+    this.apiService.getLogs(this.machineID, this.selectedValue).subscribe(res => {
+      console.log("--> " + res[0]);
+      this.machineLogs = res.reverse();
+    });
+  }
 
+  onChange(){
     this.machineLogs = [];
     if(this.selectedValue == '0'){
       this.socketService.subscribe(this.machineID);
-      this.socketService.getSocket().on('update', (msg: string) => {
-        console.log(".");
-        let log: Log = JSON.parse(msg);
-        this.machineLogs.push(log);
-      });
     }else{
       if(this.socketService.getIsSubscribed()){
         console.log("subscribed --> " + this.socketService.isSubscribed);
         this.socketService.unsubscribe();
       }
-
-      this.apiService.getLogs(this.machineID, this.selectedValue).subscribe(res => {
-        console.log("--> " + res[0]);
-        this.machineLogs = res.reverse();
-      });
+      this.static();
     }
   }
 
   ngOnInit(): void {
-    this.socketService.connect();
 
     this.routes.paramMap.subscribe(params => {
       let res = params.get('machineID');
@@ -68,6 +64,14 @@ export class LogComponent implements OnInit, OnDestroy {
         this.machineName = res2;
       }
     })
+
+    this.socketService.connect();
+    this.socketService.subscribe(this.machineID);
+    this.socketService.getSocket().on('update', (msg: string) => {
+      console.log(msg);
+      let log: Log = JSON.parse(msg);
+      this.machineLogs.push(log);
+    });
   }
 
   ngOnDestroy(): void {
