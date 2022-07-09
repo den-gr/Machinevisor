@@ -9,6 +9,7 @@ import { AuthService } from '../authService/auth.service';
 export class SocketService {
 
   socket: any;
+  isSubscribed = false;
 
   constructor(private authService: AuthService) {  }
 
@@ -16,8 +17,17 @@ export class SocketService {
     return this.socket;
   }
 
+  public getIsSubscribed(){
+    return this.isSubscribed;
+  }
+
   public disconnect(){
     this.socket.disconnect();
+  }
+
+  public unsubscribe(){
+    this.isSubscribed = false;
+    this.socket.emit("machines/unsubscribe", "")
   }
 
   public setMachinePeriod(machine_id:any, period:any){
@@ -35,6 +45,7 @@ export class SocketService {
   }
 
   public subscribe(machine_id:any){
+    this.isSubscribed = true;
     console.log("subscribe");
     this.socket.emit("machines/subscribe", JSON.stringify({machine_id: machine_id}))
   }

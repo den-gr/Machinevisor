@@ -45,7 +45,11 @@ export class LogComponent implements OnInit, OnDestroy {
         this.machineLogs.push(log);
       });
     }else{
-      //unsubscribe della macchina...
+      if(this.socketService.getIsSubscribed()){
+        console.log("subscribed --> " + this.socketService.isSubscribed);
+        this.socketService.unsubscribe();
+      }
+
       this.apiService.getLogs(this.machineID, this.selectedValue).subscribe(res => {
         console.log("--> " + res[0]);
         this.machineLogs = res.reverse();
