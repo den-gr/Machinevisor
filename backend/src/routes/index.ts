@@ -4,6 +4,7 @@ import express = require('express');
 import { DBService, DBService_mongo } from "../database/dbservice";
 import status from 'http-status-codes';
 import { makeErr, isNumber } from '../utils/utils';
+import { ChartValue } from "@common/utils";
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 require('dotenv').config();
@@ -37,6 +38,26 @@ router.get('/overview/mainValues', function(req:Request, res:Response) {
           allarms : 0
       })
     }
+  }).catch((err)=> res.status(status.INTERNAL_SERVER_ERROR).send(makeErr("ServerError", err)));
+});
+
+
+router.get('/overview/bestAndWorst', function(req:Request, res:Response) {
+  db_service.getWorkingTime().then((ris: ChartValue[]) => {
+    let best: ChartValue = ris[0];
+    let worst: ChartValue = ris[0];
+     ris.forEach(e => {
+        if(e.value > best.value){
+          best = e;
+        }
+        if(e.value < worst.value){
+          worst = e;
+        }
+     })
+     res.json({
+        worst: worst.label,
+        best: best.label
+     })
   }).catch((err)=> res.status(status.INTERNAL_SERVER_ERROR).send(makeErr("ServerError", err)));
 });
 

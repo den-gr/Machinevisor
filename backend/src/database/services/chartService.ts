@@ -141,7 +141,4 @@ export class ChartService extends GenericService{
             })
         }) 
     }
-
-
-    
 }
