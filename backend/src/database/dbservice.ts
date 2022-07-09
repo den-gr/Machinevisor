@@ -3,6 +3,7 @@ import User, { IUser, IAuth } from "./models/user_schema";
 import { ILog, Log } from "./models/log_schema";
 import { GenericService } from "./services/genericService";
 import { ChartService } from "./services/chartService";
+import { ChartValue } from "@common/utils";
 
 export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;
@@ -14,6 +15,8 @@ export interface DBService{
     getLogs(machine_id: number, limit: number): Promise<ILog[] | null>;
     getMachineCharts(machine_id: number, values: string[]): Promise<any[]>;
     getMachinesAvgValues(): Promise<any>;
+    getMachinesAllarms(): Promise<ChartValue[]>;
+    getWorkingTime(): Promise<ChartValue[]>
 }
 
 export class DBService_mongo extends GenericService implements DBService{
@@ -117,5 +120,13 @@ export class DBService_mongo extends GenericService implements DBService{
 
     public getMachinesAvgValues(): Promise<any>{
         return this.chartService.getMachinesAvgValues();
+    }
+
+    public getMachinesAllarms(): Promise<ChartValue[]>{
+        return this.chartService.getMachinesAllarms();
+    }
+
+    public getWorkingTime(): Promise<ChartValue[]>{
+        return this.chartService.getWorkingTime();
     }
 }
