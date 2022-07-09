@@ -23,33 +23,12 @@
       </div>
       <div class="values">
         <ul>
-          <li 
+          <li *ngFor="let elem of socketData"
           [ngClass]="{
-            'ok' : temp.error == true,
-            'ko' : temp.error == false
+            'ok' : elem.error == true,
+            'ko' : elem.error == false
           }">
-              <p class="value-key">Temperature</p><p class="value-val">{{temp.val}} °C</p>
-          </li>
-          <li 
-          [ngClass]="{
-            'ok' : cons.error == true,
-            'ko' : cons.error == false
-          }">
-              <p class="value-key">Energy consumption</p><p class="value-val">{{cons.val}} KWh</p>
-          </li>
-          <li *ngIf="isOil"
-          [ngClass]="{
-            'ok' : oil.error == true,
-            'ko' : oil.error == false
-          }">
-              <p class="value-key">Oil Level</p><p class="value-val">{{oil.val}} m</p>
-          </li>
-          <li 
-          [ngClass]="{
-            'ok' : time.error == true,
-            'ko' : time.error == false
-          }">
-              <p class="value-key">Working time</p><p class="value-val">{{time.val}} s</p>
+              <p class="value-key">{{elem.key}}</p><p class="value-val">{{elem.val}} {{elem.unit}}</p>
           </li>
           </ul>
       </div>

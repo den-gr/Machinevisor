@@ -8,7 +8,9 @@ import { SocketService } from 'src/app/utilities/services/socketService/socket.s
 import { environment } from 'src/environments/environment.prod';
 
 export interface Values{
+  key: string,
   val: number,
+  unit: string,
   error: boolean,
 }
 
@@ -33,12 +35,8 @@ export class MachineInfoComponent implements OnInit {
   status = '...';
   mode = '';
   photo = '';
-  temp: Values = {val : 0, error : true};
-  cons: Values = {val : 0, error : true};
-  time: Values = {val : 0, error : true};
-  oil: Values = {val : 0, error : true};
+  socketData = Array();
   infoMix = Array();
-  isOil = false;
 
   ngOnInit(): void {
 
@@ -56,29 +54,22 @@ export class MachineInfoComponent implements OnInit {
       }
       
       if(this.onInit){
-        this.buttonService.setIsOnChecked(log.state !== 'OFF');// <- problema qui
+        this.buttonService.setIsOnChecked(log.state !== 'OFF');
         this.onInit = false;
       }
 
-      let tempErr = false;
-      let consErr = false;
-      let timeErr = false;
-      let oilErr = false;
+      let tempErr = log.allarm? log.allarm.includes('temperature') : false
+      let consErr = log.allarm? log.allarm.includes('kWatt') : false
+      let oilErr = log.allarm? log.allarm.includes('machine_oil_level') : false
 
-      if(log.allarm){
-        tempErr = log.allarm.includes('temperature')
-        consErr = log.allarm.includes('kWatt')
-        timeErr = log.allarm.includes('working_time')
-        oilErr = log.allarm.includes('machine_oil_level')
+      this.socketData[0] = {key: 'Temperature', val : log.temperature, unit:'°C', error : !tempErr}
+      this.socketData[1] = {key: 'Energy consumption', val : log.kWatt, unit:'KW/h', error : !consErr}
+      this.socketData[2] = {key: 'Working time', val : log.working_time, unit:'s', error: true}
+    
+      if(log.machine_oil_level){
+        this.socketData[3] = {key: 'Oil level', val : log.machine_oil_level, unit:'m', error : !oilErr};
       }
       
-      if(log.machine_oil_level){
-        this.isOil = true;
-        this.oil = {val : log.machine_oil_level, error : !oilErr};
-      }
-      this.temp = {val : log.temperature, error : !tempErr};
-      this.cons = {val : log.kWatt, error : !consErr};
-      this.time = {val : log.working_time, error : !timeErr};    
     });
 
     this.apiService.getMachineInfo(this.machineID).subscribe(data => {
