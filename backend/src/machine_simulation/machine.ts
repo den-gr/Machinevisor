@@ -9,7 +9,7 @@ export interface MachineInterface{
 }
 
 export class MachineSimulation implements MachineInterface{
-    private static DEFAULT_PERIOD = 10000 + Math.random() * 1000;
+    private static DEFAULT_PERIOD = 30000 + Math.random() * 3000;
     private static ENVIRONMENT_TEMPERATURE = 20;
     private readonly machine_id: number;
     private readonly conn: MachineConnection;
