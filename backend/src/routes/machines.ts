@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import { DBService_mongo } from "../database/dbservice";
+import { DBService, DBService_mongo } from "../database/dbservice";
 import status from 'http-status-codes';
 import { makeErr, isNumber } from '../utils/utils';
 import express = require('express');
@@ -7,7 +7,7 @@ import { ILog } from "src/database/models/log_schema";
 import { IMachine } from "src/database/models/machine_schema";
 
 const router = express.Router();
-const db_service = new DBService_mongo();
+const db_service: DBService = new DBService_mongo();
 const authMiddleware =  require('./auth').authMiddleware;
 
 router.get("/", (req: Request, res: Response)  => {

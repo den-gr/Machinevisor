@@ -1,12 +1,12 @@
 import {Request, Response} from "express";
 import status from 'http-status-codes';
-import { DBService_mongo } from "../database/dbservice";
+import { DBService, DBService_mongo } from "../database/dbservice";
 import { makeErr, isNumber } from '../utils/utils';
 import express = require('express');
 import { IMachine } from "src/database/models/machine_schema";
 
 const router = express.Router();
-const db_service = new DBService_mongo();
+const db_service: DBService = new DBService_mongo();
 
 router.get('/defaultValues', (req:Request, res:Response) => {
     db_service.getMachinesAvgValues().then(ris => {

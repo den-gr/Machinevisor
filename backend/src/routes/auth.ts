@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response} from "express";
-import { DBService_mongo } from "../database/dbservice";
+import { DBService, DBService_mongo } from "../database/dbservice";
 import { IAuth} from "../database/models/user_schema";
 import { JsonWebTokenError } from "jsonwebtoken";
 import { makeErr } from '../utils/utils';
@@ -10,7 +10,7 @@ require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const hash = require('pbkdf2-password')()
 const router = express.Router();
-const db_service = new DBService_mongo();
+const db_service: DBService = new DBService_mongo();
 
 const password_schema = new passwordValidator();
 password_schema

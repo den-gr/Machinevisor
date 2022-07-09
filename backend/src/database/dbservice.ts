@@ -4,23 +4,27 @@ import { ILog, Log } from "./models/log_schema";
 import { GenericService } from "./services/genericService";
 import { ChartService } from "./services/chartService";
 import { ChartValue } from "@common/utils";
+import { OverviewService } from "./services/overviewService";
 
 export interface DBService{
     getUser(user_id: number): Promise<IUser | null>;
     addUser(user: IUser): Promise<number>
     getMachine(machine_id: number): Promise<IMachine | null>;
-    getAuth(email: string): Promise<IAuth | null>;
+    getAuth(email: string): Promise<IAuth>;
     getMachineList(): Promise<IMachine[]>;
     addLog(log: ILog): Promise<any>;
     getLogs(machine_id: number, limit: number): Promise<ILog[] | null>;
     getMachineCharts(machine_id: number, values: string[]): Promise<any[]>;
     getMachinesAvgValues(): Promise<any>;
     getMachinesAllarms(): Promise<ChartValue[]>;
-    getWorkingTime(): Promise<ChartValue[]>
+    getWorkingTime(): Promise<ChartValue[]>;
+    getMainOverviewValues(): Promise<any>;
+    
 }
 
 export class DBService_mongo extends GenericService implements DBService{
     private chartService = new ChartService();
+    private overviewService = new OverviewService();
 
     public addLog(log: ILog): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -128,5 +132,9 @@ export class DBService_mongo extends GenericService implements DBService{
 
     public getWorkingTime(): Promise<ChartValue[]>{
         return this.chartService.getWorkingTime();
+    }
+
+    public getMainOverviewValues(): Promise<any> {
+        return this.overviewService.getMainOverviewValues();
     }
 }

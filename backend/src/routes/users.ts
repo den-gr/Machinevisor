@@ -1,11 +1,11 @@
 import {Request, Response} from "express";
-import { DBService_mongo } from "../database/dbservice";
+import { DBService, DBService_mongo } from "../database/dbservice";
 import status from 'http-status-codes';
 import { makeErr, isNumber } from '../utils/utils';
 import express = require('express');
 
 const router = express.Router();
-const db_service = new DBService_mongo();
+const db_service: DBService = new DBService_mongo();
 
 router.get('/:userId', (req:Request, res:Response) => {
     if(isNumber(req.params.userId)){

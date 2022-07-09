@@ -2,10 +2,10 @@ import {Server, Socket} from "socket.io";
 import {Server as HttpServer} from "http";
 import { makeErr, isNumber, State } from "../utils/utils";
 import { JsonWebTokenError } from "jsonwebtoken";
-import { DBService_mongo } from "../database/dbservice";
+import { DBService, DBService_mongo } from "../database/dbservice";
 import { ILog } from "../database/models/log_schema";
 const jwt = require("jsonwebtoken");
-const db_service = new DBService_mongo();
+const db_service: DBService = new DBService_mongo();
 
 let period: number = 60000;
 export class SocketIOService {
