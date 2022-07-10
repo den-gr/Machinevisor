@@ -1,15 +1,24 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Router } from '@angular/router';
 import { Log } from 'src/app/utilities/dataInterfaces/log';
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
+
+export interface Values{
+  class: string,
+  state: string,
+  coordinates: {
+    x: number,
+    y: number
+  }
+}
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, OnDestroy {
+
+export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('clickHoverMenuTrigger1') clickHoverMenuTrigger1: MatMenuTrigger;
   @ViewChild('clickHoverMenuTrigger2') clickHoverMenuTrigger2: MatMenuTrigger;
   @ViewChild('clickHoverMenuTrigger3') clickHoverMenuTrigger3: MatMenuTrigger;
@@ -17,56 +26,37 @@ export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('clickHoverMenuTrigger5') clickHoverMenuTrigger5: MatMenuTrigger;
 
   constructor(private socketService: SocketService) { }
+  ngAfterViewInit(): void {
+    console.log("-> " + this.clickHoverMenuTrigger1);
+    this.menuTriggers.push(this.clickHoverMenuTrigger1);
+    this.menuTriggers.push(this.clickHoverMenuTrigger2);
+    this.menuTriggers.push(this.clickHoverMenuTrigger3);
+    this.menuTriggers.push(this.clickHoverMenuTrigger4);
+    this.menuTriggers.push(this.clickHoverMenuTrigger5);
+  }
 
   machineNum = 5;
-
-  state1: string;
-  state2: string; 
-  state3: string; 
-  state4: string; 
-  state5: string;
+  machineData = Array<Values>();
+  menuTriggers = Array<MatMenuTrigger>();
 
   click(machine: String) {
-    console.log("Ho cliccato trullallero rullalla! --> " + machine);
-    switch (machine) {
-      case '1':
-        this.clickHoverMenuTrigger1.openMenu();
-        break;
-      case '2':
-        this.clickHoverMenuTrigger2.openMenu();
-        break;
-      case '3':
-        this.clickHoverMenuTrigger3.openMenu();
-        break;
-      case '4':
-        this.clickHoverMenuTrigger4.openMenu();
-        break;
-      case '5':
-        this.clickHoverMenuTrigger5.openMenu();
-        break;
-    }
+    const ID = +machine
+    this.menuTriggers[ID-1].openMenu();
   }
 
   ngOnInit(): void {
-    let tmp1 = localStorage.getItem("state1");
+
+    this.machineData[0] = {class: 'machine-o', state: "OFF", coordinates: {x:1, y: 0.7}}
+    this.machineData[1] = {class: 'machine-o', state: "OFF", coordinates: {x: 21, y: 0.7}}
+    this.machineData[2] = {class: 'machine-o', state: "OFF", coordinates: {x: 41, y: 0.7}}
+    this.machineData[3] = {class: 'machine-o', state: "OFF", coordinates: {x: 1, y: 20.2}}
+    this.machineData[4] = {class: 'machine-v', state: "OFF", coordinates: {x: 48, y: 16.2}}
+
+    /*let tmp1 = localStorage.getItem("state1");
     let tmp2 = localStorage.getItem("state2");
     let tmp3 = localStorage.getItem("state3");
     let tmp4 = localStorage.getItem("state4");
-    let tmp5 = localStorage.getItem("state5");
-
-    if(tmp1 !== null && tmp2 !== null && tmp3 !== null && tmp4 !== null && tmp5 !== null){
-      this.state1 = tmp1;
-      this.state2 = tmp2;
-      this.state3 = tmp3;
-      this.state4 = tmp4;
-      this.state5 = tmp5;
-    }else{
-      this.state1 = 'OFF';
-      this.state2 = 'OFF';
-      this.state3 = 'OFF';
-      this.state4 = 'OFF';
-      this.state5 = 'OFF';
-    }
+    let tmp5 = localStorage.getItem("state5");*/
 
     this.socketService.connect()
     this.socketService.subscribe(0)
@@ -78,32 +68,16 @@ export class MapComponent implements OnInit, OnDestroy {
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
       console.log("-> ", log);
-      switch (log.machine_id) {
-        case 1:
-          this.state1 = log.state;
-          break;
-        case 2:
-          this.state2 = log.state;
-          break;
-        case 3:
-          this.state3 = log.state;
-          break;
-        case 4:
-          this.state4 = log.state;
-          break;
-        case 5:
-          this.state5 = log.state;
-          break;
-      }
+      this.machineData[log.machine_id-1].state = log.state;
     });
   }
 
   ngOnDestroy(): void {
-    localStorage.setItem('state1', this.state1);
+    /*localStorage.setItem('state1', this.state1);
     localStorage.setItem('state2', this.state2);
     localStorage.setItem('state3', this.state3);
     localStorage.setItem('state4', this.state4);
-    localStorage.setItem('state5', this.state5);
+    localStorage.setItem('state5', this.state5);*/
     this.socketService.disconnect()
   }
 

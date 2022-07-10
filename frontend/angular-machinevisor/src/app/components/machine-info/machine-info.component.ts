@@ -7,13 +7,6 @@ import { OnOffButtonService } from 'src/app/utilities/services/on-off-buttonServ
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
 import { environment } from 'src/environments/environment.prod';
 
-export interface Values{
-  key: string,
-  val: number,
-  unit: string,
-  error: boolean,
-}
-
 @Component({
   selector: 'app-machine-info',
   templateUrl: './machine-info.component.html',

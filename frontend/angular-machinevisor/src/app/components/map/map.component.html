@@ -6,57 +6,64 @@
             <rect 
             [matMenuTriggerFor]="clickMenu1.menu" 
             #clickHoverMenuTrigger1="matMenuTrigger" 
-            (click)="click('1')" id="machine-1" class="machine-o" 
+            (click)="click('1')" class={{machineData[0].class}} 
             [ngClass]="{
-                'machine-off' : state1 == 'OFF',
-                'machine-on' : state1 == 'ON',
-                'machine-allarm' : state1 == 'ALLARM'
-              }" 
-            x="1" y="0.7" />
+              'machine-off' : machineData[0].state == 'OFF',
+              'machine-on' : machineData[0].state == 'ON',
+              'machine-allarm' : machineData[0].state == 'ALLARM'
+            }" 
+            [attr.x] = "machineData[0].coordinates.x"
+            [attr.y] = "machineData[0].coordinates.y" />
+
 
             <rect 
             [matMenuTriggerFor]="clickMenu2.menu" 
-            #clickHoverMenuTrigger2="matMenuTrigger"
-            (click)="click('2')" id="machine-2" class="machine-o"
+            #clickHoverMenuTrigger2="matMenuTrigger" 
+            (click)="click('2')" class={{machineData[1].class}} 
             [ngClass]="{
-              'machine-off' : state2 == 'OFF',
-              'machine-on' : state2 == 'ON',
-              'machine-allarm' : state2 == 'ALLARM'
+              'machine-off' : machineData[1].state == 'OFF',
+              'machine-on' : machineData[1].state == 'ON',
+              'machine-allarm' : machineData[1].state == 'ALLARM'
             }" 
-            x="21" y="0.7"/>
+            [attr.x] = "machineData[1].coordinates.x"
+            [attr.y] = "machineData[1].coordinates.y" />
 
             <rect 
             [matMenuTriggerFor]="clickMenu3.menu" 
-            #clickHoverMenuTrigger3="matMenuTrigger"
-            (click)="click('3')" id="machine-3" class="machine-o"
+            #clickHoverMenuTrigger3="matMenuTrigger" 
+            (click)="click('3')" class={{machineData[2].class}} 
             [ngClass]="{
-              'machine-off' : state3 == 'OFF',
-              'machine-on' : state3 == 'ON',
-              'machine-allarm' : state3 == 'ALLARM'
-            }"  
-            x="41" y="0.7"/> 
+              'machine-off' : machineData[2].state == 'OFF',
+              'machine-on' : machineData[2].state == 'ON',
+              'machine-allarm' : machineData[2].state == 'ALLARM'
+            }" 
+            [attr.x] = "machineData[2].coordinates.x"
+            [attr.y] = "machineData[2].coordinates.y" />
 
             <rect 
             [matMenuTriggerFor]="clickMenu4.menu" 
-            #clickHoverMenuTrigger4="matMenuTrigger"
-            (click)="click('4')" id="machine-4" class="machine-o"
+            #clickHoverMenuTrigger4="matMenuTrigger" 
+            (click)="click('4')" class={{machineData[3].class}} 
             [ngClass]="{
-              'machine-off' : state4 == 'OFF',
-              'machine-on' : state4 == 'ON',
-              'machine-allarm' : state4 == 'ALLARM'
+              'machine-off' : machineData[3].state == 'OFF',
+              'machine-on' : machineData[3].state == 'ON',
+              'machine-allarm' : machineData[3].state == 'ALLARM'
             }" 
-            x="1" y="20.2" />
+            [attr.x] = "machineData[3].coordinates.x"
+            [attr.y] = "machineData[3].coordinates.y" />
 
             <rect 
             [matMenuTriggerFor]="clickMenu5.menu" 
-            #clickHoverMenuTrigger5="matMenuTrigger"
-            (click)="click('5')" id="machine-5" class="machine-v"
+            #clickHoverMenuTrigger5="matMenuTrigger" 
+            (click)="click('5')" class={{machineData[4].class}} 
             [ngClass]="{
-              'machine-off' : state5 == 'OFF',
-              'machine-on' : state5 == 'ON',
-              'machine-allarm' : state5 == 'ALLARM'
+              'machine-off' : machineData[4].state == 'OFF',
+              'machine-on' : machineData[4].state == 'ON',
+              'machine-allarm' : machineData[4].state == 'ALLARM'
             }" 
-            x="48" y="16.2" />
+            [attr.x] = "machineData[4].coordinates.x"
+            [attr.y] = "machineData[4].coordinates.y" />
+            
         </g>
        
         <rect class="wall" height="14" x="19.8" y="0"/>
