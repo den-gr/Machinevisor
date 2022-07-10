@@ -35,10 +35,11 @@ const usersRouter = require('./routes/users');
 const machinesRouter = require('./routes/machines');
 const statisticsRouter = require('./routes/statistics');
 app.use('/auth', authRouter);
-app.use('/', indexRouter);
-app.use('/users', authMiddleware,  usersRouter);
+app.use('/overview', authMiddleware, indexRouter);
+app.use('/users', authMiddleware, usersRouter);
 app.use('/machines', machinesRouter);
-app.use('/statistics', statisticsRouter);
+app.use('/statistics',authMiddleware, statisticsRouter);
+app.use('/test', (req, res) => res.send(""))
 
 //Run server
 SocketIOService.instance().initialize(server)

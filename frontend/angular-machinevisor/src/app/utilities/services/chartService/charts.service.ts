@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
-import { Observable, Subject } from 'rxjs';
 import { APIService } from '../APIService/api.service';
 
 @Injectable({
@@ -11,12 +10,7 @@ export class ChartsService {
   constructor(private apiService: APIService) { }
 
   public getChartsInfo(machineID: string){
-    this.reset()
     return this.apiService.getMachineCharts(machineID);
-  }
-
-  private reset(){
-
   }
 
   public getDatasetTemplate(values: number[], labels: string[], title: string){
@@ -28,7 +22,6 @@ export class ChartsService {
       labels: labels
     } 
   }
-
 
   public readonly blueLineTemplate = {
     data: [0],
@@ -49,7 +42,6 @@ export class ChartsService {
       }
     },
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
       x: {},
       'y-axis-0':
         {

@@ -111,18 +111,15 @@ export class SocketIOService {
         socket.on("clients/update", (msg) => {
           try{
             let obj = JSON.parse(msg);
-
-            //add log to DB
-            
-
-            //TODO save to database all new updates (AFTER checkAllarm)
             if(obj.machine_id && obj.machine_id >= 0 && obj.state){ 
+
               obj = checkAllarm(obj);
               db_service.addLog(obj).then((log:ILog) =>{
                 //console.log(log)
               }).catch((error) => {
                   console.log(error);
               })
+
               if(this.machinesSubscribers.has(0)){ // send updates to the clients that want to have updates from all machines
                 this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
               }
@@ -171,7 +168,6 @@ export class SocketIOService {
     });
 
     function loop(service: SocketIOService){
-      // console.log("rooms:", service.getRooms())
       if(SocketIOService.server !== undefined){
         service.sendMessage(service.CLIENTS_ROOM, "pingpong","ping to client with period "  + period)
         service.sendMessage(service.MACHIES_ROOM, "pingpong","ping to machines with period " + period)

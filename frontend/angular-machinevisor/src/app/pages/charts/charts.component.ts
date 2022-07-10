@@ -17,7 +17,7 @@ export class ChartsComponent implements OnInit {
 
   private machineID: string;
 
-  public observables : Map<string, Observable<ChartEntry>> = new Map(); // chart name -> observabel
+  public observables : Map<string, Observable<ChartEntry>> = new Map(); // chart name -> observable
   public chartValuesMap: Map<string, ChartConfiguration['data']> = new Map(); // chart name -> chart configuration
   private readonly updateSubjectsMap : Map<string, Subject<ChartEntry>> = new Map();
   
@@ -46,7 +46,6 @@ export class ChartsComponent implements OnInit {
   private fillChartConfiguration(entries: ChartEntry[], title: string): ChartConfiguration['data']{
     let labels: string[] = [];
     let values: number[] = [];
-    console.log("Entries: ", entries)
     entries.forEach(e => {
       labels.push(this.getDateLabel(new Date(e.label)))
       values.push(e.value)

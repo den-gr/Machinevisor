@@ -1,9 +1,8 @@
 import {Request, Response} from "express";
-import status from 'http-status-codes';
 import { DBService, DBService_mongo } from "../database/dbservice";
-import { makeErr, isNumber } from '../utils/utils';
+import { makeErr } from '../utils/utils';
+import status from 'http-status-codes';
 import express = require('express');
-import { IMachine } from "src/database/models/machine_schema";
 
 const router = express.Router();
 const db_service: DBService = new DBService_mongo();

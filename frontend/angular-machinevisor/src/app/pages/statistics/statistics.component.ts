@@ -24,10 +24,7 @@ export class StatisticsComponent implements OnInit {
   public allarmsTemp?: ChartTemplate;
   public activeTimeTemp?: ChartTemplate;
 
-  constructor(private statisticService: StatisticService){
-   
-    // console.log("data",this.meanTemperatureTemp.data)
-  }
+  constructor(private statisticService: StatisticService){}
   
   ngOnInit(): void {
     this.setUpDefaulValuesChart();

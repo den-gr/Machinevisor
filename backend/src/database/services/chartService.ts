@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import { GenericService } from "./genericService";
 import { Log } from "../models/log_schema";
 import { ChartValue } from "@common/utils";

@@ -115,3 +115,40 @@ describe("Authentification endpoing", () => {
         expect(res.body).toHaveProperty("user_id")
     });
 });
+
+describe("Statistics endpoint", () => {
+    it('GET /statistics/defaultValues should return default values', async () => {
+        const res = await requestWithSupertest.get('/statistics/defaultValues').set("authorization", "Bearer "+ token);
+        expect(res.status).toEqual(200);
+        expect(res.body).toHaveProperty('temperatures')
+        expect(res.body).toHaveProperty('dates')
+        expect(res.body).toHaveProperty('kWatts')
+    });
+
+    it('GET /statistics/allarms should work', async () => {
+        const res = await requestWithSupertest.get('/statistics/allarms').set("authorization", "Bearer "+ token);
+        expect(res.status).toEqual(200);
+    });
+
+    it('GET /statistics/activeTime should work', async () => {
+        const res = await requestWithSupertest.get('/statistics/activeTime').set("authorization", "Bearer "+ token);
+        expect(res.status).toEqual(200);
+    });
+});
+
+describe("Overview endpoint", () => {
+    it('GET /overview/mainValues should return default main overview valeus', async () => {
+        const res = await requestWithSupertest.get('/overview/mainValues').set("authorization", "Bearer "+ token);
+        expect(res.status).toEqual(200);
+        expect(res.body).toHaveProperty('allarms')
+        expect(res.body).toHaveProperty('msgsForMinute')
+        expect(res.body).toHaveProperty('kWattAvg')
+    });
+
+    it('GET /overview/bestAndWorst should return best and worst machine', async () => {
+        const res = await requestWithSupertest.get('/overview/bestAndWorst').set("authorization", "Bearer "+ token);
+        expect(res.status).toEqual(200);
+        expect(res.body).toHaveProperty('best')
+        expect(res.body).toHaveProperty('worst')
+    });
+});

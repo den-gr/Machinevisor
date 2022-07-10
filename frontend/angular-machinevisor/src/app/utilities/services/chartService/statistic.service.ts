@@ -1,6 +1,5 @@
-import { CONTEXT_NAME } from '@angular/compiler/src/render3/view/util';
 import { Injectable } from '@angular/core';
-import { ChartConfiguration, ChartData } from 'chart.js';
+import { ChartConfiguration} from 'chart.js';
 import { Observable } from 'rxjs';
 import { ChartDefaultValues, ChartEntry, ChartTemplate } from '../../dataInterfaces/charts';
 import { APIService } from '../APIService/api.service';
@@ -100,7 +99,6 @@ export class StatisticService {
       }
     },
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
       x: {},
       'y-axis-0':
         {
@@ -117,7 +115,6 @@ export class StatisticService {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {},
       y: {
@@ -161,6 +158,4 @@ export class StatisticService {
       },
     }
   };
-
-  
 }

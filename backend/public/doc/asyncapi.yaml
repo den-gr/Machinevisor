@@ -147,7 +147,7 @@ components:
                 maximum: 100
                 minimum: 0
                 multipleOf: 0.01
-                exemple: 11.20
+                example: 11.20
               allarm: 
                 type: array
                 description: "Optional. Shows what values of machine provocate allarm state"

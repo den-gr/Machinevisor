@@ -25,17 +25,11 @@ export class ChartComponent implements OnInit {
   @Input() updateObservable?: Observable<ChartEntry> ;
   title: string;
 
-  constructor(){
-    
-  }
-
   ngOnInit(): void {
     if(this.chartType == this.line){
       this.pieChartPlugins = [];
     }
-    // this.data = this.chartService.getDataConfiguration(this.chartValue);
-    // this.options = this.chartService.getOptionsConfiguration(this.chartType)
-    // this.chartService.updateObservable.subscribe(_ => this.chart?.update())
+
     this.updateObservable?.subscribe(val => {
       this.data?.datasets[0].data.push(val.value)
       this.data?.labels?.push(val.label)
@@ -47,15 +41,11 @@ export class ChartComponent implements OnInit {
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     // console.log(event, active);
-    console.log("my data", this.data)
+    // console.log("my data", this.data)
   }
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     // console.log(event, active);
   }
 
-  public pushOne(): void {
-    // this.chartService.pushOne();
-    this.chart?.update();
-  }
 }

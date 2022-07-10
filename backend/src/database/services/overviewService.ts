@@ -1,6 +1,5 @@
 import { GenericService } from "./genericService";
 import { Log } from "../models/log_schema";
-import { ChartValue } from "@common/utils";
 
 export class OverviewService extends GenericService{
     public getMainOverviewValues(): Promise<any>{
@@ -45,5 +44,4 @@ export class OverviewService extends GenericService{
             })
         }) 
     }   
-    
 }

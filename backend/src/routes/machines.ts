@@ -3,7 +3,6 @@ import { DBService, DBService_mongo } from "../database/dbservice";
 import status from 'http-status-codes';
 import { makeErr, isNumber } from '../utils/utils';
 import express = require('express');
-import { ILog } from "src/database/models/log_schema";
 import { IMachine } from "src/database/models/machine_schema";
 
 const router = express.Router();
