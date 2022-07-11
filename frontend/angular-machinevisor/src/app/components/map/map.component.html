@@ -1,71 +1,24 @@
 <svg class="svg-container" 
         viewBox="0 0 60 30"
         xmlns="http://www.w3.org/2000/svg">
-    
-        <g>
-            <rect 
-            [matMenuTriggerFor]="clickMenu1.menu" 
-            #clickHoverMenuTrigger1="matMenuTrigger" 
-            (click)="click('1')" class={{machineData[0].class}} 
-            [ngClass]="{
-              'machine-off' : machineData[0].state == 'OFF',
-              'machine-on' : machineData[0].state == 'ON',
-              'machine-allarm' : machineData[0].state == 'ALLARM'
-            }" 
-            [attr.x] = "machineData[0].coordinates.x"
-            [attr.y] = "machineData[0].coordinates.y" />
 
-
-            <rect 
-            [matMenuTriggerFor]="clickMenu2.menu" 
-            #clickHoverMenuTrigger2="matMenuTrigger" 
-            (click)="click('2')" class={{machineData[1].class}} 
+        <!-- Machines -->    
+        <g>          
+          <rect *ngFor="let machine of machineData; let i = index"
+            (click)="click(i)" class={{machine.class}} 
+            [matMenuTriggerFor]="getMenu(i).menu"
+            #clickHoverMenuTriggers="matMenuTrigger" 
             [ngClass]="{
-              'machine-off' : machineData[1].state == 'OFF',
-              'machine-on' : machineData[1].state == 'ON',
-              'machine-allarm' : machineData[1].state == 'ALLARM'
+              'machine-off' : machine.state == 'OFF',
+              'machine-on' : machine.state == 'ON',
+              'machine-allarm' : machine.state == 'ALLARM'
             }" 
-            [attr.x] = "machineData[1].coordinates.x"
-            [attr.y] = "machineData[1].coordinates.y" />
-
-            <rect 
-            [matMenuTriggerFor]="clickMenu3.menu" 
-            #clickHoverMenuTrigger3="matMenuTrigger" 
-            (click)="click('3')" class={{machineData[2].class}} 
-            [ngClass]="{
-              'machine-off' : machineData[2].state == 'OFF',
-              'machine-on' : machineData[2].state == 'ON',
-              'machine-allarm' : machineData[2].state == 'ALLARM'
-            }" 
-            [attr.x] = "machineData[2].coordinates.x"
-            [attr.y] = "machineData[2].coordinates.y" />
-
-            <rect 
-            [matMenuTriggerFor]="clickMenu4.menu" 
-            #clickHoverMenuTrigger4="matMenuTrigger" 
-            (click)="click('4')" class={{machineData[3].class}} 
-            [ngClass]="{
-              'machine-off' : machineData[3].state == 'OFF',
-              'machine-on' : machineData[3].state == 'ON',
-              'machine-allarm' : machineData[3].state == 'ALLARM'
-            }" 
-            [attr.x] = "machineData[3].coordinates.x"
-            [attr.y] = "machineData[3].coordinates.y" />
-
-            <rect 
-            [matMenuTriggerFor]="clickMenu5.menu" 
-            #clickHoverMenuTrigger5="matMenuTrigger" 
-            (click)="click('5')" class={{machineData[4].class}} 
-            [ngClass]="{
-              'machine-off' : machineData[4].state == 'OFF',
-              'machine-on' : machineData[4].state == 'ON',
-              'machine-allarm' : machineData[4].state == 'ALLARM'
-            }" 
-            [attr.x] = "machineData[4].coordinates.x"
-            [attr.y] = "machineData[4].coordinates.y" />
+            [attr.x] = "machine.coordinates.x"
+            [attr.y] = "machine.coordinates.y" />
             
         </g>
        
+       <!-- Walls --> 
         <rect class="wall" height="14" x="19.8" y="0"/>
         <rect class="wall" height="14" x="39.8" y="0"/>
        

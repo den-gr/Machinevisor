@@ -1,7 +1,8 @@
-import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { Log } from 'src/app/utilities/dataInterfaces/log';
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
+import { MachineMenuComponent } from '../machine-menu/machine-menu.component';
 
 export interface Values{
   class: string,
@@ -18,30 +19,26 @@ export interface Values{
   styleUrls: ['./map.component.scss']
 })
 
-export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('clickHoverMenuTrigger1') clickHoverMenuTrigger1: MatMenuTrigger;
-  @ViewChild('clickHoverMenuTrigger2') clickHoverMenuTrigger2: MatMenuTrigger;
-  @ViewChild('clickHoverMenuTrigger3') clickHoverMenuTrigger3: MatMenuTrigger;
-  @ViewChild('clickHoverMenuTrigger4') clickHoverMenuTrigger4: MatMenuTrigger;
-  @ViewChild('clickHoverMenuTrigger5') clickHoverMenuTrigger5: MatMenuTrigger;
-
-  constructor(private socketService: SocketService) { }
-  ngAfterViewInit(): void {
-    console.log("-> " + this.clickHoverMenuTrigger1);
-    this.menuTriggers.push(this.clickHoverMenuTrigger1);
-    this.menuTriggers.push(this.clickHoverMenuTrigger2);
-    this.menuTriggers.push(this.clickHoverMenuTrigger3);
-    this.menuTriggers.push(this.clickHoverMenuTrigger4);
-    this.menuTriggers.push(this.clickHoverMenuTrigger5);
-  }
+export class MapComponent implements OnInit, OnDestroy {
+  @ViewChildren('clickHoverMenuTrigger') clickHoverMenuTriggers: QueryList<MatMenuTrigger>
+  @ViewChild('clickMenu1', {static: true}) clickMenu1: MachineMenuComponent
+  @ViewChild('clickMenu2', {static: true}) clickMenu2: MachineMenuComponent
+  @ViewChild('clickMenu3', {static: true}) clickMenu3: MachineMenuComponent
+  @ViewChild('clickMenu4', {static: true}) clickMenu4: MachineMenuComponent
+  @ViewChild('clickMenu5', {static: true}) clickMenu5: MachineMenuComponent
 
   machineNum = 5;
   machineData = Array<Values>();
-  menuTriggers = Array<MatMenuTrigger>();
+  menus = Array<MachineMenuComponent>();
 
-  click(machine: String) {
-    const ID = +machine
-    this.menuTriggers[ID-1].openMenu();
+  constructor(private socketService: SocketService) { }
+
+  click(machine: number) {
+    this.clickHoverMenuTriggers.get(machine)?.openMenu();
+  }
+
+  getMenu(machine: number){
+    return this.menus[machine]
   }
 
   ngOnInit(): void {
@@ -51,6 +48,12 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.machineData[2] = {class: 'machine-o', state: "OFF", coordinates: {x: 41, y: 0.7}}
     this.machineData[3] = {class: 'machine-o', state: "OFF", coordinates: {x: 1, y: 20.2}}
     this.machineData[4] = {class: 'machine-v', state: "OFF", coordinates: {x: 48, y: 16.2}}
+
+    this.menus.push(this.clickMenu1);
+    this.menus.push(this.clickMenu2);
+    this.menus.push(this.clickMenu3);
+    this.menus.push(this.clickMenu4);
+    this.menus.push(this.clickMenu5);
 
     /*let tmp1 = localStorage.getItem("state1");
     let tmp2 = localStorage.getItem("state2");
@@ -67,7 +70,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
-      console.log("-> ", log);
+      //console.log("-> ", log);
       this.machineData[log.machine_id-1].state = log.state;
     });
   }

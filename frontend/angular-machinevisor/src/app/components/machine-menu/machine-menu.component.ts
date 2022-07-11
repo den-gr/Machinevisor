@@ -24,7 +24,7 @@ export class MachineMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.getMachineInfo(this.machineID).subscribe(res => {
+    this.apiService.getMachineInfo(this.machineID.toString()).subscribe(res => {
       this.machineName = res.machine_name;
     });
   }
