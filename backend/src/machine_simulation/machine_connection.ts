@@ -57,6 +57,7 @@ export class MachineConnection{
             if(isNumber(period)){
                 if(period >= 1000 && period <= 300000){
                     this.machine.setNewInterval(period)
+                    this.machine.forceReportDelivery()
                 }else{
                     console.error("Period must be between 1000 and 300000 millis");
                 }

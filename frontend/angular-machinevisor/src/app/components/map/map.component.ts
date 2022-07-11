@@ -55,12 +55,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.menus.push(this.clickMenu4);
     this.menus.push(this.clickMenu5);
 
-    /*let tmp1 = localStorage.getItem("state1");
-    let tmp2 = localStorage.getItem("state2");
-    let tmp3 = localStorage.getItem("state3");
-    let tmp4 = localStorage.getItem("state4");
-    let tmp5 = localStorage.getItem("state5");*/
-
     this.socketService.connect()
     this.socketService.subscribe(0)
 
@@ -76,11 +70,6 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    /*localStorage.setItem('state1', this.state1);
-    localStorage.setItem('state2', this.state2);
-    localStorage.setItem('state3', this.state3);
-    localStorage.setItem('state4', this.state4);
-    localStorage.setItem('state5', this.state5);*/
     this.socketService.disconnect()
   }
 
