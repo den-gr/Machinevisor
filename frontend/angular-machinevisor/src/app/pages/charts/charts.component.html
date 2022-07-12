@@ -1,5 +1,5 @@
 <div class="charts">
-    <div *ngFor="let chart of observables | keyvalue" >
+    <div class="single-chart" *ngFor="let chart of observables | keyvalue" >
         <app-chart [options]="chartsService.lineChartOptions" 
                    [updateObservable]="chart.value" 
                    [chartType]="lineChart" 

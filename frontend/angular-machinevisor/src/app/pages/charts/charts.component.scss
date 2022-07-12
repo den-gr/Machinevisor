@@ -1,17 +1,28 @@
 @import "../../utilities/variables";
 
-$margin: 1%;
+.charts{
+    margin-top: $card-distance;
+    margin-bottom: $card-distance;
+}
 
 @media only screen and (min-width: $tablet) {
     .charts{
+        width: 90%;
+        margin: auto;
+        margin-top: $card-distance;
+        margin-bottom: $card-distance;
+
         min-height:80vh;
-        margin-left: $margin;
-        margin-right: $margin;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
-    app-chart{
-        margin-top: 1%;
+    .single-chart{
+        margin: 0;
+        padding: 0;
         width: 50%;
-        float: left;
     }
 }
