@@ -2,6 +2,16 @@
 
 $margin: 5%;
 
+.values{
+    padding-left: 3%;
+    display: flex;
+    align-items: center;
+}
+
+.key{
+    margin-right: 2%;
+}
+
 .card{
     width: $card-width;
     margin: auto;

@@ -8,6 +8,17 @@ import { Machine, Machines } from '../../dataInterfaces/machine';
 import { User } from '../../dataInterfaces/user';
 import { AuthService } from '../authService/auth.service';
 
+export interface BestWorst{
+  best: string,
+  worst: string
+}
+
+export interface MainValues{
+    allarms: number,
+    msgsForMinute: number,
+    kWattAvg: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,6 +61,26 @@ export class APIService {
     const url = environment.apiUrl + 'machines/' + ID.toString() + '/logs/' + limit;
 
     return this.http.get<Log[]>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
+  }
+
+  public getMainValuesOverview(){
+    const url = environment.apiUrl + 'overview/mainValues';
+
+    return this.http.get<MainValues>(url, this.makeHeader()).pipe(
+      catchError(error => {
+          return this.tokenError(error)
+      })
+    );
+  }
+
+  public getBestWorstMachine(){
+    const url = environment.apiUrl + 'overview/bestAndWorst';
+
+    return this.http.get<BestWorst>(url, this.makeHeader()).pipe(
       catchError(error => {
           return this.tokenError(error)
       })
