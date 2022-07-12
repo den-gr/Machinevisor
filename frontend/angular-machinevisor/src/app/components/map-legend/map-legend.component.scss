@@ -1,0 +1,33 @@
+@import "../../utilities/variables";
+
+.legend-color-on{
+    background-color: $machine-on;
+}
+
+.legend-color-off{
+    background-color: $on-off-blue;
+}
+
+.legend-color-allarm{
+    background-color: $machine-allarm;
+}
+
+.legend-color-on, .legend-color-off, .legend-color-allarm{
+    width: 20px;
+    height: 20px;
+    margin-right: 4%;
+}
+
+.legend-container, .legend{
+    display: flex;
+    align-items: center;
+}
+
+.legend-container{
+    margin-right: 5%;
+}
+
+.title{
+    margin-right: 5%;
+    font-weight: bold;
+}

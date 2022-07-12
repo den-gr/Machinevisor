@@ -37,6 +37,7 @@ import { ChartComponent } from './components/chart/chart.component';
 
 import { NgChartsModule } from 'ng2-charts';
 import { LogCardComponent } from './components/log-card/log-card.component';
+import { MapLegendComponent } from './components/map-legend/map-legend.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { LogCardComponent } from './components/log-card/log-card.component';
     RegistrationCardComponent,
     StatisticsComponent,
     ChartComponent,
-    LogCardComponent
+    LogCardComponent,
+    MapLegendComponent
   ],
   imports: [
     BrowserModule,
