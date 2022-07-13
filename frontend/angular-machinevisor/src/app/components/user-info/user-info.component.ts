@@ -10,8 +10,9 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class UserInfoComponent implements OnInit {
 
-  photo = '';
   userMix = Array();
+  name = '';
+  dataLoaded = false;
 
   constructor(private apiService: APIService, public datepipe: DatePipe) { }
 
@@ -21,7 +22,8 @@ export class UserInfoComponent implements OnInit {
 
     this.apiService.getUser().subscribe(res => {
 
-      this.photo = environment.apiUrl + res.img_uri;
+      this.name = res.name + ' ' + res.surname;
+      console.log("name1 -> " + this.name)
 
       const birthDate = this.datepipe.transform(res.birth_date, 'dd/MM/yyyy');
 
@@ -30,6 +32,7 @@ export class UserInfoComponent implements OnInit {
       for(let i=0; i<userData.length; i++){
         this.userMix.push({key:userInfo[i], value:userData[i]})
       }
+      this.dataLoaded = true;
     });
 
   }

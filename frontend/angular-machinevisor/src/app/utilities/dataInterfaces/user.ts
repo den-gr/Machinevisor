@@ -2,7 +2,6 @@ export interface User{
     user_id: number,
     name: string,
     surname: string,
-    img_uri: string,
     birth_date: string,
     work_sheet: {
       monday: {

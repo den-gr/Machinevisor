@@ -9,7 +9,24 @@ import { Login } from '../../dataInterfaces/login';
 })
 export class AuthService {
 
+  colors = ['red', 'orange', 'green', 'blue', 'purple', 'pink']
+
   constructor(private navService: NavigationService, private http: HttpClient) { }
+
+  private getRandColor(){
+    const max = this.colors.length -1
+    const min = 0
+    const rand =  Math.floor(Math.random() * (max - min + 1)) + min;
+    return this.colors[rand];
+  }
+
+  public setColor(){
+    localStorage.setItem('userColor', this.getRandColor())
+  }
+
+  public getUserColor(){
+    return localStorage.getItem('userColor');
+  }
 
   public getToken(){
     return localStorage.getItem('token');
@@ -30,7 +47,8 @@ export class AuthService {
   public logout() {
     this.navService.goToPage('/login');
 
-   localStorage.removeItem('token')
+   localStorage.removeItem('token');
+   localStorage.removeItem('userColor');
   }
 
   public isTokenStored(){

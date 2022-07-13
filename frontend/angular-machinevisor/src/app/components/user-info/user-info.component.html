@@ -1,6 +1,6 @@
 <mat-card class="card">
     <mat-card-content class="content">
-        <img src={{photo}} alt="User images">
+        <app-avatar [name]="name" *ngIf="dataLoaded"></app-avatar>
         <div class="values">
             <ul>
               <li *ngFor="let elem of userMix" class="data">

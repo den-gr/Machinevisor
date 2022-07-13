@@ -45,6 +45,7 @@ export class LoginCardComponent implements OnInit {
         if(res.status === this.apiService.statusOk){
           if(res.body !== null){
             this.authService.setToken(res.body.token);
+            this.authService.setColor();
             this.authService.setUserID(res.body.user_id);
           }
           this.navService.goToPage('/home');

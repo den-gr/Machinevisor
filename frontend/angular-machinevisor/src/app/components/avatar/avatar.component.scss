@@ -1,0 +1,46 @@
+.rows {
+    display: flex;
+    align-items: center;
+}
+
+.circles {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid black;
+    text-align: center;
+    line-height: 100px;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.purple{
+    background-color: #6a0080;
+    color: white;
+}
+
+.blue{
+    background-color: #4ba3c7;
+    color: black
+}
+
+.green{
+    background-color: #00701a;
+    color: white
+}
+
+.pink{
+    background-color: #e91e63;
+    color: black;
+}
+
+.orange{
+    background-color: #ff8f00;
+    color: black;
+}
+
+.red{
+    background-color: #8e0000;
+    color: white;
+}
+
