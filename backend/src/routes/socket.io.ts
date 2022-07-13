@@ -112,20 +112,10 @@ export class SocketIOService {
           try{
             let obj = JSON.parse(msg);
             if(obj.machine_id && obj.machine_id >= 0 && obj.state){ 
-
               obj = checkAllarm(obj);
-              db_service.addLog(obj).then((log:ILog) =>{
-                //console.log(log)
-              }).catch((error) => {
-                  console.log(error);
-              })
-
-              if(this.machinesSubscribers.has(0)){ // send updates to the clients that want to have updates from all machines
-                this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
-              }
-              if(this.machinesSubscribers.has(obj.machine_id)){
-                this.machinesSubscribers.get(obj.machine_id)?.forEach((e: string) => this.sendMessage(e, "update", JSON.stringify(obj)))
-              }
+              db_service.addLog(obj).catch((error) => console.log(error))
+              this.sendToClients("update", obj.machine_id, JSON.stringify(obj))
+             
             }else{
                 this.sendBadRequest(socket)
             }
@@ -163,6 +153,32 @@ export class SocketIOService {
           }
         })
 
+        socket.on("machines/periodRequest", (msg) => {
+          try{
+            let obj = JSON.parse(msg);
+            if(obj.machine_id){
+              this.sendMessage(obj.machine_id, "periodRequest", " ")
+            }else{
+              this.sendBadRequest(socket)
+            }
+          }catch(err){
+            this.sendBadRequest(socket)
+          }
+        })
+
+        socket.on("clients/periodUpdate", (msg) => {
+          try{
+            let obj = JSON.parse(msg);
+            if(obj.machine_id){
+              this.sendToClients("periodUpdate", obj.machine_id, msg)
+            }else{
+              this.sendBadRequest(socket)
+            }
+          }catch(err){
+            this.sendBadRequest(socket)
+          }
+        })
+
         socket.on("disconnect", () => console.log(`Disconnection of ${socket.handshake.auth.type} with id ${socket.id}`))
 
     });
@@ -177,6 +193,15 @@ export class SocketIOService {
     loop(this)
 
     return SocketIOService.server;
+  }
+
+  private sendToClients(channel: string, sender_id: number, payload: string){
+    if(this.machinesSubscribers.has(0)){ // send updates to the clients that want to have updates from all machines
+      this.machinesSubscribers.get(0)?.forEach((e: string) => this.sendMessage(e, channel, payload))
+    }
+    if(this.machinesSubscribers.has(sender_id)){
+      this.machinesSubscribers.get(sender_id)?.forEach((e: string) => this.sendMessage(e, channel, payload))
+    }
   }
 
   ready() {

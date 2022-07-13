@@ -66,6 +66,11 @@ export class MachineConnection{
             }
         })
 
+        this.socket.on('periodRequest', (msg) => {
+            this.machine.reportPeriod();
+        })
+
+
         this.socket.on('modality', (msg) => {
             let mod: Modality = Modality[msg as keyof typeof Modality];
             if(mod !== undefined){

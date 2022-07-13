@@ -6,10 +6,11 @@ export interface MachineInterface{
     setNewModality(newModality: Modality): void;
     setNewState(newState: State): void;
     forceReportDelivery(): void;
+    reportPeriod(): void;
 }
 
 export class MachineSimulation implements MachineInterface{
-    private static DEFAULT_PERIOD = 30000 + Math.random() * 3000;
+    private static DEFAULT_PERIOD = Math.floor(30000 + Math.random() * 3000);
     private static ENVIRONMENT_TEMPERATURE = 20;
     private readonly machine_id: number;
     private readonly conn: MachineConnection;
@@ -23,6 +24,7 @@ export class MachineSimulation implements MachineInterface{
     private currentModality: Modality
     private state: State = State.OFF;
     private machine_oil_level: number = 11;
+    private machine_period = MachineSimulation.DEFAULT_PERIOD;
 
 
     constructor(serverURL: string, machine_id: number, modalities: Modality[], oil: boolean){
@@ -73,6 +75,7 @@ export class MachineSimulation implements MachineInterface{
     }
     //set new update period
     public setNewInterval(newPeriod: number){
+        this.machine_period = newPeriod;
         clearInterval(this.reportLoop);
         this.reportLoop = setInterval(this.sendReport, newPeriod, this.conn, this);
     }
@@ -101,6 +104,14 @@ export class MachineSimulation implements MachineInterface{
         }else{
             console.error("Illegal state of machine")
         }
+    }
+
+    public reportPeriod(): void {
+        let periodReport = {
+            machine_id: this.machine_id,
+            period: this.machine_period
+        }
+        this.conn.emit("clients/periodUpdate", JSON.stringify(periodReport))
     }
 
     private setEnergyConsumption(){

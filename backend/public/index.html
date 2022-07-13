@@ -32,6 +32,12 @@
       document.body.appendChild(element);
     })
 
+    socket.on('periodUpdate', (msg) => {
+      let element = document.createElement('div');
+      element.innerText = msg;
+      document.body.appendChild(element);
+    })
+
     // socket.onAny(m => {
     //     console.log("Any:",m)
     // });
@@ -66,6 +72,10 @@
 
     function setState(machine_id, state){
       socket.emit("machines/state", JSON.stringify({machine_id: machine_id, state: state}))
+    }
+
+    function getPeriod(machine_id){
+      socket.emit("machines/periodRequest", JSON.stringify({machine_id: machine_id}))
     }
 
     function unsubscribe(){

@@ -13,12 +13,12 @@ channels:
   machines/period:
     publish:
       message:
-        $ref: '#/components/messages/ChangePeriod'
+        $ref: '#/components/messages/Period'
   machines/subscribe:
     publish:
-      description: "Allows subcribe to updates of one or all machines"
+      description: "Allows subcribe to updates of one or all machines. Send id=0 equivals to subscribe to all machines"
       message:
-        $ref: "#/components/messages/Subscribe"
+        $ref: "#/components/messages/MachineID"
   machines/unsubscribe:
     publish:
       description: "Allows unsubscribe from machine updates"
@@ -32,11 +32,21 @@ channels:
       description: "Allows change state of a machine"
       message:
         $ref: "#/components/messages/State"
+  machines/periodRequest:
+    publish:
+      description: "Allow request period of a machine on periodUpdate channel"
+      message:
+        $ref: "#/components/messages/MachineID"
   update:
     subscribe:
       description: "Allows to receive updates of machines that was subscribed through a publish msg to the machines/subscribe channel"
       message:
         $ref: "#/components/messages/MachineUpdate"
+  periodUpdate:
+    subscribe:
+      description: "Allows receive updates of machine periods"
+      message:
+        $ref: "#/components/messages/Period"
   exception:
     subscribe:
       description: "Channel for fail comunication"
@@ -51,7 +61,7 @@ channels:
   
 components:
   messages:
-    ChangePeriod:
+    Period:
       payload:
         type: object
         required:
@@ -64,9 +74,9 @@ components:
               example: 1
           period:
               type: integer
-              description: "New period in millis"
+              description: "Machine period in millis"
               example: 5000
-    Subscribe:
+    MachineID:
       payload:
         type: object
         required:
@@ -75,7 +85,6 @@ components:
           machine_id:
             type: integer
             example: 1
-            description: "Id of a machine; Send id 0 equivals to subscribe to all machines"
     Modality:
       payload:
         type: object
