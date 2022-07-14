@@ -28,7 +28,6 @@ export class MachineComponent implements OnInit, OnDestroy {
     console.log("machine id :) --> " + this.machineID)
     this.socketService.connect();
     this.socketService.subscribe(this.machineID);
-    this.socketService.setMachinePeriod(this.machineID, 5000);
   }
 
   ngOnDestroy(): void {

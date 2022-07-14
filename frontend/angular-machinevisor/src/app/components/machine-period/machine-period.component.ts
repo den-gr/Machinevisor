@@ -1,13 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
 
+export interface Period {
+  machine_id: number,
+  period: number
+}
+
 @Component({
   selector: 'app-machine-period',
   templateUrl: './machine-period.component.html',
   styleUrls: ['./machine-period.component.scss']
 })
 export class MachinePeriodComponent implements OnInit {
-  @Input() machineID:number;
+  @Input() machineID: number;
 
   constructor(private socketService: SocketService) { }
 
@@ -19,7 +24,7 @@ export class MachinePeriodComponent implements OnInit {
   showTicks = false;
   step = 1;
   thumbLabel = false;
-  value = 5;
+  value: number;
   vertical = false;
   tickInterval = 1;
 
@@ -27,12 +32,18 @@ export class MachinePeriodComponent implements OnInit {
     return value;
   }
 
-  public onChangePeriod(){
+  public onChangePeriod() {
     console.log("period -->" + this.value);
-    this.socketService.setMachinePeriod(this.machineID, (this.value*1000))
+    this.socketService.setMachinePeriod(this.machineID, (this.value * 1000))
   }
 
   ngOnInit(): void {
+    this.socketService.getSocket().on("periodUpdate", (msg: string) => {
+      console.log("periodo -> " + msg);
+      let period: Period = JSON.parse(msg);
+      this.value = period.period/1000;
+    });
+    this.socketService.getPeriod(this.machineID);
   }
 
 }

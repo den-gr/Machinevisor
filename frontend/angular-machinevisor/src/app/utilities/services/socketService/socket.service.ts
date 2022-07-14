@@ -35,6 +35,10 @@ export class SocketService {
     this.socket.emit("machines/period", JSON.stringify({machine_id: machine_id, period: period}))
   }
 
+  public getPeriod(machine_id: any){
+    this.socket.emit("machines/periodRequest", JSON.stringify({machine_id: machine_id}))
+  }
+
   public connect(){
     let auth = {
       type: "client",

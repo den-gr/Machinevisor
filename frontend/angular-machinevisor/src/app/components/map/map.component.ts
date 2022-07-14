@@ -58,13 +58,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.socketService.connect()
     this.socketService.subscribe(0)
 
-    for (let i = 1; i <= this.machineNum; i++) {
-      this.socketService.setMachinePeriod(i, 5000);
-    }
-
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
-      //console.log("-> ", log);
       this.machineData[log.machine_id-1].state = log.state;
     });
   }

@@ -60,7 +60,7 @@ export class MachineInfoComponent implements OnInit {
       this.socketData[2] = {key: 'Working time', val : log.working_time, unit:'s', error: true}
     
       if(log.machine_oil_level){
-        this.socketData[3] = {key: 'Oil level', val : log.machine_oil_level, unit:'m', error : !oilErr};
+        this.socketData[3] = {key: 'Oil percentage', val : log.machine_oil_level, unit:'%', error : !oilErr};
       }
       
     });

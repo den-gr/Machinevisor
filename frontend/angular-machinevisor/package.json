@@ -24,7 +24,7 @@
     "chart.js": "^3.8.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "escape-string-regexp": "^5.0.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "ng2-charts": "^3.0.11",
     "rxjs": "~7.5.0",
     "socket.io-client": "^4.5.1",
