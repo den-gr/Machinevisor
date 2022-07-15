@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 
-/*const ELEMENT_DATA: Schedule[] = [
-  {day: "Monday", AM: '09:00-13:00', PM: '14:00-18:00'},
-  {day: "Tuesday", AM: '09:00-13:00', PM: '14:00-18:00'},
-  {day: "Wednesday", AM: '09:00-13:00', PM: '14:00-18:00'},
-  {day: "Thursday", AM: '09:00-13:00', PM: '14:00-18:00'},
-  {day: "Friday", AM: '09:00-13:00', PM: '14:00-18:00'},
-]*/
-
 export interface Schedule{
   day: string,
   AM: string,

@@ -9,7 +9,7 @@ import { SocketService } from '../socketService/socket.service';
 })
 export class OnOffButtonService {
 
-  private isOnChecked:boolean /*= true*/;
+  private isOnChecked:boolean;
 
   constructor(public dialog: MatDialog, private socketService: SocketService) { }
 

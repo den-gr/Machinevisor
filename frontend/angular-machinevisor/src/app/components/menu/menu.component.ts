@@ -40,7 +40,6 @@ export class MenuComponent implements OnInit {
     this.apiService.getMachinesList().subscribe(res => {
       res.forEach(m => this.machineries.push(m.machine_name));
     });
-    //this.machineries = Array("machine-1", "machine-2", "machine-3", "machine-4", "machine-5")
   }
 
 }
