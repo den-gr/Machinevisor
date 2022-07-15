@@ -1,15 +1,5 @@
 @import "../../utilities/variables";
 
-$margin: 5%;
-
-.card{
-  width: $card-width;
-  margin: auto;
-  margin-bottom: $card-distance;
-  background-color: $card-gray;
-  padding: $margin;
-}
-
 .header{
   background-color: $on-off-blue;
   color: white;

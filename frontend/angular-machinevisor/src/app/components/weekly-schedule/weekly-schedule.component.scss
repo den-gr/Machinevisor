@@ -1,13 +1,5 @@
 @import "../../utilities/variables";
 
-.card{
-    width: $card-width;
-    margin: auto;
-    margin-bottom: $card-distance;
-    background-color: $card-gray;
-    padding: 5%;
-}
-
 mat-card-header{
     margin-bottom: 2%;
 }

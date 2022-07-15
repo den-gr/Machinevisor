@@ -1,18 +1,11 @@
 @import "../../utilities/variables";
 
-$margin: 5%;
-
 .label{
     font-size: x-small;
 }
 
 .card{
-    width: $card-width;
-    margin: auto;
-    background-color: $card-gray;
-    padding: $margin;
     margin-top: $card-distance;
-    margin-bottom: $card-distance;
     display: flex;
     justify-content: space-between;
     align-items: center;

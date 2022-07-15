@@ -1,15 +1,5 @@
 @import "../../utilities/variables";
 
-$margin: 5%;
-
-.card {
-    width: $card-width;
-    margin: auto;
-    margin-bottom: $card-distance;
-    background-color: $card-gray;
-    padding: $margin;
-}
-
 .header {
     background-color: $card-blue;
     padding: 1%;
@@ -132,6 +122,7 @@ img {
         float: left;
         margin-top: $margin;
         border: 2px solid $on-off-blue;
+        padding-left: 1%;
     }
 
     .values {
