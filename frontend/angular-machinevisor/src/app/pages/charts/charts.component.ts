@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Observable, Subject } from 'rxjs';
-import { ChartEntry } from 'src/app/utilities/dataInterfaces/charts';
+import { ChartEntry, MachineChart } from 'src/app/utilities/dataInterfaces/charts';
 import { Log } from 'src/app/utilities/dataInterfaces/log';
 import { ChartsService } from 'src/app/utilities/services/chartService/charts.service';
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
@@ -30,7 +30,7 @@ export class ChartsComponent implements OnInit {
     })
     chartsService.getChartsInfo(this.machineID).subscribe((res) =>{
       let topics: string[] = []; 
-      res.forEach(e => {
+      res.forEach((e: MachineChart) => {
           topics.push(e.type)
           this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, e.type));
       })

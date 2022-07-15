@@ -34,6 +34,8 @@ export class MachineInfoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.isMobile = window.screen.width <= 821;
+
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
       this.status = log.state;

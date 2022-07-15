@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { ChartDefaultValues, ChartEntry, MachineChart } from '../../dataInterfaces/charts';
 import { Log } from '../../dataInterfaces/log';
@@ -151,6 +151,7 @@ export class APIService {
     if(error.status === this.statusUnauthorized){
       this.authService.logout();
     }
-    return throwError(() => new Error('Token expired!'));
+    //return throwError(() => new Error('Token expired!'));
+    return of(error)
   }
 }

@@ -16,6 +16,9 @@ export class MachineComponent implements OnInit, OnDestroy {
   isMobile: any;
 
   ngOnInit(): void {
+
+    this.isMobile = window.screen.width <= 821;
+
     this.routes.paramMap.subscribe(params => {
       let res = params.get('machineID');
       if (res != null) {

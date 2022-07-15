@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { AuthService } from 'src/app/utilities/services/authService/auth.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
@@ -36,7 +36,8 @@ export class LoginCardComponent implements OnInit {
               this.errorLogin = true;
               this.myGroup.get('password')?.patchValue(null);
             }
-            return throwError(() => new Error('Wrong credentials!'));
+            //return throwError(() => new Error('Wrong credentials!'));
+            return of(error)
         })
       )
       .subscribe(res => {

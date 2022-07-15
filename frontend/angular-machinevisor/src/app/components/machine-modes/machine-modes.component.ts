@@ -37,7 +37,7 @@ export class MachineModesComponent implements OnInit {
     });
 
     this.apiService.getMachineInfo(this.machineID.toString()).subscribe(res => {
-      res.modalities.forEach(mode => {
+      res.modalities.forEach((mode: string) => {
         let tmp = '';
         tmp = mode.toLowerCase()
         tmp = tmp.replaceAll('_', ' ');

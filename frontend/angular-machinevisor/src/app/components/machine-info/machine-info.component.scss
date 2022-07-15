@@ -26,6 +26,7 @@ $margin: 5%;
 }
 
 .content {
+    line-height: 1%;
     margin: 0;
     margin-bottom: $margin;
 }
@@ -65,8 +66,11 @@ li {
 
 li {
     list-style: none;
-    line-height: 1%;
     font-size: medium;
+}
+
+.values{
+    line-height: 100%;
 }
 
 .key {
