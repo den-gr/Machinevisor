@@ -24,7 +24,6 @@ export class MachineModesComponent implements OnInit {
   isDisabled = true;
 
   onChangeValue(val: String){
-    console.log("Selezionato --> " + val);
     if(val !== this.currMode){
       this.socketService.setModality(this.machineID, val)
     }
@@ -34,7 +33,6 @@ export class MachineModesComponent implements OnInit {
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
       this.currMode = log.modality
-      console.log(this.currMode !== "NO_MODE")
       this.isDisabled = this.currMode == "NO_MODE"
     });
 
@@ -43,7 +41,6 @@ export class MachineModesComponent implements OnInit {
         let tmp = '';
         tmp = mode.toLowerCase()
         tmp = tmp.replaceAll('_', ' ');
-        console.log("mode --> " + mode + " | curr --> " + this.currMode)
         this.modes.push({view : tmp, val : mode})
       });
     });

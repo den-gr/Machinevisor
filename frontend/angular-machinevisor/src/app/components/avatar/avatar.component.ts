@@ -17,10 +17,8 @@ export class AvatarComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   getInitials(){
-    console.log("name  -> " + this.name)
     const splitName = this.name.split(' ');
     splitName.forEach((e: string) => this.initials = this.initials + e.charAt(0));
-    console.log("initials -> " + this.initials)
     this.initials.toUpperCase();
   }
 

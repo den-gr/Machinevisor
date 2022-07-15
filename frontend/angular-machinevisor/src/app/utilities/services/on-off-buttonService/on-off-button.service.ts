@@ -23,7 +23,6 @@ export class OnOffButtonService {
 
   public clickOn(ID: number){
     if(!this.isOnChecked){
-      console.log("On");
       this.isOnChecked = true;
       this.socketService.setState(ID,'ON');
     }
@@ -31,21 +30,17 @@ export class OnOffButtonService {
 
   public clickOff(name: string, ID:number){
     if(this.isOnChecked){
-      console.log("Off --> " + name);
       this.openDialog(name, ID);
-      console.log("DIALOG --> " + this.isOnChecked)
       this.isOnChecked = !this.isOnChecked;
     }
   }
 
   private openDialog(name: string, ID:number): void {
-    console.log("Apri dialog!")
     const dialogRef = this.dialog.open(SwitchOffDialogComponent, {
       width: '250px',
       data: {machineName: name},
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed --> ' + result);
       this.isOnChecked = !result;
       if(result){
         this.socketService.setState(ID,'OFF');

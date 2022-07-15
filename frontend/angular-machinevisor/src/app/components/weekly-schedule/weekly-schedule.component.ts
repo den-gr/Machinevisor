@@ -31,8 +31,6 @@ export class WeeklyScheduleComponent implements OnInit {
         ];
         this.dataSource = schedule;
     });
-
-    console.log(this.dataSource)
   }
 
 }

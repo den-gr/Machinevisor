@@ -27,7 +27,6 @@ export class LoginCardComponent implements OnInit {
   onSubmit(){
     const user = this.myGroup.get('email')?.value;
     const psw = this.myGroup.get('password')?.value
-    console.log(user + " | " + psw);
 
     if(user !== '' &&  psw !== ''){ 
       this.authService.signInUser(user, psw)
@@ -41,7 +40,6 @@ export class LoginCardComponent implements OnInit {
         })
       )
       .subscribe(res => {
-        console.log("mi sono autenticata? " + res.status);
         if(res.status === this.apiService.statusOk){
           if(res.body !== null){
             this.authService.setToken(res.body.token);

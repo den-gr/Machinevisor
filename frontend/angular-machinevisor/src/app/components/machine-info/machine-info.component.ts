@@ -36,7 +36,6 @@ export class MachineInfoComponent implements OnInit {
 
     this.socketService.getSocket().on('update', (msg: string) => {
       let log: Log = JSON.parse(msg);
-      console.log("-> ", log);
       this.status = log.state;
       if(this.status !== "OFF"){
         let tmp = '';
@@ -69,7 +68,6 @@ export class MachineInfoComponent implements OnInit {
     this.apiService.getMachineInfo(this.machineID).subscribe(data => {
       this.photo = environment.apiUrl + data.img_uri;
 
-      console.log("machine -> " + data.production_year);
       this.name = data.machine_name;
 
       const prodY = this.datepipe.transform(data.production_year, 'dd/MM/yyyy');

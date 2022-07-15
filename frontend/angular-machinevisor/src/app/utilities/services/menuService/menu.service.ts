@@ -17,12 +17,10 @@ export class MenuService {
   }
 
   public clickMenu() {
-    console.log("CLICK MENU");
     this.openMenu = !this.openMenu;
   }
   
   public close(){
     this.openMenu = false
-    console.log("CHIUSO")
   }
 }

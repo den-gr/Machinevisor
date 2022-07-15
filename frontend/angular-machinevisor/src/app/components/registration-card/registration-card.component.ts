@@ -68,7 +68,6 @@ export class RegistrationCardComponent implements OnInit {
   constructor(private datePipe: DatePipe, private navService: NavigationService, private apiService: APIService, private authService: AuthService) { }
 
   onSubmit(){
-    console.log("REGISTRATION");
     const user = this.myForm.get('email');
     const name = this.myForm.get('name');
     const surname = this.myForm.get('surname');
@@ -92,7 +91,6 @@ export class RegistrationCardComponent implements OnInit {
           })
         )
         .subscribe(res => {
-          console.log("Status --> " + res.status);
           if(res.status === this.apiService.statusRegOk){
             //signIn
             this.authService.signInUser(user?.value, psw?.value).subscribe(res => {

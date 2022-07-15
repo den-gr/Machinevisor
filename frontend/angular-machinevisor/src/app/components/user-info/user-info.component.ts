@@ -23,7 +23,6 @@ export class UserInfoComponent implements OnInit {
     this.apiService.getUser().subscribe(res => {
 
       this.name = res.name + ' ' + res.surname;
-      console.log("name1 -> " + this.name)
 
       const birthDate = this.datepipe.transform(res.birth_date, 'dd/MM/yyyy');
 

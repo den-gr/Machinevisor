@@ -61,8 +61,6 @@ export class AuthService {
       "password": password
     };
 
-    console.log(data)
-
     const url = environment.apiUrl + "auth/sign_in";
     return this.http.post<Login>(url, data, { observe: 'response' })
   }

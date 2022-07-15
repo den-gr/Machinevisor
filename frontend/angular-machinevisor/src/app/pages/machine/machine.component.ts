@@ -16,17 +16,12 @@ export class MachineComponent implements OnInit, OnDestroy {
   isMobile: any;
 
   ngOnInit(): void {
-    console.log("ONINIT");
-
     this.routes.paramMap.subscribe(params => {
-      console.log("ID della macchina --> " + params.get('machineID'));
       let res = params.get('machineID');
       if (res != null) {
         this.machineID = +res;
       }
     })
-
-    console.log("machine id :) --> " + this.machineID)
     this.socketService.connect();
     this.socketService.subscribe(this.machineID);
   }
@@ -37,7 +32,6 @@ export class MachineComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("ONDESTROY")
     this.socketService.disconnect();
   }
 

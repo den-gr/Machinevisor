@@ -36,7 +36,6 @@ export class LogComponent implements OnInit, OnDestroy {
 
   private static(){
     this.apiService.getLogs(this.machineID, this.selectedValue).subscribe(res => {
-      console.log("--> " + res[0]);
       this.machineLogs = res.reverse();
     });
   }
@@ -47,7 +46,6 @@ export class LogComponent implements OnInit, OnDestroy {
       this.socketService.subscribe(this.machineID);
     }else{
       if(this.socketService.getIsSubscribed()){
-        console.log("subscribed --> " + this.socketService.isSubscribed);
         this.socketService.unsubscribe();
       }
       this.static();
@@ -68,7 +66,6 @@ export class LogComponent implements OnInit, OnDestroy {
     this.socketService.connect();
     this.socketService.subscribe(this.machineID);
     this.socketService.getSocket().on('update', (msg: string) => {
-      console.log(msg);
       let log: Log = JSON.parse(msg);
       this.machineLogs.push(log);
     });

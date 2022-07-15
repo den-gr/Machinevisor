@@ -33,13 +33,11 @@ export class MachinePeriodComponent implements OnInit {
   }
 
   public onChangePeriod() {
-    console.log("period -->" + this.value);
     this.socketService.setMachinePeriod(this.machineID, (this.value * 1000))
   }
 
   ngOnInit(): void {
     this.socketService.getSocket().on("periodUpdate", (msg: string) => {
-      console.log("periodo -> " + msg);
       let period: Period = JSON.parse(msg);
       this.value = period.period/1000;
     });

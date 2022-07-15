@@ -25,7 +25,6 @@ export class NavbarComponent implements OnInit {
 
   // open/close menu
   onToggleSidenav() {
-    console.log("Funzione chiamata")
     this.sidenavToggle.emit();
   }
 

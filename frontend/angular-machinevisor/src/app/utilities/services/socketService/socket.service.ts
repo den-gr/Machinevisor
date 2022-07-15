@@ -31,7 +31,6 @@ export class SocketService {
   }
 
   public setMachinePeriod(machine_id:any, period:any){
-    console.log("cambia periodo");
     this.socket.emit("machines/period", JSON.stringify({machine_id: machine_id, period: period}))
   }
 
@@ -50,12 +49,10 @@ export class SocketService {
 
   public subscribe(machine_id:any){
     this.isSubscribed = true;
-    console.log("subscribe");
     this.socket.emit("machines/subscribe", JSON.stringify({machine_id: machine_id}))
   }
 
   public setModality(machine_id:any, mod:any){
-    console.log("cambia mode");
     this.socket.emit("machines/modality", JSON.stringify({machine_id: machine_id, modality: mod}))
   }
 
