@@ -2,7 +2,7 @@
 
 $margin: 5%;
 
-.card{
+.card {
     width: $card-width;
     margin: auto;
     margin-bottom: $card-distance;
@@ -10,7 +10,7 @@ $margin: 5%;
     padding: $margin;
 }
 
-.header{
+.header {
     background-color: $card-blue;
     padding: 1%;
     margin: 0;
@@ -21,131 +21,123 @@ $margin: 5%;
     align-items: center;
 }
 
-.switch-button{
+.switch-button {
     align-items: right;
 }
 
-.content{
+.content {
     margin: 0;
     margin-bottom: $margin;
-    display: flex;
-    justify-content: space-between;
-    //align-items: center;
 }
 
-.name, .status{
+.name,
+.status {
     margin: 0;
     margin-top: 5%;
     margin-bottom: 5%;
     text-align: center;
 }
 
-.status{
+.status {
     color: black;
 }
 
-.buttons{
+.buttons {
     display: flex;
     justify-content: space-between;
 }
 
-.button{
+.button {
     margin-top: 2%;
     width: 40%;
     background-color: $menu-blue;
 }
 
-.switch-container{
+.switch-container {
     text-align: center;
 }
 
-ul, li{
+ul,
+li {
     margin: 0;
     padding: 0;
-    margin-left: 2%;
-    margin-bottom: $margin;
 }
 
-li{
-    margin: 0;
-    padding: 0;
+li {
     list-style: none;
     line-height: 1%;
     font-size: medium;
 }
 
-.key{
+.key {
     font-weight: bold;
-   // margin-right: 1%;
 }
 
-.info, .ok, .ko{
+.val{
+    margin-left: 2%;
+}
+
+.info,
+.ok,
+.ko {
     display: flex;
     align-items: center;
 }
 
-img{
-    width: 30%;
-    height: 30%;
+img {
+    width: 140px;
+    height: 140px;
+    object-fit:cover;
     margin-right: 1%;
 }
 
-@media only screen and (max-width: $mobile) {
-    img{
-        width: 40%;
-        height: 40%;
-    }
-
-    li{
-        font-size: small;
-    }
-}
-
-.ok, .ko{
+.ok,
+.ko {
     margin-bottom: 2%;
     padding: 1%;
 }
 
-.ok{
+.ok {
     background-color: $correct-value;
 }
 
-.ko{
+.ko {
     background-color: $wrong-value;
 }
 
-.values{
-    margin-top: 10%;
-}
-
-.value-key, .value-val{
+.value-key,
+.value-val {
     width: 50%;
 }
 
-.value-key{
+.value-key {
     margin-left: 1%;
 }
 
 @media only screen and (min-width: $tablet) {
-    img{
-        width: 40%;
-        height: 40%;
-    }
-    .card{
+
+    .card {
         width: 90%;
         margin: 0;
         padding: 2%;
     }
-    .content{
-        width: 50%;
+
+    .content {
+        margin-left: 3%;
+        width: 44%;
         float: left;
+        margin-top: $margin;
+        border: 2px solid $on-off-blue;
     }
-    .values{
+
+    .values {
+        margin-right: 3%;
         margin-top: 0;
-        width: 50%;
+        width: 45%;
         float: right;
     }
-    .buttons{
+
+    .buttons {
         clear: both;
     }
 }
@@ -161,17 +153,34 @@ img{
     color: white;
 }
 
-mat-button-toggle-group{
+mat-button-toggle-group {
     width: 50%;
 }
 
-mat-button-toggle{
+mat-button-toggle {
     width: 50%;
 }
 
-@media only screen and (max-width: $mobile) {
-    mat-button-toggle-group{
+@media only screen and (max-width: $tablet) {
+
+    .info-container{
+        width: 50%;
+    }
+
+    li {
+        font-size: small;
+    }
+
+    .info {
+        padding: 1%;
+    }
+
+    mat-button-toggle-group {
         width: 100%;
     }
-}
 
+    .content {
+        display: flex;
+        justify-content: space-between;
+    }
+}

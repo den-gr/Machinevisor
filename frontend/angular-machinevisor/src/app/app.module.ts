@@ -39,6 +39,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { LogCardComponent } from './components/log-card/log-card.component';
 import { MapLegendComponent } from './components/map-legend/map-legend.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { MachineImageComponent } from './components/machine-image/machine-image.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { AvatarComponent } from './components/avatar/avatar.component';
     ChartComponent,
     LogCardComponent,
     MapLegendComponent,
-    AvatarComponent
+    AvatarComponent,
+    MachineImageComponent
   ],
   imports: [
     BrowserModule,

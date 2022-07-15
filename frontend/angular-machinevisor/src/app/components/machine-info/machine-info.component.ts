@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Log } from 'src/app/utilities/dataInterfaces/log';
 import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { NavigationService } from 'src/app/utilities/services/navigationService/navigation.service';
@@ -30,6 +30,7 @@ export class MachineInfoComponent implements OnInit {
   photo = '';
   socketData = Array();
   infoMix = Array();
+  isMobile = false;
 
   ngOnInit(): void {
 
@@ -86,6 +87,11 @@ export class MachineInfoComponent implements OnInit {
         this.infoMix.push({ key: infoKey[i], value: infoVal[i] })
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.isMobile = window.innerWidth <= 821;
   }
 
 }

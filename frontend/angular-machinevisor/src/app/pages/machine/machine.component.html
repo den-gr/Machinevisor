@@ -1,8 +1,8 @@
 <div class="left">
-    {{prova}}
     <app-machine-info [machineID]="machineID" class="info"></app-machine-info>  
 </div>
 <div class="right">
+    <app-machine-image *ngIf="!isMobile" [machineID]="machineID" class="info"></app-machine-image>
     <app-machine-modes [machineID]="machineID" class="info"></app-machine-modes>
     <app-machine-period [machineID]="machineID" class="info"></app-machine-period>
 </div>

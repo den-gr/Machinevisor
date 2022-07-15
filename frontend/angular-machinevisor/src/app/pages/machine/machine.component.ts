@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { debounceTime, fromEvent, map } from 'rxjs';
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
 
 @Component({
@@ -9,10 +10,10 @@ import { SocketService } from 'src/app/utilities/services/socketService/socket.s
 })
 export class MachineComponent implements OnInit, OnDestroy {
 
-  constructor(private routes: ActivatedRoute, private socketService: SocketService) {  }
+  constructor(private routes: ActivatedRoute, private socketService: SocketService) { }
 
-  machineID:number;
-  prova = ''
+  machineID: number;
+  isMobile: any;
 
   ngOnInit(): void {
     console.log("ONINIT");
@@ -20,7 +21,7 @@ export class MachineComponent implements OnInit, OnDestroy {
     this.routes.paramMap.subscribe(params => {
       console.log("ID della macchina --> " + params.get('machineID'));
       let res = params.get('machineID');
-      if(res != null){
+      if (res != null) {
         this.machineID = +res;
       }
     })
@@ -30,9 +31,14 @@ export class MachineComponent implements OnInit, OnDestroy {
     this.socketService.subscribe(this.machineID);
   }
 
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.isMobile = window.innerWidth <= 821;
+  }
+
   ngOnDestroy(): void {
     console.log("ONDESTROY")
-    this.socketService.disconnect(); //TODO ID DELLA MACCHINA
+    this.socketService.disconnect();
   }
 
 }

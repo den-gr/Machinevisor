@@ -15,3 +15,9 @@ canvas{
 mat-card-header{
     margin-bottom: 1%;
 }
+
+@media only screen and (min-width: $tablet) {
+  .card{
+      width: 70%;
+  }
+}

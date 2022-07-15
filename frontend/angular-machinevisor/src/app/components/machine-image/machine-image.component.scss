@@ -1,0 +1,21 @@
+@import "../../utilities/variables";
+
+$margin: 5%;
+$padding: 2%;
+
+.card {
+    margin: auto;
+    background-color: $card-gray;
+    margin-bottom: $card-distance;
+    padding: $margin;
+    width: 90%;
+    margin-right: 0;
+    padding: 2%;
+}
+
+img{
+    padding-top: $padding;
+    padding-left: $padding;
+    padding-right: $padding;
+    width: 96%;
+}

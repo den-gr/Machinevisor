@@ -6,21 +6,23 @@
       </mat-button-toggle-group>
     </div>
     <mat-card-header class="header">
-        <!-- nome + stato -->
+        
       <mat-card-title class="name">{{name}}</mat-card-title>
       <mat-card-subtitle class="status">{{status}}{{mode}}</mat-card-subtitle>
     </mat-card-header>
-    <!-- info + foto (in colonna)-->
-    <!-- card con i dati -->
+
+   <!-- static data --> 
     <mat-card-content>
       <div class="content">
-        <ul>
+        <ul class="info-container">
         <li *ngFor="let elem of infoMix" class="info">
             <p class="key">{{elem.key}}:</p><p class="val">{{elem.value}}</p>
         </li>
         </ul>
-        <img src={{photo}} alt="Machine images">
+        <img *ngIf="isMobile" src={{photo}} alt="Machine images">
       </div>
+
+      <!-- socket -->
       <div class="values">
         <ul>
           <li *ngFor="let elem of socketData"
@@ -33,7 +35,7 @@
           </ul>
       </div>
     </mat-card-content>
-        <!-- bottoni "charts e log" -->
+
     <div class="buttons">
       <button mat-button class="button" (click)="navService.goToPageWithParameters('/charts', machineID.toString())">Charts</button>
       <button mat-button class="button" (click)="navService.goToPageWithTwoParameters('/log', machineID.toString(), name)">Log</button>
