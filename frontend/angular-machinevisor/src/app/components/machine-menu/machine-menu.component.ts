@@ -20,7 +20,7 @@ export class MachineMenuComponent implements OnInit {
   constructor(private navService: NavigationService, private apiService: APIService) { }
 
   onClick(){
-    this.navService.goToPageWithParameters('/machinePage', this.machineID);
+    this.navService.goToParam(this.machineID, '');
   }
 
   ngOnInit(): void {

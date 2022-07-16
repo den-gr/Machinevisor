@@ -12,12 +12,12 @@ export class NavigationService {
     this.router.navigate([page]);
   }
 
-  public goToPageWithParameters(page: string, param1:any){
-    this.router.navigate([page, param1.toString()]);
-  }
-
-  public goToPageWithTwoParameters(page: string, param1:any, param2:any){
-    this.router.navigate([page, param1.toString(), param2.toString()]);
+  public goToParam(ID:any, child:string){
+    if(child){
+      this.router.navigate(['machine', ID.toString(), child]);
+    }else{
+      this.router.navigate(['machine', ID.toString()]);
+    }    
   }
 
   public refreshPage(){

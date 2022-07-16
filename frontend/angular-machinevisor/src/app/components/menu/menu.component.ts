@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToPageWithParam(page: string, data: any){
-    this.navService.goToPageWithParameters(page, data)
+    this.navService.goToParam(data, '')
     this.menuService.close()
   }
 

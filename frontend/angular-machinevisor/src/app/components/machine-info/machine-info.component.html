@@ -37,7 +37,7 @@
     </mat-card-content>
 
     <div class="buttons">
-      <button mat-button class="button" (click)="navService.goToPageWithParameters('/charts', machineID.toString())">Charts</button>
-      <button mat-button class="button" (click)="navService.goToPageWithParameters('/log', machineID.toString())">Log</button>
+      <button mat-button class="button" (click)="navService.goToParam(machineID, 'charts')">Charts</button>
+      <button mat-button class="button" (click)="navService.goToParam(machineID, 'logs')">Log</button>
     </div>    
 </mat-card>

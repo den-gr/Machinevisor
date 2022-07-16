@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       if(this.authService.isTokenStored()){
         return true
       }
-      this.navService.goToPage('/login');
+      this.navService.goToPage('/signIn');
       return false;
   }
   

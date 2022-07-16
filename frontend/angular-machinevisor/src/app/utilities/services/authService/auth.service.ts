@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   public logout() {
-    this.navService.goToPage('/login');
+    this.navService.goToPage('/signIn');
 
    localStorage.removeItem('token');
    localStorage.removeItem('userColor');

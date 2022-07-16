@@ -12,19 +12,20 @@ import { AuthGuard } from './utilities/guard/authGuard/auth.guard';
 import { LogoutGuard } from './utilities/guard/logoutGuard/logout.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login'}, 
+  { path: '', pathMatch: 'full', redirectTo: 'signIn'}, 
   { path: '', canActivate:[AuthGuard], children: [
     { path: 'home', component: HomeComponent },
-    { path: 'log/:machineID', component: LogComponent },
-    { path: 'charts/:machineID', component: ChartsComponent },
-    { path: 'machinePage/:machineID', component: MachineComponent },
-    { path: 'userPage', component: UserComponent },
+    { path: 'machine/:machineID/logs', component: LogComponent },
+    { path: 'machine/:machineID/charts', component: ChartsComponent },
+    { path: 'machine/:machineID', component: MachineComponent },
+    { path: 'user', component: UserComponent },
     { path: 'statistics', component: StatisticsComponent }
   ]},
   { path: '', canActivate:[LogoutGuard], children: [
-    { path: 'login', component: LoginComponent }, 
-    { path: 'registration', component: RegistrationComponent },
+    { path: 'signIn', component: LoginComponent }, 
+    { path: 'signUp', component: RegistrationComponent },
   ]},
+  {path: '**', redirectTo: 'signIn'},
 ];
 
 @NgModule({
