@@ -4,6 +4,7 @@ import { ChartConfiguration, ChartType } from 'chart.js';
 import { Observable, Subject } from 'rxjs';
 import { ChartEntry, MachineChart } from 'src/app/utilities/dataInterfaces/charts';
 import { Log } from 'src/app/utilities/dataInterfaces/log';
+import { APIService } from 'src/app/utilities/services/APIService/api.service';
 import { ChartsService } from 'src/app/utilities/services/chartService/charts.service';
 import { SocketService } from 'src/app/utilities/services/socketService/socket.service';
 
@@ -14,6 +15,8 @@ import { SocketService } from 'src/app/utilities/services/socketService/socket.s
 })
 export class ChartsComponent implements OnInit {
   public readonly lineChart: ChartType = "line"
+  public readonly chartValues = Array("Energy consumption", "Oil percentage", "Temperature");
+  public machineName: string;
 
   private machineID: string;
 
@@ -21,7 +24,7 @@ export class ChartsComponent implements OnInit {
   public chartValuesMap: Map<string, ChartConfiguration['data']> = new Map(); // chart name -> chart configuration
   private readonly updateSubjectsMap : Map<string, Subject<ChartEntry>> = new Map();
   
-  constructor(public chartsService: ChartsService, private routes: ActivatedRoute,private socketService: SocketService) {
+  constructor(public chartsService: ChartsService, private routes: ActivatedRoute,private socketService: SocketService,private apiService: APIService) {
     this.routes.paramMap.subscribe(params => {
       let res = params.get('machineID');
       if(res != null){
@@ -54,6 +57,11 @@ export class ChartsComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
+    this.apiService.getMachineInfo(this.machineID.toString()).subscribe(res => {
+      this.machineName = res.machine_name;
+    });
+
     this.socketService.connect();
     this.socketService.subscribe(+this.machineID); 
     this.socketService.setMachinePeriod(1, 5000);

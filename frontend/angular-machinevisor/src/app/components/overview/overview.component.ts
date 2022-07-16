@@ -18,7 +18,7 @@ export class OverviewComponent implements OnInit {
       let worst = res.worst;
       this.apiService.getMainValuesOverview().subscribe(res => {
         this.overviewData = Array(
-          {field: "Consumption average", val: res.kWattAvg+'Kw/h'}, 
+          {field: "Consumption average", val: res.kWattAvg+'KW/h'}, 
           {field: "Detected anomaly average", val: res.allarms}, 
           {field: "Messages per minute", val: res.msgsForMinute}, 
           {field: "Worst machinary", val: best}, 

@@ -58,7 +58,7 @@ export class MachineInfoComponent implements OnInit {
       let oilErr = log.allarm? log.allarm.includes('machine_oil_level') : false
 
       this.socketData[0] = {key: 'Temperature', val : log.temperature, unit:'°C', error : !tempErr}
-      this.socketData[1] = {key: 'Energy consumption', val : log.kWatt, unit:'KW/h', error : !consErr}
+      this.socketData[1] = {key: 'Energy consumption', val : log.kWatt, unit:'KWatt', error : !consErr}
       this.socketData[2] = {key: 'Working time', val : log.working_time, unit:'s', error: true}
     
       if(log.machine_oil_level){

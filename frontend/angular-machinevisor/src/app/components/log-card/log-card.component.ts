@@ -29,7 +29,7 @@ export class LogCardComponent implements OnInit {
       this.data.temperature.toString(), 
       this.data.kWatt.toString(), 
       this.data.working_time.toString());
-    let unit = Array("", "", "°C", "KW/h", "s");
+    let unit = Array("", "", "°C", "KWatt", "s");
 
     if(this.data.machine_oil_level){
       info.push("Oil level"),

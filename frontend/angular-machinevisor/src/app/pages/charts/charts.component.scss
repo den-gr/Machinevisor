@@ -1,5 +1,14 @@
 @import "../../utilities/variables";
 
+.title-card {
+    width: $card-width;
+    margin: auto;
+    margin-bottom: $card-distance;
+    margin-top: $card-distance;
+    background-color: $card-gray;
+    //padding: $margin;
+}
+
 .charts{
     margin-top: $card-distance;
     margin-bottom: $card-distance;

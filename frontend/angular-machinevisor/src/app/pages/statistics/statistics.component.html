@@ -2,13 +2,16 @@
     <app-chart [chartType]="lineChart" 
                [chartValue]="defaultValuesTitle"
                [options]="meanTemperatureTemp?.options"
-               [data]="meanTemperatureTemp?.data"></app-chart>
+               [data]="meanTemperatureTemp?.data"
+               [typeName]="'Line chart'"></app-chart>
     <app-chart [chartType]="barChart" 
                [chartValue]="allarmTitle"
                [options]="allarmsTemp?.options"
-               [data]="allarmsTemp?.data"></app-chart>
+               [data]="allarmsTemp?.data"
+               [typeName]="'Bar chart'"></app-chart>
     <app-chart [chartType]="pieChart" 
                [chartValue]="activeTimeTitle"
                [options]="activeTimeTemp?.options"
-               [data]="activeTimeTemp?.data"></app-chart>
+               [data]="activeTimeTemp?.data"
+               [typeName]="'Pie chart'"></app-chart>
 </div>

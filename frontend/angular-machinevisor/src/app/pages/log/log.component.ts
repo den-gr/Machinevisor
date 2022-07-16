@@ -56,12 +56,14 @@ export class LogComponent implements OnInit, OnDestroy {
 
     this.routes.paramMap.subscribe(params => {
       let res = params.get('machineID');
-      let res2 = params.get('machineName');
-      if(res != null && res2 != null){
+      if(res != null){
         this.machineID = +res;
-        this.machineName = res2;
       }
     })
+
+    this.apiService.getMachineInfo(this.machineID.toString()).subscribe(res => {
+      this.machineName = res.machine_name;
+    });
 
     this.socketService.connect();
     this.socketService.subscribe(this.machineID);

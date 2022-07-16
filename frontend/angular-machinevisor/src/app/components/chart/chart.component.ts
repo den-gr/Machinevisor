@@ -24,6 +24,8 @@ export class ChartComponent implements OnInit {
   @Input() options: ChartConfiguration['options']; 
   @Input() updateObservable?: Observable<ChartEntry> ;
   title: string;
+  @Input() typeName: string;
+  @Input() machineName: string;
 
   ngOnInit(): void {
     if(this.chartType == this.line){
@@ -35,7 +37,12 @@ export class ChartComponent implements OnInit {
       this.data?.labels?.push(val.label)
       this.chart?.update();
     })
-    this.title = "Chart of " + this.chartValue;
+
+    this.title = this.typeName + " of " + this.chartValue;
+    if(this.machineName){
+      this.title = this.title + " of " + this.machineName;
+    }
+    
   }
 
   // events
