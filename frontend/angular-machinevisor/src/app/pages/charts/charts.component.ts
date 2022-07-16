@@ -15,7 +15,11 @@ import { SocketService } from 'src/app/utilities/services/socketService/socket.s
 })
 export class ChartsComponent implements OnInit {
   public readonly lineChart: ChartType = "line"
-  public readonly chartValues = Array("Energy consumption", "Oil percentage", "Temperature");
+  public chartValues = new Map<string, string>([
+    ["temperature", "Temperature"],
+    ["kWatt", "Energy consumption"],
+    ["machine_oil_level", "Oil percentage"]
+]);
   public machineName: string;
 
   private machineID: string;
@@ -35,7 +39,7 @@ export class ChartsComponent implements OnInit {
       let topics: string[] = []; 
       res.forEach((e: MachineChart) => {
           topics.push(e.type)
-          this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, e.type));
+          this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, this.chartValues.get(e.type)!));
       })
       topics.forEach(topic =>{
         let sub = new Subject<ChartEntry>()

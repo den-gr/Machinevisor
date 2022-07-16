@@ -1,9 +1,9 @@
 <div class="charts">
-    <div class="single-chart" *ngFor="let chart of observables | keyvalue; let i = index" >
+    <div class="single-chart" *ngFor="let chart of observables | keyvalue" >
         <app-chart [options]="chartsService.lineChartOptions" 
                    [updateObservable]="chart.value" 
                    [chartType]="lineChart" 
-                   [chartValue]="chartValues[i]"
+                   [chartValue]="chartValues.get(chart.key)!"
                    [data]="chartValuesMap.get(chart.key)"
                    [typeName]="'Line chart'" 
                    [machineName]="machineName"></app-chart>
