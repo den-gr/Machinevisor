@@ -39,7 +39,7 @@ export class ChartsComponent implements OnInit {
       let topics: string[] = []; 
       res.forEach((e: MachineChart) => {
           topics.push(e.type)
-          this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, this.chartValues.get(e.type)!)); //<--
+          this.chartValuesMap.set(e.type, this.fillChartConfiguration(e.values, this.chartValues.get(e.type)!));
       })
       topics.forEach(topic =>{
         let sub = new Subject<ChartEntry>()
