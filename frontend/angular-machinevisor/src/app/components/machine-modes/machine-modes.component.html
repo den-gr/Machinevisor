@@ -5,6 +5,7 @@
     <mat-card-content class="content">
         <mat-radio-group class="radio-group">
         <mat-radio-button class="radio-button" *ngFor="let mode of modes" 
+        [aria-label]="mode.val.toString()"
         [value]="mode.val" (change)="onChangeValue($event.value)"
         [disabled]="isDisabled" [checked]="mode.val === currMode">
             {{mode.view}}

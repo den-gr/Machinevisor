@@ -1,8 +1,8 @@
 <mat-card class="card">
     <div class="switch-container">
       <mat-button-toggle-group>
-        <mat-button-toggle value="true" [checked]="buttonService.getIsOnChecked()" (change)="buttonService.clickOn(machineID)">On</mat-button-toggle>
-        <mat-button-toggle value="false" [checked]="!buttonService.getIsOnChecked()" (change)="buttonService.clickOff(name, machineID)">Off</mat-button-toggle>
+        <mat-button-toggle value="true" [aria-label]="buttonService.getIsOnChecked() ? 'Enabled' : 'Disabled'" [checked]="buttonService.getIsOnChecked()" (change)="buttonService.clickOn(machineID)">On</mat-button-toggle>
+        <mat-button-toggle value="false" [aria-label]="buttonService.getIsOnChecked() ? 'Disabled' : 'Enabled'" [checked]="!buttonService.getIsOnChecked()" (change)="buttonService.clickOff(name, machineID)">Off</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <mat-card-header class="header">
@@ -37,7 +37,7 @@
     </mat-card-content>
 
     <div class="buttons">
-      <button mat-button class="button" (click)="navService.goToParam(machineID, 'charts')">Charts</button>
-      <button mat-button class="button" (click)="navService.goToParam(machineID, 'logs')">Log</button>
+      <button mat-button class="button" aria-label="Button to navigate to charts page" (click)="navService.goToParam(machineID, 'charts')">Charts</button>
+      <button mat-button class="button" aria-label="Button to navigate to logs page" (click)="navService.goToParam(machineID, 'logs')">Logs</button>
     </div>    
 </mat-card>

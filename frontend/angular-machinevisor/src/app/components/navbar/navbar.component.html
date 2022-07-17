@@ -1,6 +1,6 @@
 <mat-toolbar>
     <!--menu-->
-  <button mat-icon-button aria-label="Icon button with menu icon" (click)="onToggleSidenav()" [disabled]="!authService.isTokenStored()">
+  <button mat-icon-button aria-label="Menu button" (click)="onToggleSidenav()" [disabled]="!authService.isTokenStored()">
     <mat-icon id="menu" [ngClass]="{
       'menu-icon' : !authService.isTokenStored(),
       'no-menu-icon' : !authService.isTokenStored()
