@@ -14,10 +14,10 @@ export class StatisticService {
 
   public getDefaultValuesTemp(): [Observable<ChartDefaultValues>, ChartTemplate]{
     let copy_temperature = { ...this.blueLineTemplate};
-    copy_temperature.label = "temperature";
+    copy_temperature.label = "Temperature";
     
     let copy_kWatt = { ...this.redLineTemplate};
-    copy_kWatt.label = "kWatt";
+    copy_kWatt.label = "Energy consumption";
     
     let labels: string[] = []
     
