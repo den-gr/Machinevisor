@@ -81,6 +81,23 @@ describe('Machines Endpoints /machines',  () => {
         const res = await requestWithSupertest.get('/machines/1/charts').set("authorization", "Bearer "+ token);
         expect(res.status).toEqual(200);
     });
+
+    //test logs
+    it('GET /:machineId/logs should return 10 machine logs', async () => {
+        const res = await requestWithSupertest.get('/machines/1/logs/10').set("authorization", "Bearer "+ token);
+        expect(res.status).toEqual(200);
+        expect(Object.keys(res.body).length).toEqual(10)
+        for(let i = 0; i < Object.keys(res.body).length; i++){
+            expect(res.body[i]).toHaveProperty('machine_id')
+            expect(res.body[i]).toHaveProperty('state')
+            expect(res.body[i]).toHaveProperty('modality')
+            expect(res.body[i]).toHaveProperty('timestamp')
+            expect(res.body[i]).toHaveProperty('temperature')
+            expect(res.body[i]).toHaveProperty('kWatt')
+            expect(res.body[i]).toHaveProperty('working_time')
+            expect(res.body[i]).toHaveProperty('machine_oil_level')
+        }
+    });
 });
 
 
