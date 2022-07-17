@@ -11,6 +11,7 @@ let period: number = 60000;
 export class SocketIOService {
   private readonly CLIENTS_ROOM = "client";
   private readonly MACHIES_ROOM = "machine";
+  private readonly MACHINES_NUM = 5;
   private static _instance: SocketIOService | undefined;
   private static server: Server | undefined;
   private readonly machinesSubscribers: Map<number, Set<string>>; // machine_id -> array of subscribed clients (their SocketIDs)
@@ -93,7 +94,11 @@ export class SocketIOService {
               }
               this.clientsSubcribes.set(socket.id, obj.machine_id)
               this.machinesSubscribers.get(obj.machine_id)?.add(socket.id)
-              this.sendMessage(obj.machine_id, "subscribe", "")
+              if(obj.machine_id == 0){
+                this.sendMessage("machine", "subscribe", "")
+              }else{
+                this.sendMessage(obj.machine_id, "subscribe", "")
+              }
 
             }else{
                 this.sendBadRequest(socket)
