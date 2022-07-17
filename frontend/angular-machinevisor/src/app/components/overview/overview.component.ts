@@ -19,10 +19,10 @@ export class OverviewComponent implements OnInit {
       this.apiService.getMainValuesOverview().subscribe(res => {
         this.overviewData = Array(
           {field: "Consumption average", val: res.kWattAvg+'KW/h'}, 
-          {field: "Detected anomaly average", val: res.allarms}, 
+          {field: "Detected anomaly", val: res.allarms}, 
           {field: "Messages per minute", val: res.msgsForMinute}, 
-          {field: "Worst machinary", val: best}, 
-          {field: "Best machinery", val: worst}); 
+          {field: "Worst machinary", val: worst}, 
+          {field: "Best machinery", val: best}); 
       })
     });
   }
