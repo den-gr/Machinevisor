@@ -14,6 +14,14 @@
         },
         "@schematics/angular:application": {
           "strict": true
+        },
+        "architect": {
+          "serve": {
+            "options": {
+              "sslKey": "ssl/key.pem",
+              "sslCert": "ssl/key.pem"
+            }
+          }
         }
       },
       "root": "",
