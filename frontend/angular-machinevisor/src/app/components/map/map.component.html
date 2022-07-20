@@ -11,7 +11,7 @@
             [ngClass]="{
               'machine-off' : machine.state == 'OFF',
               'machine-on' : machine.state == 'ON',
-              'machine-allarm' : machine.state == 'ALLARM'
+              'machine-allarm' : machine.state == 'ALARM'
             }" 
             [attr.x] = "machine.coordinates.x"
             [attr.y] = "machine.coordinates.y" />

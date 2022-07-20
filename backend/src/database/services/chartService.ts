@@ -99,7 +99,7 @@ export class ChartService extends GenericService{
 
     public getWorkingTime(): Promise<ChartValue[]>{
         let query = [
-            {$match: {$or: [{state: "ON"}, {state: "ALLARM"}]}},
+            {$match: {$or: [{state: "ON"}, {state: "ALLARM"}, {state: "ALARM"}]}},
             {$project: {
                 y:{$year:"$timestamp"},
                 m:{$month:"$timestamp"},
