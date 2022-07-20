@@ -128,8 +128,8 @@ components:
                 example: 1
               state:
                 type: string
-                enum: [OFFLINE, OFF, ON, ALLARM]
-                example: ALLARM
+                enum: [OFFLINE, OFF, ON, ALARM]
+                example: ALARM
               timestamp:
                 type: string
                 format: date-time

@@ -20,7 +20,7 @@ export enum State{
     OFFLINE,
     OFF,
     ON,
-    ALLARM, 
+    ALARM, 
 }
 
 //Machine state report
