@@ -13,8 +13,8 @@ export class Database {
             var username =  process.env.DB_USERNAME;
             var password = process.env.DB_PASSWORD;
             var dbname = process.env.DB_NAME; 
-            // this.uri = `mongodb://admin:admin@localhost:27017/machinevisor?retryWrites=true&w=majority&authSource=admin`
-            this.uri = `mongodb+srv://${username}:${password}@cluster0.wl0fg.mongodb.net/${dbname}?retryWrites=true&w=majority`
+            this.uri = `mongodb://${username}:${password}@mongo:27017/${dbname}?retryWrites=true&w=majority&authSource=admin`
+            // this.uri = `mongodb+srv://${username}:${password}@cluster0.wl0fg.mongodb.net/${dbname}?retryWrites=true&w=majority`
         }else{
             console.error("Some enviroument varriable are not setted: " + process.env.DB_USERNAME)
             this.uri = '';
