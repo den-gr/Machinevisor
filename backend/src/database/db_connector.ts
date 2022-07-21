@@ -14,7 +14,6 @@ export class Database {
             var password = process.env.DB_PASSWORD;
             var dbname = process.env.DB_NAME; 
             if(process.argv.slice(2)[0] == "docker"){
-                console.log("Argomenti", process.argv.slice(2)[0])
                 this.uri = `mongodb://${username}:${password}@mongo:27017/${dbname}?retryWrites=true&w=majority&authSource=admin`
             }else{
                 this.uri = `mongodb+srv://${username}:${password}@cluster0.wl0fg.mongodb.net/${dbname}?retryWrites=true&w=majority`

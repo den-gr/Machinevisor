@@ -42,7 +42,7 @@ export class ChartService extends GenericService{
                 kWatt: { $avg: "$kWatt"},
                 date: {$first: "$timestamp"}
             }},
-            {$sort: {label: 1}},
+            {$sort: {date: 1}},
             {$group: {
                 _id: null,
                 temperatures: {$push: "$temperature"},
