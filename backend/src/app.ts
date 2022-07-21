@@ -30,12 +30,12 @@ app.use("/socket.io", express.static(path.join(__dirname, '../nodes_module/socke
 //Routing
 const authMiddleware =  require('./routes/auth').authMiddleware;
 const authRouter = require('./routes/auth').router;
-const indexRouter = require('./routes/index');
+const overviewRouter = require('./routes/overview');
 const usersRouter = require('./routes/users');
 const machinesRouter = require('./routes/machines');
 const statisticsRouter = require('./routes/statistics');
 app.use('/auth', authRouter);
-app.use('/overview', authMiddleware, indexRouter);
+app.use('/overview', authMiddleware, overviewRouter);
 app.use('/users', authMiddleware, usersRouter);
 app.use('/machines', machinesRouter);
 app.use('/statistics',authMiddleware, statisticsRouter);

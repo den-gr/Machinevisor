@@ -10,4 +10,4 @@ EXPOSE 8080
 
 RUN npm run build
 
-CMD npm run start & npm run machine_start
+CMD node bin/app.js "docker" & npm run machine_start

@@ -16,6 +16,7 @@ export class StatisticsComponent implements OnInit {
   public readonly pieChart: ChartType = 'pie';
   public readonly defaultValuesTitle = "average temperature and kWatt of all machines";
   public readonly allarmTitle = "the number of machines alarms"
+
   public readonly activeTimeTitle = "machine working time in hours"
   
   public readonly kWatt = "kWatt"
