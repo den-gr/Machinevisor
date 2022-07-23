@@ -18,7 +18,7 @@ export class Database {
             }else{
                 this.uri = `mongodb+srv://${username}:${password}@cluster0.wl0fg.mongodb.net/${dbname}?retryWrites=true&w=majority`
             }
-        }else{+
+        }else{
 
             console.error("Some enviroument varriable are not setted: " + process.env.DB_USERNAME)
             this.uri = '';
