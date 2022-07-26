@@ -25,12 +25,11 @@ router.post('/sign_in', (req:Request, res:Response) => {
     if(req.body.password && req.body.email){
         db_service.getAuth(req.body.email).then((auth: IAuth) => {
             console.log(auth)
-            checkToken(req,res, auth)
-        }).catch((error) => res.status(status.UNAUTHORIZED).send(makeErr(error.errorType, error.message))); //TODO gestire vari tipi di errori
+            checkToken(req, res, auth)
+        }).catch((error) => res.status(status.UNAUTHORIZED).send(makeErr(error.errorType, error.message)));
     }else{
         res.status(status.BAD_REQUEST).send(makeErr("Bad request","Password or email is not inserted"))
     }
-
 })
 
 //registration
