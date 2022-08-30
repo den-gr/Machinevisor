@@ -247,17 +247,22 @@ export class SocketIOService {
 }
 
 function checkAllarm(obj: any): Object{
-  let allarms: string[] = []
-  if(obj.temperature > 80){
-    obj.state = State[State.ALARM];
-    allarms.push("temperature");
-  }else if(obj.machine_oil_level < 10){
-    obj.state = State[State.ALARM];
-    allarms.push("machine_oil_level");
-  }
-  if(allarms.length > 0){
-    obj.allarm = allarms
-
-  }
+    let allarms: string[] = []
+    if(obj.temperature > 80){
+      if(obj.state == State[State.ON]){
+        obj.state = State[State.ALARM];
+      }
+      allarms.push("temperature");
+    }else if(obj.machine_oil_level < 10){
+      if(obj.state == State[State.ON]){
+        obj.state = State[State.ALARM];
+      }
+      allarms.push("machine_oil_level");
+    }
+    if(allarms.length > 0){
+      obj.allarm = allarms
+  
+    }
+  
   return obj;
 }
