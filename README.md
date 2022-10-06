@@ -1,4 +1,13 @@
 # Machinevisor
+Web application project based on the stack MEAN.
+
+Machinevisor:
+ * Allows remote monitoring and control of virtual industrial machines
+ * Provide an interactive factory map for machine monitoring
+ * Provide different types of charts and a log for storic reports
+ * Provide real-time charts
+ * Allows registration and login new users
+ 
 
 ## Building
 1. `docker-compose build` build the project
